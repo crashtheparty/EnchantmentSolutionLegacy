@@ -7,18 +7,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
-@SuppressWarnings("deprecation")
 public class FishingListener implements Listener{
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerFish(PlayerFishEvent event) {
 		if(event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
@@ -53,7 +53,7 @@ public class FishingListener implements Listener{
 	}
 	
 	@EventHandler
-	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+	public void onEntityPickupItem(EntityPickupItemEvent event) {
 		if(!DefaultEnchantments.isEnabled(DefaultEnchantments.FRIED)) return;
 		Item item = event.getItem();
 		ItemStack items = item.getItemStack();

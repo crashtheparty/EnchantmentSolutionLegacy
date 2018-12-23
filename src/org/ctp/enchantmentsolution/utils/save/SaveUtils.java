@@ -1,21 +1,22 @@
 package org.ctp.enchantmentsolution.utils.save;
 
-import java.io.IOException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.listeners.abilities.MagmaWalkerListener;
+import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 
 public class SaveUtils {
 
 	public static void getData() {
-		YamlConfiguration config = ConfigFiles.MAGMA_WALKER_CONFIG;
-		if (config.getConfigurationSection("blocks") != null) {
+		if(ConfigFiles.getMagmaWalkerConfig() == null) {
+			return;
+		}
+		YamlConfig config = ConfigFiles.getMagmaWalkerConfig();
+		if (config.containsElements("blocks")) {
 			int i = 0;
 			while (config.getString("blocks." + i) != null) {
 				String stringBlock = config.getString("blocks." + i);
@@ -35,21 +36,16 @@ public class SaveUtils {
 				i++;
 			}
 			config.set("blocks", null);
-			try {
-				config.save(ConfigFiles.MAGMA_WALKER_FILE);
-			} catch (IOException e) {
-				// Handle any IO exception here
-				e.printStackTrace();
-			}
+			config.saveConfig();
 		}
 	}
 
 	public static void setMagmaWalkerData() {
-		if(ConfigFiles.MAIN_FILE == null) {
+		if(ConfigFiles.getMagmaWalkerConfig() == null) {
 			return;
 		}
 		int i = 0;
-		YamlConfiguration config = ConfigFiles.MAGMA_WALKER_CONFIG;
+		YamlConfig config = ConfigFiles.getMagmaWalkerConfig();
 		for (Block block : MagmaWalkerListener.BLOCKS) {
 			for(MetadataValue value : block.getMetadata("MagmaWalker")){
 				config.set("blocks." + i,
@@ -58,11 +54,6 @@ public class SaveUtils {
 			}
 			i++;
 		}
-		try {
-			config.save(ConfigFiles.MAGMA_WALKER_FILE);
-		} catch (IOException e) {
-			// Handle any IO exception here
-			e.printStackTrace();
-		}
+		config.saveConfig();
 	}
 }

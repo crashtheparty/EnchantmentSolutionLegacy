@@ -19,7 +19,7 @@ import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.nms.Version;
-import org.ctp.enchantmentsolution.nms.listeners.abilities.MagmaWalkerListener_v4;
+import org.ctp.enchantmentsolution.nms.abilities.MagmaWalkerListener_v4;
 import org.ctp.enchantmentsolution.utils.LocationUtils;
 
 public class MagmaWalkerListener implements Listener, Runnable{

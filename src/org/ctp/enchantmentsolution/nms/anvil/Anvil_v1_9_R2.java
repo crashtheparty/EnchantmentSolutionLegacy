@@ -4,7 +4,7 @@ import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 public class Anvil_v1_9_R2 {
-	
+
 	public static int getRepairCost(ItemStack item) {
 		net.minecraft.server.v1_9_R2.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
 		return nmsItem.getRepairCost();

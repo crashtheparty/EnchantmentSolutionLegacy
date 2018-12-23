@@ -3,6 +3,7 @@ package org.ctp.enchantmentsolution.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -10,9 +11,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 import org.ctp.enchantmentsolution.enchantments.EnchantmentLevel;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
+import org.ctp.enchantmentsolution.enchantments.PlayerLevels;
 import org.ctp.enchantmentsolution.utils.AnvilUtils.RepairType;
 
 public class ItemUtils {
@@ -289,7 +292,7 @@ public class ItemUtils {
 		return combined;
 	}
 	
-	public static ItemStack combineItems(ItemStack first, ItemStack second) {
+	public static ItemStack combineItems(Player player, ItemStack first, ItemStack second) {
 		ItemStack combined = new ItemStack(first.getType());
 		if(first.getType().equals(Material.ENCHANTED_BOOK)) {
 			combined = new ItemStack(Material.BOOK);
@@ -309,7 +312,15 @@ public class ItemUtils {
 			combined.setDurability((short) 0);
 		}
 		
-		List<EnchantmentLevel> enchantments = Enchantments.combineEnchants(first, second);
+		List<EnchantmentLevel> enchantments = Enchantments.combineEnchants(player, first, second);
+		
+		ItemMeta firstMeta = first.getItemMeta();
+		ItemMeta combinedMeta = combined.getItemMeta();
+		
+		combinedMeta.setDisplayName(firstMeta.getDisplayName());
+		combinedMeta.setLocalizedName(firstMeta.getLocalizedName());
+		
+		combined.setItemMeta(combinedMeta);
 		
 		combined = Enchantments.addEnchantmentsToItem(combined, enchantments);
 		
@@ -320,18 +331,46 @@ public class ItemUtils {
 		HashMap<Integer, ItemStack> leftOver = new HashMap<Integer, ItemStack>();
 		leftOver.putAll((player.getInventory().addItem(item)));
 		if (!leftOver.isEmpty()) {
-			fallback.add(0.5, 0.5, 0.5);
-			Item droppedItem = player.getWorld().dropItem(
-					fallback,
-					new ItemStack(leftOver.get(0).getType(),
-							leftOver.get(0).getAmount(), leftOver
-									.get(0).getDurability()));
-			droppedItem.setVelocity(new Vector(0,0,0));
-			droppedItem.teleport(fallback);
+			for (Iterator<java.util.Map.Entry<Integer, ItemStack>> it = leftOver.entrySet().iterator(); it.hasNext();) {
+				java.util.Map.Entry<Integer, ItemStack> e = it.next();
+				fallback.add(0.5, 0.5, 0.5);
+				Item droppedItem = player.getWorld().dropItem(
+						fallback,
+						e.getValue());
+				droppedItem.setVelocity(new Vector(0,0,0));
+				droppedItem.teleport(fallback);
+			}
 		}
 	}
 	
-	public static void createBook() {
+	public static ItemStack addNMSEnchantment(ItemStack item) {
+		ItemStack returnItem = new ItemStack(item.getType());
+		ItemStack duplicate = item.clone();
+		ItemMeta returnItemMeta = returnItem.getItemMeta();
+		ItemMeta duplicateMeta = duplicate.getItemMeta();
 		
+		returnItemMeta.setDisplayName(duplicateMeta.getDisplayName());
+		returnItemMeta.setLocalizedName(duplicateMeta.getLocalizedName());
+		returnItem.setItemMeta(returnItemMeta);
+		returnItem.setDurability(duplicate.getDurability());
+		
+		List<EnchantmentLevel> enchants = null;
+		while(enchants == null) {
+			PlayerLevels levels = PlayerLevels.generateFakePlayerLevels(returnItem.getType());
+			int i = 0;
+			while(i < 3) {
+				int random = (int)(Math.random() * levels.getEnchants().size());
+				if(levels.getEnchants().get(random).size() > 0) {
+					enchants = levels.getEnchants().get(random);
+					break;
+				}
+				i++;
+			}
+			if(i >= 3) break;
+		}
+		
+		returnItem = Enchantments.addEnchantmentsToItem(returnItem, enchants);
+		
+		return returnItem;
 	}
 }

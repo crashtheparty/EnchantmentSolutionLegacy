@@ -2,10 +2,10 @@ package org.ctp.enchantmentsolution.nms;
 
 import org.bukkit.entity.Player;
 import org.ctp.enchantmentsolution.inventory.Anvil;
+import org.ctp.enchantmentsolution.inventory.ConfigInventory;
 import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_10_R1;
 import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_11_R1;
 import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_12_R1;
-import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_12_R1_1;
 import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_9_R1;
 import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_9_R2;
 
@@ -31,11 +31,34 @@ public class Anvil_GUI_NMS {
 			break;
 		case 9:
 		case 10:
+		case 11:
 			AnvilGUI_v1_12_R1.createAnvil(player, anvil);
 			break;
+		}
+	}
+	
+	public static void createAnvil(Player player, ConfigInventory anvil) {
+		switch(Version.VERSION_NUMBER) {
+		case 1:
+		case 2:
+			AnvilGUI_v1_9_R1.createAnvil(player, anvil);
+			break;
+		case 3:
+			AnvilGUI_v1_9_R2.createAnvil(player, anvil);
+			break;
+		case 4:
+		case 5:
+			AnvilGUI_v1_10_R1.createAnvil(player, anvil);
+			break;
+		case 6:
+		case 7:
+		case 8:
+			AnvilGUI_v1_11_R1.createAnvil(player, anvil);
+			break;
+		case 9:
+		case 10:
 		case 11:
-			System.out.println("Creating anvil using 1.12.2");
-			AnvilGUI_v1_12_R1_1.createAnvil(player, anvil);
+			AnvilGUI_v1_12_R1.createAnvil(player, anvil);
 			break;
 		}
 	}
