@@ -9,7 +9,6 @@ import org.bukkit.entity.Entity;
 import org.ctp.enchantmentsolution.utils.ItemUtils;
 
 import net.minecraft.server.v1_10_R1.BlockPosition;
-import net.minecraft.server.v1_10_R1.EntityHuman;
 import net.minecraft.server.v1_10_R1.EntityLiving;
 import net.minecraft.server.v1_10_R1.EntityMinecartContainer;
 import net.minecraft.server.v1_10_R1.ItemStack;
@@ -22,7 +21,7 @@ public class ChestPopulate_v1_10_R1 {
 		World nmsWorld = ((CraftWorld) block.getWorld()).getHandle();
         TileEntityLootable te = (TileEntityLootable) nmsWorld.getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
         if(te.b() != null){ //Lootchest
-        	te.a((EntityHuman) null);
+        	te.getItem(0);
             for(int i = 0; i < te.getSize(); i++) {
             	ItemStack item = te.getItem(i);
             	ItemStack newItem = null;

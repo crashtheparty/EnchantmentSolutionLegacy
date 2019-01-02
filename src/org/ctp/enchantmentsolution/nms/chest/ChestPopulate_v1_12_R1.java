@@ -22,7 +22,7 @@ public class ChestPopulate_v1_12_R1 {
 		World nmsWorld = ((CraftWorld) block.getWorld()).getHandle();
         TileEntityLootable te = (TileEntityLootable) nmsWorld.getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
         if(te.b() != null){ //Lootchest
-        	te.a((EntityHuman) null);
+        	te.d((EntityHuman) null);
             for(int i = 0; i < te.getSize(); i++) {
             	ItemStack item = te.getItem(i);
             	ItemStack newItem = null;
