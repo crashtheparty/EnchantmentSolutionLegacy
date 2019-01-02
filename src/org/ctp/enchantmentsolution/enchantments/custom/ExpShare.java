@@ -41,9 +41,6 @@ public class ExpShare extends CustomEnchantment{
 		if(ItemUtils.getItemTypes().get("tools").contains(item)){
 			return true;
 		}
-		if(ItemUtils.getItemTypes().get("trident").contains(item)){
-			return true;
-		}
 		return false;
 	}
 

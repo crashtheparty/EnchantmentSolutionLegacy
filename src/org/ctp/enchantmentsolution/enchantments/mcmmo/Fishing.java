@@ -10,7 +10,7 @@ import org.ctp.enchantmentsolution.enchantments.CustomEnchantment;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.EnchantmentLevel;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
-import org.ctp.enchantmentsolution.utils.ChatUtils;
+import org.ctp.enchantmentsolution.nms.Version;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 
@@ -32,7 +32,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.PROTECTION_EXPLOSIONS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 1).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.THORNS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_ALL), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_UNDEAD), 1).toString());
@@ -40,8 +42,10 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_DAMAGE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 1).toString());
 			} else {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DIG_SPEED), 1).toString());
@@ -53,7 +57,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.PROTECTION_EXPLOSIONS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 1).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.THORNS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_ALL), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_UNDEAD), 1).toString());
@@ -61,8 +67,10 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_DAMAGE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 1).toString());
 			}
 			break;
@@ -78,7 +86,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.PROTECTION_EXPLOSIONS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 1).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.THORNS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_ALL), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_UNDEAD), 2).toString());
@@ -88,8 +98,10 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_KNOCKBACK), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 2).toString());	
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 1).toString());
@@ -108,8 +120,10 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_DAMAGE), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.KNOCKBACK), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_KNOCKBACK), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.EXP_SHARE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SNIPER), 1).toString());
@@ -128,7 +142,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.PROTECTION_EXPLOSIONS), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 2).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 2).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 2).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.THORNS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_ALL), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_UNDEAD), 3).toString());
@@ -139,8 +155,10 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FIRE_ASPECT), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 2).toString());
@@ -163,12 +181,16 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_DAMAGE), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 2).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 2).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 2).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FIRE_ASPECT), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.EXP_SHARE), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.WARP), 2).toString());
@@ -189,7 +211,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.PROTECTION_EXPLOSIONS), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 3).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.THORNS), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_ALL), 4).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_UNDEAD), 4).toString());
@@ -200,9 +224,13 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FIRE_ASPECT), 2).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 1) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 1).toString());
+				}
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 4).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 3).toString());
@@ -215,7 +243,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SOUL_REAPER), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.TANK), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SMELTERY), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 1).toString());
+				if(Version.VERSION_NUMBER > 1) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.FREQUENT_FLYER), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.BRINE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.BEHEADING), 1).toString());
@@ -231,8 +261,10 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_FIRE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.WATER_WORKER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SOULBOUND), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SOUL_REAPER), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.TANK), 1).toString());
@@ -253,7 +285,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.PROTECTION_EXPLOSIONS), 4).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 3).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.THORNS), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_ALL), 5).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DAMAGE_UNDEAD), 5).toString());
@@ -264,11 +298,15 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 4).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 4).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FIRE_ASPECT), 2).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 1).toString());
+				if(Version.VERSION_NUMBER > 1) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.MENDING), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.WATER_WORKER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.MENDING), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 5).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 4).toString());
@@ -281,7 +319,9 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SOUL_REAPER), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.TANK), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SMELTERY), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 1).toString());
+				if(Version.VERSION_NUMBER > 1) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 1).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.FREQUENT_FLYER), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.BRINE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.TELEPATHY), 1).toString());
@@ -309,11 +349,19 @@ public class Fishing {
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.ARROW_INFINITE), 1).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 3).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 3).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+				if(Version.VERSION_NUMBER > 6) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.WATER_WORKER), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
-				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.MENDING), 1).toString());
+				if(Version.VERSION_NUMBER > 5) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+				}
+				if(Version.VERSION_NUMBER > 1) {
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.MENDING), 1).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 2).toString());
+					common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 2).toString());
+				}
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 2).toString());
 				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.EXP_SHARE), 3).toString());
@@ -347,14 +395,20 @@ public class Fishing {
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LUCK), 4).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.LURE), 4).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FIRE_ASPECT), 3).toString());
-			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 2).toString());
+			if(Version.VERSION_NUMBER > 1) {
+				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.FROST_WALKER), 2).toString());
+				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.MENDING), 1).toString());
+			}
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.OXYGEN), 3).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.DEPTH_STRIDER), 3).toString());
-			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+			if(Version.VERSION_NUMBER > 6) {
+				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.SWEEPING_EDGE), 3).toString());
+			}
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.WATER_WORKER), 1).toString());
-			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
-			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
-			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.MENDING), 1).toString());
+			if(Version.VERSION_NUMBER > 5) {
+				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.BINDING_CURSE), 1).toString());
+				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(Enchantment.VANISHING_CURSE), 1).toString());
+			}
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.ANGLER), 5).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SHOCK_ASPECT), 3).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.KNOCKUP), 4).toString());
@@ -367,7 +421,9 @@ public class Fishing {
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SOUL_REAPER), 1).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.TANK), 3).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.SMELTERY), 1).toString());
-			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 1).toString());
+			if(Version.VERSION_NUMBER > 1) {
+				common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.MAGMA_WALKER), 2).toString());
+			}
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.FREQUENT_FLYER), 3).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.BRINE), 1).toString());
 			common.add(new FishingEnchanted(DefaultEnchantments.getCustomEnchantment(DefaultEnchantments.TELEPATHY), 1).toString());
@@ -405,7 +461,6 @@ public class Fishing {
 		for(String str : configStrings) {
 			fishing.add(new FishingEnchanted(str));
 		}
-		ChatUtils.sendMessage(player, "Fishing Size : " + fishing.size());
 		
 		List<EnchantmentLevel> enchants = new ArrayList<EnchantmentLevel>();
 		List<FishingEnchanted> fishingWeight = new ArrayList<FishingEnchanted>();
@@ -417,7 +472,6 @@ public class Fishing {
 			}
 		}
 
-		ChatUtils.sendMessage(player, "Total Weight : " + totalWeight);
 		int getWeight = (int)(Math.random() * totalWeight);
 		for(FishingEnchanted enchantment : fishingWeight){
 			getWeight -= enchantment.getEnchant().getWeight();

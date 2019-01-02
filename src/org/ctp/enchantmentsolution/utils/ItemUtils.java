@@ -318,7 +318,6 @@ public class ItemUtils {
 		ItemMeta combinedMeta = combined.getItemMeta();
 		
 		combinedMeta.setDisplayName(firstMeta.getDisplayName());
-		combinedMeta.setLocalizedName(firstMeta.getLocalizedName());
 		
 		combined.setItemMeta(combinedMeta);
 		
@@ -350,7 +349,6 @@ public class ItemUtils {
 		ItemMeta duplicateMeta = duplicate.getItemMeta();
 		
 		returnItemMeta.setDisplayName(duplicateMeta.getDisplayName());
-		returnItemMeta.setLocalizedName(duplicateMeta.getLocalizedName());
 		returnItem.setItemMeta(returnItemMeta);
 		returnItem.setDurability(duplicate.getDurability());
 		
@@ -359,7 +357,8 @@ public class ItemUtils {
 			PlayerLevels levels = PlayerLevels.generateFakePlayerLevels(returnItem.getType());
 			int i = 0;
 			while(i < 3) {
-				int random = (int)(Math.random() * levels.getEnchants().size());
+				int random = (int)(Math.random() * levels.getEnchants().size() + 2);
+				if(random > levels.getEnchants().size() - 1) random = levels.getEnchants().size() - 1;
 				if(levels.getEnchants().get(random).size() > 0) {
 					enchants = levels.getEnchants().get(random);
 					break;

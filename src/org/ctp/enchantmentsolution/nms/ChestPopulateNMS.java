@@ -14,19 +14,24 @@ public class ChestPopulateNMS {
 		case 1:
 		case 2:
 			ChestPopulate_v1_9_R1.populateChest(block);
+			break;
 		case 3:
 			ChestPopulate_v1_9_R2.populateChest(block);
+			break;
 		case 4:
 		case 5:
 			ChestPopulate_v1_10_R1.populateChest(block);
+			break;
 		case 6:
 		case 7:
 		case 8:
 			ChestPopulate_v1_11_R1.populateChest(block);
+			break;
 		case 9:
 		case 10:
 		case 11:
 			ChestPopulate_v1_12_R1.populateChest(block);
+			break;
 		}
 	}
 	
@@ -57,19 +62,24 @@ public class ChestPopulateNMS {
 		case 1:
 		case 2:
 			ChestPopulate_v1_9_R1.populateCart(e);
+			break;
 		case 3:
 			ChestPopulate_v1_9_R2.populateCart(e);
+			break;
 		case 4:
 		case 5:
 			ChestPopulate_v1_10_R1.populateCart(e);
+			break;
 		case 6:
 		case 7:
 		case 8:
 			ChestPopulate_v1_11_R1.populateCart(e);
+			break;
 		case 9:
 		case 10:
 		case 11:
 			ChestPopulate_v1_12_R1.populateCart(e);
+			break;
 		}
 	}
 	
