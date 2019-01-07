@@ -1,9 +1,11 @@
 package org.ctp.enchantmentsolution.enchantments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ctp.enchantmentsolution.api.ApiEnchantmentWrapper;
@@ -94,6 +96,7 @@ import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 
 public class DefaultEnchantments {
+
 	private static List<CustomEnchantment> ENCHANTMENTS = new ArrayList<CustomEnchantment>();
 	
 	public static final Enchantment SOULBOUND = new SoulboundWrapper();
@@ -183,7 +186,25 @@ public class DefaultEnchantments {
 				int startLevel = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_start_level");
 				int maxLevel = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_max_level");
 				Weight weight = Weight.getWeight(advanced.getString(namespace+"."+enchantment.getName()+".weight"));
+				List<String> conflictingEnchantmentsString = advanced.getStringList(namespace+"."+enchantment.getName()+".conflicting_enchantments");
+				List<Enchantment> conflictingEnchantments = new ArrayList<Enchantment>();
+				for(String s : conflictingEnchantmentsString) {
+					CustomEnchantment enchant = getByName(s);
+					if(enchant != null) {
+						conflictingEnchantments.add(enchant.getRelativeEnchantment());
+					}
+				}
+				List<String> disabledItemsString = advanced.getStringList(namespace+"."+enchantment.getName()+".disabled_items");
+				List<Material> disabledItems = new ArrayList<Material>();
+				for(String s : disabledItemsString) {
+					Material mat = Material.getMaterial(s);
+					if(mat != null) {
+						disabledItems.add(mat);
+					}
+				}
 				ENCHANTMENTS.get(i).setCustom(constant, modifier, maxConstant, startLevel, maxLevel, weight);
+				ENCHANTMENTS.get(i).setConflictingEnchantments(conflictingEnchantments);
+				ENCHANTMENTS.get(i).setDisabledItems(disabledItems);
 			} else {
 				CustomEnchantment enchantment = ENCHANTMENTS.get(i);
 				if (enchantment.getRelativeEnchantment() instanceof ApiEnchantmentWrapper) {
@@ -233,6 +254,8 @@ public class DefaultEnchantments {
 				} else {
 					ENCHANTMENTS.get(i).setLevelThirty();
 				}
+				ENCHANTMENTS.get(i).setConflictingEnchantments();
+				ENCHANTMENTS.get(i).setDisabledItems(Arrays.asList());
 			}
 		}
 	}

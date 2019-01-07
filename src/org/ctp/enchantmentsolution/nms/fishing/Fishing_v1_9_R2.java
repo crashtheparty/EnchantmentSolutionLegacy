@@ -2,7 +2,7 @@ package org.ctp.enchantmentsolution.nms.fishing;
 
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
-import org.ctp.enchantmentsolution.utils.ItemUtils;
+import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 
 import net.minecraft.server.v1_9_R2.ItemStack;
 

@@ -12,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
+import org.ctp.enchantmentsolution.utils.items.ItemBreakType;
 
 public class AbilityUtilities {
 
@@ -26,6 +27,9 @@ public class AbilityUtilities {
 	public static Collection<ItemStack> getFortuneItems(ItemStack item,
 			Block brokenBlock, Collection<ItemStack> priorItems) {
 		boolean ironGold = false;
+		int level = Enchantments.getLevel(item,
+				Enchantment.LOOT_BONUS_BLOCKS);
+		if(level <= 0) return priorItems;
 		Iterator<ItemStack> iter = priorItems.iterator();
 		List<ItemStack> duplicate = new ArrayList<ItemStack>();
 		while(iter.hasNext()) {
@@ -72,30 +76,15 @@ public class AbilityUtilities {
 				.contains(brokenBlock.getType())
 				|| ironGold) {
 			boolean canBreak = false;
-			switch(brokenBlock.getType()) {
-			case COAL_ORE:
-			case QUARTZ_ORE:
-				if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE, Material.GOLD_PICKAXE).contains(item.getType())) {
+			ItemBreakType type = ItemBreakType.getType(brokenBlock.getType());
+			if(type != null) {
+				if(type.getBreakTypes().contains(item.getType())) {
 					canBreak = true;
 				}
-				break;
-			case LAPIS_ORE:
-				if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE).contains(item.getType())) {
-					canBreak = true;
-				}
-				break;
-			case EMERALD_ORE:
-			case DIAMOND_ORE:
-				if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE).contains(item.getType())) {
-					canBreak = true;
-				}
-				break;
-			default:
-				break;
 			}
 			if(canBreak || ironGold) {
 				ItemStack fortunableItem = duplicate.get(0);
-				int level = Enchantments.getLevel(item,
+				level = Enchantments.getLevel(item,
 						Enchantment.LOOT_BONUS_BLOCKS) + 2;
 				int multiply = (int) (Math.random() * level);
 				if (multiply > 1) {
@@ -119,15 +108,15 @@ public class AbilityUtilities {
 				Material.BEETROOT_BLOCK, Material.CARROT, Material.POTATO,
 				Material.NETHER_STALK, Material.SEA_LANTERN, Material.MELON_BLOCK, Material.GLOWSTONE, Material.LONG_GRASS).contains(
 				brokenBlock.getType())) {
-			int level = Enchantments.getLevel(item,
+			level = Enchantments.getLevel(item,
 					Enchantment.LOOT_BONUS_BLOCKS);
 			int min = 0;
 			int max = 0;
 			int actualMax = 0;
 			Material breakBlock = null;
 			switch(brokenBlock.getType()){
-			case REDSTONE_ORE:
 			case GLOWING_REDSTONE_ORE:
+			case REDSTONE_ORE:
 				if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE).contains(item.getType())) {
 					min = 4;
 					max = 5 + level;
@@ -224,7 +213,7 @@ public class AbilityUtilities {
 			}
 		}else if(brokenBlock.getType().equals(Material.LEAVES) || brokenBlock.getType().equals(Material.LEAVES_2)){
 			TreeType type = TreeType.get(brokenBlock);
-			int level = Enchantments.getLevel(item,
+			level = Enchantments.getLevel(item,
 					Enchantment.LOOT_BONUS_BLOCKS);
 			if(type.equals(TreeType.JUNGLE)){
 				double chance = 0;
@@ -274,15 +263,16 @@ public class AbilityUtilities {
 		Material material = null;
 		int data = 0;
 		boolean fortune = false;
+		ItemBreakType type = ItemBreakType.getType(item.getType());
 		switch(block.getType()) {
 		case IRON_ORE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE).contains(item.getType())) {
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				material = Material.IRON_INGOT;
 				fortune = true;
 			}
 			break;
 		case GOLD_ORE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE).contains(item.getType())) {
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				material = Material.GOLD_INGOT;
 				fortune = true;
 			}
@@ -292,14 +282,14 @@ public class AbilityUtilities {
 			break;
 		case COBBLESTONE:
 		case STONE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.GOLD_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE).contains(item.getType())) {
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				if(block.getData() == 0) {
 					material = Material.STONE;
 				}
 			}
 			break;
 		case SMOOTH_BRICK:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.GOLD_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE).contains(item.getType())) {
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				if(block.getData() == 0) {
 					material = Material.SMOOTH_BRICK;
 					data = 2;
@@ -307,7 +297,7 @@ public class AbilityUtilities {
 			}
 			break;
 		case NETHERRACK:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.GOLD_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE).contains(item.getType())) {
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				material = Material.NETHER_BRICK_ITEM;
 			}
 			break;
@@ -351,22 +341,21 @@ public class AbilityUtilities {
 	
 	@SuppressWarnings("deprecation")
 	public static ItemStack getSilkTouchItem(Block block, ItemStack item){
+		ItemBreakType type = ItemBreakType.getType(item.getType());
 		switch(block.getType()) {
 		case COAL_ORE:
 		case QUARTZ_ORE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE, Material.GOLD_PICKAXE).contains(item.getType())) {
+		case STONE:
+		case LAPIS_ORE:
+		case EMERALD_ORE:
+		case DIAMOND_ORE:
+		case REDSTONE_ORE:
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				return new ItemStack(block.getType());
 			}
 			break;
-		case STONE:
-			if(block.getData() == 0) {
-				if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE, Material.GOLD_PICKAXE).contains(item.getType())) {
-					return new ItemStack(block.getType());
-				}
-			}
-			break;
 		case MONSTER_EGGS:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE, Material.WOOD_PICKAXE, Material.GOLD_PICKAXE).contains(item.getType())) {
+			if(type != null && type.getBreakTypes().contains(block.getType())) {
 				if(block.getData() == 0) {
 					return new ItemStack(Material.STONE);
 				}
@@ -378,23 +367,6 @@ public class AbilityUtilities {
 				}
 			}
 			return null;
-		case LAPIS_ORE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE, Material.STONE_PICKAXE).contains(item.getType())) {
-				return new ItemStack(block.getType());
-			}
-			break;
-		case EMERALD_ORE:
-		case DIAMOND_ORE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE).contains(item.getType())) {
-				return new ItemStack(block.getType());
-			}
-			break;
-		case REDSTONE_ORE:
-		case GLOWING_REDSTONE_ORE:
-			if(Arrays.asList(Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE).contains(item.getType())) {
-				return new ItemStack(Material.REDSTONE_ORE);
-			}
-			break;
 		case BOOKSHELF:
 		case CLAY:
 		case ENDER_CHEST:
