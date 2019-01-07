@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -17,7 +17,6 @@ import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.inventory.InventoryData;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 
-@SuppressWarnings("deprecation")
 public class VanishListener implements Listener{
 	
 	@EventHandler
@@ -77,7 +76,7 @@ public class VanishListener implements Listener{
 	}
 	
 	@EventHandler
-	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+	public void onEntityPickupItem(EntityPickupItemEvent event) {
 		if(ConfigFiles.getDefaultConfig().getString("disable_enchant_method").equals("vanish")) {
 			ItemStack item = event.getItem().getItemStack();
 			event.getItem().setItemStack(removeEnchants(item));

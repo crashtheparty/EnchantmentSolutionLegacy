@@ -17,7 +17,7 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.listeners.abilities.mcmmo.McMMOHandler;
 import org.ctp.enchantmentsolution.utils.AbilityUtilities;
-import org.ctp.enchantmentsolution.utils.ItemUtils;
+import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 
 public class TelepathyListener implements Listener {
 

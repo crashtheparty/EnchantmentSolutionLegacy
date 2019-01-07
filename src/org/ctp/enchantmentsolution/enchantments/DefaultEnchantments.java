@@ -13,8 +13,13 @@ import org.ctp.enchantmentsolution.enchantments.custom.Brine;
 import org.ctp.enchantmentsolution.enchantments.custom.ExpShare;
 import org.ctp.enchantmentsolution.enchantments.custom.FrequentFlyer;
 import org.ctp.enchantmentsolution.enchantments.custom.Fried;
+import org.ctp.enchantmentsolution.enchantments.custom.HardBounce;
+import org.ctp.enchantmentsolution.enchantments.custom.HeightPlusPlus;
+import org.ctp.enchantmentsolution.enchantments.custom.Icarus;
+import org.ctp.enchantmentsolution.enchantments.custom.IronDefense;
 import org.ctp.enchantmentsolution.enchantments.custom.KnockUp;
 import org.ctp.enchantmentsolution.enchantments.custom.Life;
+import org.ctp.enchantmentsolution.enchantments.custom.MagicGuard;
 import org.ctp.enchantmentsolution.enchantments.custom.MagmaWalker;
 import org.ctp.enchantmentsolution.enchantments.custom.Sacrifice;
 import org.ctp.enchantmentsolution.enchantments.custom.ShockAspect;
@@ -24,7 +29,9 @@ import org.ctp.enchantmentsolution.enchantments.custom.SoulReaper;
 import org.ctp.enchantmentsolution.enchantments.custom.Soulbound;
 import org.ctp.enchantmentsolution.enchantments.custom.Tank;
 import org.ctp.enchantmentsolution.enchantments.custom.Telepathy;
+import org.ctp.enchantmentsolution.enchantments.custom.VoidWalker;
 import org.ctp.enchantmentsolution.enchantments.custom.Warp;
+import org.ctp.enchantmentsolution.enchantments.custom.WidthPlusPlus;
 import org.ctp.enchantmentsolution.enchantments.vanilla.AquaAffinity;
 import org.ctp.enchantmentsolution.enchantments.vanilla.BaneOfArthropods;
 import org.ctp.enchantmentsolution.enchantments.vanilla.BlastProtection;
@@ -62,8 +69,13 @@ import org.ctp.enchantmentsolution.enchantments.wrappers.CustomEnchantmentWrappe
 import org.ctp.enchantmentsolution.enchantments.wrappers.ExpShareWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.FrequentFlyerWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.FriedWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.HardBounceWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.HeightPlusPlusWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.IcarusWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.IronDefenseWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.KnockUpWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.LifeWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.MagicGuardWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.MagmaWalkerWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SacrificeWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.ShockAspectWrapper;
@@ -73,7 +85,9 @@ import org.ctp.enchantmentsolution.enchantments.wrappers.SoulReaperWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SoulboundWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.TankWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.TelepathyWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.VoidWalkerWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.WarpWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.WidthPlusPlusWrapper;
 import org.ctp.enchantmentsolution.nms.Version;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
@@ -82,24 +96,31 @@ import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 public class DefaultEnchantments {
 	private static List<CustomEnchantment> ENCHANTMENTS = new ArrayList<CustomEnchantment>();
 	
-	public static Enchantment SOULBOUND = new SoulboundWrapper();
-	public static Enchantment SOUL_REAPER = new SoulReaperWrapper();
-	public static Enchantment SHOCK_ASPECT = new ShockAspectWrapper();
-	public static Enchantment LIFE = new LifeWrapper();
-	public static Enchantment BEHEADING = new BeheadingWrapper();
-	public static Enchantment KNOCKUP = new KnockUpWrapper();
-	public static Enchantment WARP = new WarpWrapper();
-	public static Enchantment EXP_SHARE = new ExpShareWrapper();
-	public static Enchantment MAGMA_WALKER = new MagmaWalkerWrapper();
-	public static Enchantment SNIPER = new SniperWrapper();
-	public static Enchantment TELEPATHY = new TelepathyWrapper();
-	public static Enchantment SMELTERY = new SmelteryWrapper();
-	public static Enchantment SACRIFICE = new SacrificeWrapper();
-	public static Enchantment ANGLER = new AnglerWrapper();
-	public static Enchantment FRIED = new FriedWrapper();
-	public static Enchantment FREQUENT_FLYER = new FrequentFlyerWrapper();
-	public static Enchantment TANK = new TankWrapper();
-	public static Enchantment BRINE = new BrineWrapper();
+	public static final Enchantment SOULBOUND = new SoulboundWrapper();
+	public static final Enchantment SOUL_REAPER = new SoulReaperWrapper();
+	public static final Enchantment SHOCK_ASPECT = new ShockAspectWrapper();
+	public static final Enchantment LIFE = new LifeWrapper();
+	public static final Enchantment BEHEADING = new BeheadingWrapper();
+	public static final Enchantment KNOCKUP = new KnockUpWrapper();
+	public static final Enchantment WARP = new WarpWrapper();
+	public static final Enchantment EXP_SHARE = new ExpShareWrapper();
+	public static final Enchantment MAGMA_WALKER = new MagmaWalkerWrapper();
+	public static final Enchantment SNIPER = new SniperWrapper();
+	public static final Enchantment TELEPATHY = new TelepathyWrapper();
+	public static final Enchantment SMELTERY = new SmelteryWrapper();
+	public static final Enchantment SACRIFICE = new SacrificeWrapper();
+	public static final Enchantment ANGLER = new AnglerWrapper();
+	public static final Enchantment FRIED = new FriedWrapper();
+	public static final Enchantment FREQUENT_FLYER = new FrequentFlyerWrapper();
+	public static final Enchantment TANK = new TankWrapper();
+	public static final Enchantment BRINE = new BrineWrapper();
+	public static final Enchantment WIDTH_PLUS_PLUS = new WidthPlusPlusWrapper();
+	public static final Enchantment HEIGHT_PLUS_PLUS = new HeightPlusPlusWrapper();
+	public static final Enchantment VOID_WALKER = new VoidWalkerWrapper();
+	public static final Enchantment ICARUS = new IcarusWrapper();
+	public static final Enchantment IRON_DEFENSE = new IronDefenseWrapper();
+	public static final Enchantment HARD_BOUNCE = new HardBounceWrapper();
+	public static final Enchantment MAGIC_GUARD = new MagicGuardWrapper();
 
 	public static List<CustomEnchantment> getEnchantments() {
 		return ENCHANTMENTS;
@@ -284,9 +305,33 @@ public class DefaultEnchantments {
 		DefaultEnchantments.addDefaultEnchantment(new FrequentFlyer());
 		DefaultEnchantments.addDefaultEnchantment(new Tank());
 		DefaultEnchantments.addDefaultEnchantment(new Brine());
+		DefaultEnchantments.addDefaultEnchantment(new WidthPlusPlus());
+		DefaultEnchantments.addDefaultEnchantment(new HeightPlusPlus());
+		DefaultEnchantments.addDefaultEnchantment(new Icarus());
+		DefaultEnchantments.addDefaultEnchantment(new IronDefense());
+		DefaultEnchantments.addDefaultEnchantment(new HardBounce());
+		DefaultEnchantments.addDefaultEnchantment(new MagicGuard());
 		
 		if(Version.VERSION_NUMBER > 3) {
 			DefaultEnchantments.addDefaultEnchantment(new MagmaWalker());
+			DefaultEnchantments.addDefaultEnchantment(new VoidWalker());
 		}
+	}
+	
+	public static List<String> getEnchantmentNames(){
+		List<String> names = new ArrayList<String>();
+		for(CustomEnchantment enchant : getEnchantments()) {
+			names.add(enchant.getName());
+		}
+		return names;
+	}
+	
+	public static CustomEnchantment getByName(String name) {
+		for(CustomEnchantment enchant : getEnchantments()) {
+			if(enchant.getName().equalsIgnoreCase(name)) {
+				return enchant;
+			}
+		}
+		return null;
 	}
 }

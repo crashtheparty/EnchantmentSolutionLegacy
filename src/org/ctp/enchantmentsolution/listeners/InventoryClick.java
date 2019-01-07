@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Dye;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.inventory.Anvil;
@@ -18,14 +19,17 @@ import org.ctp.enchantmentsolution.inventory.ConfigInventory;
 import org.ctp.enchantmentsolution.inventory.ConfigInventory.Screen;
 import org.ctp.enchantmentsolution.inventory.EnchantmentTable;
 import org.ctp.enchantmentsolution.inventory.InventoryData;
+import org.ctp.enchantmentsolution.inventory.LegacyAnvil;
 import org.ctp.enchantmentsolution.nms.Anvil_GUI_NMS;
+import org.ctp.enchantmentsolution.utils.AnvilUtils;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
-import org.ctp.enchantmentsolution.utils.ItemUtils;
 import org.ctp.enchantmentsolution.utils.config.YamlConfigBackup;
 import org.ctp.enchantmentsolution.utils.config.YamlInfo;
+import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 
 public class InventoryClick implements Listener {
 
@@ -44,6 +48,9 @@ public class InventoryClick implements Listener {
 		}
 		InventoryData invData = EnchantmentSolution.getInventory(player);
 		if(invData != null) {
+			if(invData instanceof LegacyAnvil) {
+				return;
+			}
 			event.setCancelled(true);
 			if(invData instanceof EnchantmentTable) {
 				EnchantmentTable table = (EnchantmentTable) invData;
@@ -51,6 +58,8 @@ public class InventoryClick implements Listener {
 				if (!(inv.getType().equals(InventoryType.CHEST))) {
 					int slot = event.getSlot();
 					ItemStack item = event.getClickedInventory().getItem(slot);
+					Dye lapis = new Dye();
+					lapis.setColor(DyeColor.BLUE);
 					if (Enchantments.isEnchantable(item)) {
 						ItemStack replace = new ItemStack(Material.AIR);
 						if(item.getAmount() > 1){
@@ -62,6 +71,9 @@ public class InventoryClick implements Listener {
 							table.setInventory();
 							player.getInventory().setItem(slot, replace);
 						}
+					} else if(item != null && item.getType().equals(lapis.toItemStack(1).getType())) {
+						player.getInventory().setItem(slot, table.addToLapisStack(item));
+						table.setInventory();
 					}
 				} else {
 					int slot = event.getSlot();
@@ -75,6 +87,12 @@ public class InventoryClick implements Listener {
 						int itemSlot = (slot - 18) / 9;
 						int itemLevel = (slot % 9) - 3;
 						table.enchantItem(itemSlot, itemLevel);
+					} else if (slot == 10) {
+						ItemStack lapisStack = table.removeFromLapisStack();
+						if(lapisStack != null) {
+							ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation());
+						}
+						table.setInventory();
 					}
 				}
 			} else if(invData instanceof Anvil) {
@@ -107,6 +125,10 @@ public class InventoryClick implements Listener {
 					}else if(slot == 16) {
 						anvil.combine();
 						anvil.setInventory();
+					}else if (slot == 31 && item.getType().equals(Material.ANVIL)) {
+						anvil.close(false);
+						AnvilUtils.addLegacyAnvil(player);
+						ChatUtils.sendMessage(player, ChatUtils.getMessage(ChatUtils.getCodes(), "anvil.legacy-gui-open"));
 					}else if (anvil.getItems().contains(item)) {
 						if (anvil.removeItem(slot)) {
 							anvil.setInventory();
@@ -243,6 +265,54 @@ public class InventoryClick implements Listener {
 							break;
 						}
 						break;
+					case LIST_ENUM_LIST_SHOW:
+						switch(slot) {
+						case 53:
+							if(item.getType().equals(Material.ARROW)) {
+								configInv.listEnumListShow(configInv.getConfig(), configInv.getLevel(), configInv.getType(), configInv.getPage() + 1);
+							}
+							break;
+						case 45:
+							if(item.getType().equals(Material.ARROW)) {
+								configInv.listEnumListShow(configInv.getConfig(), configInv.getLevel(), configInv.getType(), configInv.getPage() - 1);
+							}
+							break;
+						case 48:
+							if(item.getType().equals(Material.ARROW)) {
+								String level = configInv.getLevel();
+								if(level.indexOf(".") > -1) {
+									configInv.listConfigDetails(configInv.getConfig(), level.substring(0, level.lastIndexOf(".")));
+								} else {
+									configInv.listConfigDetails(configInv.getConfig(), null);
+								}
+							}
+							break;
+						case 50:
+							if(item.getType().equals(Material.NAME_TAG)) {
+								configInv.listEnumListEdit(configInv.getConfig(), configInv.getLevel(), configInv.getType(), 1);
+							}
+							break;
+						}
+						break;
+					case LIST_ENUM_LIST_EDIT:
+						switch(slot) {
+						case 53:
+							if(item.getType().equals(Material.ARROW)) {
+								configInv.listEnumListEdit(configInv.getConfig(), configInv.getLevel(), configInv.getType(), configInv.getPage() + 1);
+							}
+							break;
+						case 45:
+							if(item.getType().equals(Material.ARROW)) {
+								configInv.listEnumListEdit(configInv.getConfig(), configInv.getLevel(), configInv.getType(), configInv.getPage() - 1);
+							}
+							break;
+						case 49:
+							if(item.getType().equals(Material.ARROW)) {
+								configInv.listEnumListShow(configInv.getConfig(), configInv.getLevel(), configInv.getType(), 1);
+							}
+							break;
+						}
+						break;
 					case LIST_BACKUP:
 						switch(slot) {
 						case 53:
@@ -349,6 +419,8 @@ public class InventoryClick implements Listener {
 											configInv.listConfigDetails(configInv.getConfig(), path, 1);
 										} else if (type.equals("list")) {
 											configInv.listDetails(configInv.getConfig(), path, type, 1);
+										} else if (type.equals("enum_list")) {
+											configInv.listEnumListShow(configInv.getConfig(), path, type, 1);
 										} else if (type.equals("boolean")) {
 											if(value != null && value.equals("true")) {
 												ChatUtils.sendMessage(player, "Set " + path + " to false.");
@@ -434,9 +506,34 @@ public class InventoryClick implements Listener {
 									if(event.getClick().equals(ClickType.LEFT)) {
 										if(type.equals("nested value")) {
 											configInv.listBackupConfigDetails(configInv.getConfig(), configInv.getBackup(), path, 1);
-										} else if (type.equals("list")) {
+										} else if (type.equals("list") || type.equals("enum_list")) {
 											configInv.listBackupDetails(configInv.getConfig(), configInv.getBackup(), path, type, 1);
 										}
+									}
+								}
+							}
+						}
+					} else if (configInv.getScreen().equals(Screen.LIST_ENUM_LIST_SHOW)) {
+						if(slot < 36) {
+							if(item.hasItemMeta()) {
+								configInv.removeFromList(slot);
+								configInv.listEnumListShow(configInv.getConfig(), configInv.getLevel(), configInv.getType(), configInv.getPage());
+							}
+						}
+					} else if (configInv.getScreen().equals(Screen.LIST_ENUM_LIST_EDIT)) {
+						if(slot < 36) {
+							if(item.hasItemMeta()) {
+								List<String> lore = item.getItemMeta().getLore();
+								if(lore != null) {
+									String value = null;
+									for(String s : lore) {
+										if(s.startsWith(ChatColor.GRAY + "Value: " + ChatColor.WHITE)) {
+											value = s.replace(ChatColor.GRAY + "Value: " + ChatColor.WHITE, "");
+										}
+									}
+									if(value != null) {
+										configInv.setItemName(value);
+										configInv.listEnumListEdit(configInv.getConfig(), configInv.getLevel(), configInv.getType(), configInv.getPage());
 									}
 								}
 							}
