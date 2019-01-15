@@ -53,6 +53,14 @@ public class TelepathyListener implements Listener {
 						}
 					}
 				}
+				if(Enchantments.hasEnchantment(item, DefaultEnchantments.GOLD_DIGGER)) {
+					ItemStack goldDigger = AbilityUtilities.getGoldDiggerItems(item, event.getBlock());
+					if(goldDigger != null) {
+						event.getPlayer().giveExp(GoldDiggerListener.GoldDiggerCrop.getExp(event.getBlock().getType(), 
+								Enchantments.getLevel(item, DefaultEnchantments.GOLD_DIGGER)));
+						ItemUtils.giveItemToPlayer(player, goldDigger, player.getLocation());
+					}
+				}
 				int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
 				double chance = (1.0D) / (unbreaking + 1.0D);
 				double random = Math.random();

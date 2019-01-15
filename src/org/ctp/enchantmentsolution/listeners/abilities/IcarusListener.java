@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,13 +36,9 @@ public class IcarusListener implements Listener, Runnable{
 						return;
 					}
 				}
-				Vector v = player.getVelocity().clone();
-				v.add(new Vector(0, additional, 0));
-				v.multiply(new Vector(additional / 2, 1, additional / 2));
-				player.setVelocity(v);
+				int num_breaks = 0;
 				if(!(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR))) {
 					int unbreaking = Enchantments.getLevel(chestplate, Enchantment.DURABILITY);
-					int num_breaks = 0;
 					int chances = level * 5;
 					for(int i = 0; i < chances; i++) {
 						double chance = (1.0D) / (unbreaking + 1.0D);
@@ -49,13 +47,19 @@ public class IcarusListener implements Listener, Runnable{
 							num_breaks ++;
 						}
 					}
-					if(num_breaks > 0) {
-						if(chestplate.getDurability() + num_breaks > chestplate.getType().getMaxDurability()) {
-							return;
-						}
-						chestplate.setDurability((short) (chestplate.getDurability() + num_breaks));
-					}
 				}
+				if(num_breaks > 0) {
+					if(chestplate.getDurability() + num_breaks > chestplate.getType().getMaxDurability()) {
+						return;
+					}
+					chestplate.setDurability((short) (chestplate.getDurability() + num_breaks));
+				}
+				Vector v = player.getVelocity().clone();
+				v.add(new Vector(0, additional, 0));
+				v.multiply(new Vector(additional / 2, 1, additional / 2));
+				player.setVelocity(v);
+				player.getWorld().spawnParticle(Particle.CLOUD, player.getLocation(), 250, 2, 2, 2);
+				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1, 1);
 				ICARUS_DELAY.add(new IcarusDelay(player));
 			}
 		}
@@ -69,6 +73,8 @@ public class IcarusListener implements Listener, Runnable{
 			icarus.minusDelay();
 			if(icarus.getDelay() <= 0) {
 				ICARUS_DELAY.remove(icarus);
+				icarus.getPlayer().getWorld().spawnParticle(Particle.FIREWORKS_SPARK, icarus.getPlayer().getLocation(), 250, 2, 2, 2);
+				icarus.getPlayer().getWorld().playSound(icarus.getPlayer().getLocation(), Sound.ENTITY_FIREWORK_BLAST, 1, 1);
 			}
 		}
 	}

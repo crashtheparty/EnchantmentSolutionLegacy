@@ -158,8 +158,10 @@ public abstract class CustomEnchantment {
 	public boolean canEnchantItem(Material item) {
 		if(disabledItems.contains(item)) return false;
 		for(ItemType type : getEnchantmentItemTypes()) {
-			if(type.getItemTypes().contains(item)) {
-				return true;
+			if(type.getItemTypes() != null) {
+				if(type.getItemTypes().contains(item)) {
+					return true;
+				}
 			}
 		}
 		return false;

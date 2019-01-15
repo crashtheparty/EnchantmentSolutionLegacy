@@ -13,15 +13,15 @@ public class HardBounce extends CustomEnchantment{
 
 	public HardBounce() {
 		setDefaultDisplayName("Hard Bounce");
-		setDefaultFiftyConstant(7);
-		setDefaultThirtyConstant(6);
-		setDefaultFiftyModifier(11);
-		setDefaultThirtyModifier(9);
-		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(50);
+		setDefaultFiftyConstant(-4);
+		setDefaultThirtyConstant(-4);
+		setDefaultFiftyModifier(14);
+		setDefaultThirtyModifier(12);
+		setDefaultFiftyMaxConstant(30);
+		setDefaultThirtyMaxConstant(25);
 		setDefaultFiftyStartLevel(1);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(3);
+		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
 	}

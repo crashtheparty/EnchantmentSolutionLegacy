@@ -20,7 +20,7 @@ public class VoidWalker extends CustomEnchantment{
 		setDefaultThirtyModifier(10);
 		setDefaultFiftyMaxConstant(20);
 		setDefaultThirtyMaxConstant(15);
-		setDefaultFiftyStartLevel(30);
+		setDefaultFiftyStartLevel(10);
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(2);
 		setDefaultThirtyMaxLevel(2);

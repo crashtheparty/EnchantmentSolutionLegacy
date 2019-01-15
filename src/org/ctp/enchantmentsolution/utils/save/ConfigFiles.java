@@ -596,9 +596,6 @@ public class ConfigFiles {
 		LANGUAGE.addDefault("commands.reload", ("Config files have been reloaded. Please note that the enchantments.yml file requires a server restart to take effect.").replace("§", "&"));
 		LANGUAGE.addDefault("commands.enchant-disabled", ("Cannot enchant item with a disabled enchantment.").replace("§", "&"));
 		LANGUAGE.addDefault("commands.reset-inventory", ("Closed all custom inventories.").replace("§", "&"));
-
-		LANGUAGE.addDefault("items.stole-soulbound", ("You have stolen the player's soulbound items!").replace("§", "&"));
-		LANGUAGE.addDefault("items.soulbound-stolen", ("Your soulbound items have been stolen!").replace("§", "&"));
 		
 		LANGUAGE.addDefault("enchantment.name", (ChatColor.GOLD + "Display Name: " + ChatColor.WHITE).replace("§", "&"));
 		LANGUAGE.addDefault("enchantment.description", (ChatColor.GOLD + "Description: " + ChatColor.WHITE).replace("§", "&"));

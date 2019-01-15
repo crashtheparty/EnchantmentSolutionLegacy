@@ -1,0 +1,86 @@
+package org.ctp.enchantmentsolution.listeners.abilities;
+
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
+import org.ctp.enchantmentsolution.enchantments.Enchantments;
+import org.ctp.enchantmentsolution.utils.AbilityUtilities;
+
+public class GoldDiggerListener implements Listener {
+
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event) {
+		if(!DefaultEnchantments.isEnabled(DefaultEnchantments.GOLD_DIGGER)) return;
+		Player player = event.getPlayer();
+		ItemStack item = player.getInventory().getItemInMainHand();
+		if (item != null) {
+			if (!Enchantments
+					.hasEnchantment(item, DefaultEnchantments.TELEPATHY)) {
+				if(Enchantments.hasEnchantment(item, DefaultEnchantments.GOLD_DIGGER)) {
+					Location loc = event.getBlock().getLocation().clone().add(0.5, 0.5, 0.5);
+					ItemStack goldDigger = AbilityUtilities.getGoldDiggerItems(item, event.getBlock());
+					if(goldDigger != null) {
+						AbilityUtilities.dropExperience(loc, 
+								GoldDiggerCrop.getExp(event.getBlock().getType(), Enchantments.getLevel(item, DefaultEnchantments.GOLD_DIGGER)));
+						Item droppedItem = player.getWorld().dropItem(
+								loc,
+								goldDigger);
+						droppedItem.setVelocity(new Vector(0,0,0));
+						if(player.getGameMode().equals(GameMode.CREATIVE)) return;
+						int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
+						double chance = (1.0D) / (unbreaking + 1.0D);
+						double random = Math.random();
+						if(chance > random) {
+							item.setDurability((short) (item.getDurability() + 1));
+							if(item.getDurability() > item.getType().getMaxDurability()) {
+								player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+								player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	public enum GoldDiggerCrop {
+		WHEAT(Material.CROPS, 2), CARROTS(Material.CARROT, 2), POTATOES(Material.POTATO, 2), BEETROOTS(Material.BEETROOT_BLOCK, 2),
+		NETHER_WARTS(Material.NETHER_STALK, 3);
+		
+		private Material material;
+		private int exp;
+		
+		private GoldDiggerCrop(Material material, int exp) {
+			this.material = material;
+			this.exp = exp;
+		}
+
+		public Material getMaterial() {
+			return material;
+		}
+
+		public int getExp() {
+			return exp;
+		}
+		
+		public static int getExp(Material material, int level) {
+			for(GoldDiggerCrop value : values()) {
+				if(value.getMaterial() == material) {
+					return level * value.getExp();
+				}
+			}
+			return 0;
+		}
+	}
+}

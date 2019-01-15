@@ -21,7 +21,7 @@ public class MagicGuard extends CustomEnchantment{
 		setDefaultThirtyMaxConstant(50);
 		setDefaultFiftyStartLevel(25);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(1);
+		setDefaultFiftyMaxLevel(20);
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);

@@ -13,13 +13,13 @@ public class Icarus extends CustomEnchantment{
 
 	public Icarus() {
 		setDefaultDisplayName("Icarus");
-		setDefaultFiftyConstant(7);
-		setDefaultThirtyConstant(6);
-		setDefaultFiftyModifier(11);
-		setDefaultThirtyModifier(9);
+		setDefaultFiftyConstant(8);
+		setDefaultThirtyConstant(5);
+		setDefaultFiftyModifier(12);
+		setDefaultThirtyModifier(10);
 		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(50);
-		setDefaultFiftyStartLevel(1);
+		setDefaultThirtyMaxConstant(40);
+		setDefaultFiftyStartLevel(20);
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);

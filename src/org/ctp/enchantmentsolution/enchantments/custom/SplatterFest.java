@@ -9,41 +9,42 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Weight;
 import org.ctp.enchantmentsolution.utils.items.ItemType;
 
-public class HeightPlusPlus extends CustomEnchantment{
-
-	public HeightPlusPlus() {
-		setDefaultDisplayName("Height++");
-		setDefaultFiftyConstant(0);
-		setDefaultThirtyConstant(-10);
-		setDefaultFiftyModifier(20);
-		setDefaultThirtyModifier(20);
-		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(35);
-		setDefaultFiftyStartLevel(15);
+public class SplatterFest extends CustomEnchantment{
+	
+	public SplatterFest() {
+		setDefaultDisplayName("Splatter Fest");
+		setDefaultFiftyConstant(25);
+		setDefaultThirtyConstant(25);
+		setDefaultFiftyModifier(0);
+		setDefaultThirtyModifier(0);
+		setDefaultFiftyMaxConstant(75);
+		setDefaultThirtyMaxConstant(50);
+		setDefaultFiftyStartLevel(20);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(3);
-		setDefaultThirtyMaxLevel(2);
+		setDefaultFiftyMaxLevel(1);
+		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
+		setMaxLevelOne(true);
+	}
+
+	@Override
+	public String getName() {
+		return "splatter_fest";
+	}
+
+	@Override
+	public Enchantment getRelativeEnchantment() {
+		return DefaultEnchantments.SPLATTER_FEST;
 	}
 	
 	@Override
-	public Enchantment getRelativeEnchantment() {
-		return DefaultEnchantments.HEIGHT_PLUS_PLUS;
-	}
-
-	@Override
-	public String getDescription() {
-		return "Increase up/down break radius by 1 per level.";
-	}
-
-	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.TOOLS);
+		return Arrays.asList();
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
-		return Arrays.asList(ItemType.TOOLS);
+		return Arrays.asList(ItemType.HOES);
 	}
 
 	@Override
@@ -52,8 +53,8 @@ public class HeightPlusPlus extends CustomEnchantment{
 	}
 
 	@Override
-	public String getName() {
-		return "height_plus_plus";
+	public String getDescription() {
+		return "Shoots eggs out of hoe on left click.";
 	}
 
 }

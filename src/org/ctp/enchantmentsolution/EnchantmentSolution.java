@@ -33,7 +33,9 @@ import org.ctp.enchantmentsolution.listeners.abilities.BeheadingListener;
 import org.ctp.enchantmentsolution.listeners.abilities.BrineListener;
 import org.ctp.enchantmentsolution.listeners.abilities.ExpShareListener;
 import org.ctp.enchantmentsolution.listeners.abilities.FishingListener;
+import org.ctp.enchantmentsolution.listeners.abilities.FlowerGiftListener;
 import org.ctp.enchantmentsolution.listeners.abilities.FrequentFlyerListener;
+import org.ctp.enchantmentsolution.listeners.abilities.GoldDiggerListener;
 import org.ctp.enchantmentsolution.listeners.abilities.HardBounceListener;
 import org.ctp.enchantmentsolution.listeners.abilities.IcarusListener;
 import org.ctp.enchantmentsolution.listeners.abilities.IronDefenseListener;
@@ -42,10 +44,12 @@ import org.ctp.enchantmentsolution.listeners.abilities.LifeListener;
 import org.ctp.enchantmentsolution.listeners.abilities.MagicGuardListener;
 import org.ctp.enchantmentsolution.listeners.abilities.MagmaWalkerListener;
 import org.ctp.enchantmentsolution.listeners.abilities.SacrificeListener;
+import org.ctp.enchantmentsolution.listeners.abilities.SandVeilListener;
 import org.ctp.enchantmentsolution.listeners.abilities.ShockAspectListener;
 import org.ctp.enchantmentsolution.listeners.abilities.SmelteryListener;
 import org.ctp.enchantmentsolution.listeners.abilities.SniperListener;
 import org.ctp.enchantmentsolution.listeners.abilities.SoulboundListener;
+import org.ctp.enchantmentsolution.listeners.abilities.SplatterFestListener;
 import org.ctp.enchantmentsolution.listeners.abilities.TankListener;
 import org.ctp.enchantmentsolution.listeners.abilities.TelepathyListener;
 import org.ctp.enchantmentsolution.listeners.abilities.VoidWalkerListener;
@@ -135,6 +139,10 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new IronDefenseListener(), this);
 		getServer().getPluginManager().registerEvents(new HardBounceListener(), this);
 		getServer().getPluginManager().registerEvents(new MagicGuardListener(), this);
+		getServer().getPluginManager().registerEvents(new SplatterFestListener(), this);
+		getServer().getPluginManager().registerEvents(new SandVeilListener(), this);
+		getServer().getPluginManager().registerEvents(new GoldDiggerListener(), this);
+		getServer().getPluginManager().registerEvents(new FlowerGiftListener(), this);
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
 		getServer().getPluginManager().registerEvents(new VanishListener(), this);
@@ -207,7 +215,7 @@ public class EnchantmentSolution extends JavaPlugin {
 	}
 	
 	private void checkVersion(){
-		Bukkit.getScheduler().runTaskTimerAsynchronously(PLUGIN, new VersionCheck(), 20l, 20 * 60 * 30l);
+		Bukkit.getScheduler().runTaskTimerAsynchronously(PLUGIN, new VersionCheck(), 20l, 20 * 60 * 60 * 4l);
     }
 
 	public static SQLite getDb() {

@@ -9,41 +9,41 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Weight;
 import org.ctp.enchantmentsolution.utils.items.ItemType;
 
-public class HeightPlusPlus extends CustomEnchantment{
-
-	public HeightPlusPlus() {
-		setDefaultDisplayName("Height++");
-		setDefaultFiftyConstant(0);
+public class SandVeil extends CustomEnchantment{
+	
+	public SandVeil() {
+		setDefaultDisplayName("Sand Veil");
+		setDefaultFiftyConstant(-12);
 		setDefaultThirtyConstant(-10);
-		setDefaultFiftyModifier(20);
-		setDefaultThirtyModifier(20);
-		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(35);
-		setDefaultFiftyStartLevel(15);
+		setDefaultFiftyModifier(13);
+		setDefaultThirtyModifier(11);
+		setDefaultFiftyMaxConstant(20);
+		setDefaultThirtyMaxConstant(20);
+		setDefaultFiftyStartLevel(1);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(3);
-		setDefaultThirtyMaxLevel(2);
-		setDefaultWeight(Weight.RARE);
+		setDefaultFiftyMaxLevel(6);
+		setDefaultThirtyMaxLevel(5);
+		setDefaultWeight(Weight.COMMON);
 	}
 	
 	@Override
 	public Enchantment getRelativeEnchantment() {
-		return DefaultEnchantments.HEIGHT_PLUS_PLUS;
+		return DefaultEnchantments.SAND_VEIL;
 	}
 
 	@Override
-	public String getDescription() {
-		return "Increase up/down break radius by 1 per level.";
+	public String getName() {
+		return "sand_veil";
 	}
-
+	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.TOOLS);
+		return Arrays.asList();
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
-		return Arrays.asList(ItemType.TOOLS);
+		return Arrays.asList(ItemType.HOES);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class HeightPlusPlus extends CustomEnchantment{
 	}
 
 	@Override
-	public String getName() {
-		return "height_plus_plus";
+	public String getDescription() {
+		return "Lowers accuracy of entity's attacks.";
 	}
 
 }

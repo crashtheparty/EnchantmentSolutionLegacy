@@ -9,41 +9,41 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Weight;
 import org.ctp.enchantmentsolution.utils.items.ItemType;
 
-public class HeightPlusPlus extends CustomEnchantment{
-
-	public HeightPlusPlus() {
-		setDefaultDisplayName("Height++");
-		setDefaultFiftyConstant(0);
+public class GoldDigger extends CustomEnchantment{
+	
+	public GoldDigger() {
+		setDefaultDisplayName("Gold Digger");
+		setDefaultFiftyConstant(-2);
 		setDefaultThirtyConstant(-10);
-		setDefaultFiftyModifier(20);
-		setDefaultThirtyModifier(20);
-		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(35);
-		setDefaultFiftyStartLevel(15);
+		setDefaultFiftyModifier(12);
+		setDefaultThirtyModifier(11);
+		setDefaultFiftyMaxConstant(19);
+		setDefaultThirtyMaxConstant(20);
+		setDefaultFiftyStartLevel(10);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(3);
-		setDefaultThirtyMaxLevel(2);
-		setDefaultWeight(Weight.RARE);
+		setDefaultFiftyMaxLevel(6);
+		setDefaultThirtyMaxLevel(5);
+		setDefaultWeight(Weight.COMMON);
 	}
 	
 	@Override
 	public Enchantment getRelativeEnchantment() {
-		return DefaultEnchantments.HEIGHT_PLUS_PLUS;
+		return DefaultEnchantments.GOLD_DIGGER;
 	}
 
 	@Override
-	public String getDescription() {
-		return "Increase up/down break radius by 1 per level.";
+	public String getName() {
+		return "gold_digger";
 	}
-
+	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.TOOLS);
+		return Arrays.asList();
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
-		return Arrays.asList(ItemType.TOOLS);
+		return Arrays.asList(ItemType.HOES);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class HeightPlusPlus extends CustomEnchantment{
 	}
 
 	@Override
-	public String getName() {
-		return "height_plus_plus";
+	public String getDescription() {
+		return "Earn experience and gold nuggets for breaking crops.";
 	}
 
 }

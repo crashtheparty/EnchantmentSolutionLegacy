@@ -14,12 +14,12 @@ public class WidthPlusPlus extends CustomEnchantment{
 	public WidthPlusPlus() {
 		setDefaultDisplayName("Width++");
 		setDefaultFiftyConstant(0);
-		setDefaultThirtyConstant(0);
-		setDefaultFiftyModifier(10);
-		setDefaultThirtyModifier(8);
-		setDefaultFiftyMaxConstant(30);
-		setDefaultThirtyMaxConstant(25);
-		setDefaultFiftyStartLevel(1);
+		setDefaultThirtyConstant(-10);
+		setDefaultFiftyModifier(20);
+		setDefaultThirtyModifier(20);
+		setDefaultFiftyMaxConstant(40);
+		setDefaultThirtyMaxConstant(35);
+		setDefaultFiftyStartLevel(15);
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(2);

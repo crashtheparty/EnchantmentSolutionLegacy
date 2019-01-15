@@ -13,8 +13,10 @@ import org.ctp.enchantmentsolution.enchantments.custom.Angler;
 import org.ctp.enchantmentsolution.enchantments.custom.Beheading;
 import org.ctp.enchantmentsolution.enchantments.custom.Brine;
 import org.ctp.enchantmentsolution.enchantments.custom.ExpShare;
+import org.ctp.enchantmentsolution.enchantments.custom.FlowerGift;
 import org.ctp.enchantmentsolution.enchantments.custom.FrequentFlyer;
 import org.ctp.enchantmentsolution.enchantments.custom.Fried;
+import org.ctp.enchantmentsolution.enchantments.custom.GoldDigger;
 import org.ctp.enchantmentsolution.enchantments.custom.HardBounce;
 import org.ctp.enchantmentsolution.enchantments.custom.HeightPlusPlus;
 import org.ctp.enchantmentsolution.enchantments.custom.Icarus;
@@ -24,11 +26,13 @@ import org.ctp.enchantmentsolution.enchantments.custom.Life;
 import org.ctp.enchantmentsolution.enchantments.custom.MagicGuard;
 import org.ctp.enchantmentsolution.enchantments.custom.MagmaWalker;
 import org.ctp.enchantmentsolution.enchantments.custom.Sacrifice;
+import org.ctp.enchantmentsolution.enchantments.custom.SandVeil;
 import org.ctp.enchantmentsolution.enchantments.custom.ShockAspect;
 import org.ctp.enchantmentsolution.enchantments.custom.Smeltery;
 import org.ctp.enchantmentsolution.enchantments.custom.Sniper;
 import org.ctp.enchantmentsolution.enchantments.custom.SoulReaper;
 import org.ctp.enchantmentsolution.enchantments.custom.Soulbound;
+import org.ctp.enchantmentsolution.enchantments.custom.SplatterFest;
 import org.ctp.enchantmentsolution.enchantments.custom.Tank;
 import org.ctp.enchantmentsolution.enchantments.custom.Telepathy;
 import org.ctp.enchantmentsolution.enchantments.custom.VoidWalker;
@@ -69,8 +73,10 @@ import org.ctp.enchantmentsolution.enchantments.wrappers.BeheadingWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.BrineWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.CustomEnchantmentWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.ExpShareWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.FlowerGiftWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.FrequentFlyerWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.FriedWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.GoldDiggerWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.HardBounceWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.HeightPlusPlusWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.IcarusWrapper;
@@ -80,11 +86,13 @@ import org.ctp.enchantmentsolution.enchantments.wrappers.LifeWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.MagicGuardWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.MagmaWalkerWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SacrificeWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.SandVeilWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.ShockAspectWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SmelteryWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SniperWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SoulReaperWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SoulboundWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.SplatterFestWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.TankWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.TelepathyWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.VoidWalkerWrapper;
@@ -124,6 +132,10 @@ public class DefaultEnchantments {
 	public static final Enchantment IRON_DEFENSE = new IronDefenseWrapper();
 	public static final Enchantment HARD_BOUNCE = new HardBounceWrapper();
 	public static final Enchantment MAGIC_GUARD = new MagicGuardWrapper();
+	public static final Enchantment SPLATTER_FEST = new SplatterFestWrapper();
+	public static final Enchantment SAND_VEIL = new SandVeilWrapper();
+	public static final Enchantment GOLD_DIGGER = new GoldDiggerWrapper();
+	public static final Enchantment FLOWER_GIFT = new FlowerGiftWrapper();
 
 	public static List<CustomEnchantment> getEnchantments() {
 		return ENCHANTMENTS;
@@ -270,7 +282,7 @@ public class DefaultEnchantments {
 	}
 	
 	public static void addDefaultEnchantments() {
-		if(DefaultEnchantments.getEnchantments().size() > 0) return;
+		if(getEnchantments().size() > 0) return;
 		DefaultEnchantments.addDefaultEnchantment(new AquaAffinity());
 		DefaultEnchantments.addDefaultEnchantment(new BaneOfArthropods());
 		DefaultEnchantments.addDefaultEnchantment(new BlastProtection());
@@ -334,6 +346,10 @@ public class DefaultEnchantments {
 		DefaultEnchantments.addDefaultEnchantment(new IronDefense());
 		DefaultEnchantments.addDefaultEnchantment(new HardBounce());
 		DefaultEnchantments.addDefaultEnchantment(new MagicGuard());
+		DefaultEnchantments.addDefaultEnchantment(new SplatterFest());
+		DefaultEnchantments.addDefaultEnchantment(new SandVeil());
+		DefaultEnchantments.addDefaultEnchantment(new GoldDigger());
+		DefaultEnchantments.addDefaultEnchantment(new FlowerGift());
 		
 		if(Version.VERSION_NUMBER > 3) {
 			DefaultEnchantments.addDefaultEnchantment(new MagmaWalker());
