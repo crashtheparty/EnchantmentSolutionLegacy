@@ -23,7 +23,8 @@ public class IronDefense extends CustomEnchantment{
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
-		setDefaultWeight(Weight.RARE);
+		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Having the shield equipped will redirect damage to the shield.");
 	}
 	
 	@Override
@@ -44,11 +45,6 @@ public class IronDefense extends CustomEnchantment{
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
 		return Arrays.asList(ItemType.SHIELD);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Having the shield equipped will redirect damage to the shield.";
 	}
 
 	@Override

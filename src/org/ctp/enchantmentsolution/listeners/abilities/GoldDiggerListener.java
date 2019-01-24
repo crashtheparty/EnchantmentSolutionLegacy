@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
-import org.ctp.enchantmentsolution.utils.AbilityUtilities;
+import org.ctp.enchantmentsolution.utils.AbilityUtils;
 
 public class GoldDiggerListener implements Listener {
 
@@ -28,9 +28,9 @@ public class GoldDiggerListener implements Listener {
 					.hasEnchantment(item, DefaultEnchantments.TELEPATHY)) {
 				if(Enchantments.hasEnchantment(item, DefaultEnchantments.GOLD_DIGGER)) {
 					Location loc = event.getBlock().getLocation().clone().add(0.5, 0.5, 0.5);
-					ItemStack goldDigger = AbilityUtilities.getGoldDiggerItems(item, event.getBlock());
+					ItemStack goldDigger = AbilityUtils.getGoldDiggerItems(item, event.getBlock());
 					if(goldDigger != null) {
-						AbilityUtilities.dropExperience(loc, 
+						AbilityUtils.dropExperience(loc, 
 								GoldDiggerCrop.getExp(event.getBlock().getType(), Enchantments.getLevel(item, DefaultEnchantments.GOLD_DIGGER)));
 						Item droppedItem = player.getWorld().dropItem(
 								loc,

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -162,6 +163,7 @@ public class DefaultEnchantments {
 			if(ConfigFiles.getDefaultConfig().getBoolean("use_advanced_file")) {
 				CustomEnchantment enchantment = ENCHANTMENTS.get(i);
 				YamlConfig advanced = ConfigFiles.getEnchantmentAdvancedConfig();
+				YamlConfig language = ConfigFiles.getLanguageFile();
 				String namespace = "default_enchantments";
 				if (enchantment.getRelativeEnchantment() instanceof ApiEnchantmentWrapper) {
 					JavaPlugin plugin = ((ApiEnchantmentWrapper) enchantment.getRelativeEnchantment()).getPlugin();
@@ -197,6 +199,7 @@ public class DefaultEnchantments {
 				int maxConstant = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_max_constant");
 				int startLevel = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_start_level");
 				int maxLevel = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_max_level");
+				String description = StringEscapeUtils.unescapeJava(language.getString("enchantment.descriptions."+namespace+"."+enchantment.getName()));
 				Weight weight = Weight.getWeight(advanced.getString(namespace+"."+enchantment.getName()+".weight"));
 				List<String> conflictingEnchantmentsString = advanced.getStringList(namespace+"."+enchantment.getName()+".conflicting_enchantments");
 				List<Enchantment> conflictingEnchantments = new ArrayList<Enchantment>();
@@ -217,10 +220,13 @@ public class DefaultEnchantments {
 				ENCHANTMENTS.get(i).setCustom(constant, modifier, maxConstant, startLevel, maxLevel, weight);
 				ENCHANTMENTS.get(i).setConflictingEnchantments(conflictingEnchantments);
 				ENCHANTMENTS.get(i).setDisabledItems(disabledItems);
+				ENCHANTMENTS.get(i).setDescription(description);
 			} else {
 				CustomEnchantment enchantment = ENCHANTMENTS.get(i);
+				YamlConfig config = ConfigFiles.getEnchantmentConfig();
+				YamlConfig language = ConfigFiles.getLanguageFile();
+				String description = "";
 				if (enchantment.getRelativeEnchantment() instanceof ApiEnchantmentWrapper) {
-					YamlConfig config = ConfigFiles.getEnchantmentConfig();
 					JavaPlugin plugin = ((ApiEnchantmentWrapper) enchantment.getRelativeEnchantment()).getPlugin();
 					if(plugin == null) {
 						ChatUtils.sendToConsole(Level.WARNING, "Enchantment " + enchantment.getName() + " (Display Name " + enchantment.getDisplayName() + ")"
@@ -240,8 +246,8 @@ public class DefaultEnchantments {
 					if (ConfigFiles.getEnchantmentConfig().getBoolean(namespace+"."+enchantment.getName()+".treasure")) {
 						ENCHANTMENTS.get(i).setTreasure(true);
 					}
+					description = StringEscapeUtils.unescapeJava(language.getString("enchantment.descriptions."+namespace+"."+enchantment.getName()));
 				} else if (enchantment.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
-					YamlConfig config = ConfigFiles.getEnchantmentConfig();
 					if(Enchantments.addEnchantment(enchantment)) {
 						if (config.getBoolean("custom_enchantments."+enchantment.getName()+".enabled")) {
 							ENCHANTMENTS.get(i).setEnabled(true);
@@ -254,12 +260,14 @@ public class DefaultEnchantments {
 					if (ConfigFiles.getEnchantmentConfig().getBoolean("custom_enchantments."+enchantment.getName()+".treasure")) {
 						ENCHANTMENTS.get(i).setTreasure(true);
 					}
+					description = StringEscapeUtils.unescapeJava(language.getString("enchantment.descriptions.custom_enchantments."+enchantment.getName()));
 				} else {
 					if(Enchantments.addEnchantment(enchantment)) {
 						ENCHANTMENTS.get(i).setEnabled(true);
 					} else {
 						ENCHANTMENTS.get(i).setEnabled(false);
 					}
+					description = StringEscapeUtils.unescapeJava(language.getString("enchantment.descriptions.default_enchantments."+enchantment.getName()));
 				}
 				if(ConfigFiles.useLevel50()) {
 					ENCHANTMENTS.get(i).setLevelFifty();
@@ -268,6 +276,7 @@ public class DefaultEnchantments {
 				}
 				ENCHANTMENTS.get(i).setConflictingEnchantments();
 				ENCHANTMENTS.get(i).setDisabledItems(Arrays.asList());
+				ENCHANTMENTS.get(i).setDescription(description);
 			}
 		}
 	}

@@ -23,6 +23,7 @@ public class Looting extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Mobs can drop more loot.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class Looting extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Mobs can drop more loot.";
-	}
-
 }

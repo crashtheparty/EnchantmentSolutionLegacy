@@ -24,16 +24,12 @@ public class HeightPlusPlus extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increase up/down break radius by 1 per level.");
 	}
 	
 	@Override
 	public Enchantment getRelativeEnchantment() {
 		return DefaultEnchantments.HEIGHT_PLUS_PLUS;
-	}
-
-	@Override
-	public String getDescription() {
-		return "Increase up/down break radius by 1 per level.";
 	}
 
 	@Override

@@ -23,6 +23,7 @@ public class Punch extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases knockback on bows.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class Punch extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases knockback on bows.";
-	}
-
 }

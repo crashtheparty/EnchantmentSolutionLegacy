@@ -25,6 +25,7 @@ public class FrostWalker extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(2);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Creates frosted ice blocks when walking over water.");
 	}
 
 	@Override
@@ -51,10 +52,4 @@ public class FrostWalker extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.DEPTH_STRIDER, DefaultEnchantments.MAGMA_WALKER, DefaultEnchantments.VOID_WALKER);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Creates frosted ice blocks when walking over water.";
-	}
-
 }

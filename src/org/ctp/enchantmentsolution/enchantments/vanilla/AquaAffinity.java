@@ -24,6 +24,7 @@ public class AquaAffinity extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Increases underwater mining rate.");
 	}
 	
 	@Override
@@ -48,10 +49,5 @@ public class AquaAffinity extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Increases underwater mining rate.";
 	}
 }

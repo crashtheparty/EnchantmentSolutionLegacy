@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,6 +18,7 @@ import org.ctp.enchantmentsolution.enchantments.PlayerLevels;
 import org.ctp.enchantmentsolution.enchantments.Weight;
 import org.ctp.enchantmentsolution.enchantments.mcmmo.Fishing;
 import org.ctp.enchantmentsolution.enchantments.wrappers.CustomEnchantmentWrapper;
+import org.ctp.enchantmentsolution.nms.Version;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 import org.ctp.enchantmentsolution.utils.config.YamlConfigBackup;
@@ -198,6 +200,7 @@ public class ConfigFiles {
 		CONFIG.addDefault("lapis_in_table", true, new String[] {"Lapis must be placed in the enchantment table before items can be enchanted."});
 		CONFIG.addDefault("level_divisor", 4, new String[] {"Greater numbers allow more anvil uses"});
 		CONFIG.addDefault("level_50_enchants", true, new String[] {"Allow enchantments up to level 50", "- To make this easier, you can try the XpBank plugin: https://www.spigotmc.org/resources/xpbank.59580/"});
+		CONFIG.addDefault("max_repair_level", 60, new String[] {"The highest repair level that will be allowed in the anvil."});
 		CONFIG.addDefault("disable_enchant_method", "visible", new String[] {"How disabling an enchantment in enchantments.yml or enchantments_advanced.yml will work.", 
 				"Options:", "vanish - removes enchantment from items", "visible - keeps enchantment on item, but custom effects will not work and anvil will remove enchant", 
 				"repairable - same as above but anvil will not remove enchant"});
@@ -205,6 +208,9 @@ public class ConfigFiles {
 		CONFIG.addDefault("use_advanced_file", false, new String[] {"Use enchantments_advanced.yml as the enchantment config."});
 		CONFIG.addDefault("default_anvil_use", false, new String[] {"Allow default use of anvil GUI via option at bottom right of custom GUI.", 
 				"Using this feature MAY REMOVE CUSTOM ENCHANTMENTS FROM ITEMS on accident. Should only be true if anvil is used for custom recipes."});
+		if(Version.VERSION_NUMBER < 4) {
+			CONFIG.addDefault("use_grindstone", false, new String[] {"Use the grindstone from within the anvil in version < 1.14"});
+		}
 		CONFIG.addDefault("chest_loot", true, new String[] {"Allow custom and/or high level enchants to spawn in chests"});
 		CONFIG.addDefault("mob_loot", true, new String[] {"Allow custom and/or high level enchantments to spawn on mobs"});
 		CONFIG.addDefault("fishing_loot", true, new String[] {"Allow custom and/or high level enchantments to appear while fishing"});
@@ -339,6 +345,10 @@ public class ConfigFiles {
 					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".enchantability_max_constant", enchant.getDefaultFiftyMaxConstant());
 					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".enchantability_start_level", enchant.getDefaultFiftyStartLevel());
 					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".enchantability_max_level", enchant.getDefaultFiftyMaxLevel());
+					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".conflicting_enchantments", enchant.conflictingDefaultList());
+					ENCHANTMENT_ADVANCED.addEnum(plugin.getName() + "." + enchant.getName() + ".conflicting_enchantments", DefaultEnchantments.getEnchantmentNames());
+					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".disabled_items", enchant.getDisabledItemsStrings());
+					ENCHANTMENT_ADVANCED.addEnum(plugin.getName() + "." + enchant.getName() + ".disabled_items", ItemUtils.getRepairMaterialsStrings());
 				}
 			}
 		}
@@ -366,6 +376,7 @@ public class ConfigFiles {
 					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".permissions.table.level" + (i + 1), false);
 					ENCHANTMENT_ADVANCED.addDefault(plugin.getName() + "." + enchant.getName() + ".permissions.anvil.level" + (i + 1), false);
 				}
+				LANGUAGE.addDefault("enchantment.descriptions." + plugin.getName() + "." + enchant.getName(), StringEscapeUtils.escapeJava(enchant.getDefaultDescription()));
 			} else if (enchant.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
 				String displayName = ENCHANTMENT.getString("custom_enchantments." + enchant.getName() + ".display_name");
 				if(displayName != null) {
@@ -377,6 +388,7 @@ public class ConfigFiles {
 					ENCHANTMENT_ADVANCED.addDefault("custom_enchantments." + enchant.getName() + ".permissions.table.level" + (i + 1), false);
 					ENCHANTMENT_ADVANCED.addDefault("custom_enchantments." + enchant.getName() + ".permissions.anvil.level" + (i + 1), false);
 				}
+				LANGUAGE.addDefault("enchantment.descriptions.custom_enchantments." + enchant.getName(), StringEscapeUtils.escapeJava(enchant.getDefaultDescription()));
 			} else {
 				String displayName = ENCHANTMENT_ADVANCED.getString("default_enchantments." + enchant.getName() + ".display_name");
 				if(displayName != null) {
@@ -386,10 +398,12 @@ public class ConfigFiles {
 					ENCHANTMENT_ADVANCED.addDefault("default_enchantments." + enchant.getName() + ".permissions.table.level" + (i + 1), false);
 					ENCHANTMENT_ADVANCED.addDefault("default_enchantments." + enchant.getName() + ".permissions.anvil.level" + (i + 1), false);
 				}
+				LANGUAGE.addDefault("enchantment.descriptions.default_enchantments." + enchant.getName(), StringEscapeUtils.escapeJava(enchant.getDefaultDescription()));
 			}
 		}
 		ENCHANTMENT.saveConfig();
 		ENCHANTMENT_ADVANCED.saveConfig();
+		LANGUAGE.saveConfig();
 		
 		EnchantmentSolution.getDb().updateConfig(getEnchantmentConfig());
 		EnchantmentSolution.getDb().updateConfig(getEnchantmentAdvancedConfig());
@@ -597,6 +611,19 @@ public class ConfigFiles {
 		LANGUAGE.addDefault("commands.enchant-disabled", ("Cannot enchant item with a disabled enchantment.").replace("§", "&"));
 		LANGUAGE.addDefault("commands.reset-inventory", ("Closed all custom inventories.").replace("§", "&"));
 		
+		LANGUAGE.addDefault("grindstone.legacy-open", (ChatColor.GREEN + "Open the Grindstone").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.name", (ChatColor.BLUE + "Grindstone").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.mirror", (ChatColor.WHITE + "").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.combine-lore", (ChatColor.WHITE + "Repair the Items and Remove Enchantments").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.combine", (ChatColor.GREEN + "Combine").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.cannot-combine", (ChatColor.RED + "Cannot Combine").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.remove-enchants", (ChatColor.GREEN + "Remove Enchantments").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.no-items", (ChatColor.WHITE + "No Items").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.no-items-lore", (ChatColor.WHITE + "Add items by selecting them from your inventory").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.anvil", (ChatColor.GREEN + "Open the Anvil").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.switch-to-anvil", (ChatColor.WHITE + "Go back to the Anvil inventory").replace("§", "&"));
+		LANGUAGE.addDefault("grindstone.message-cannot-combine", (ChatColor.RED + "Cannot combine these items.").replace("§", "&"));
+		
 		LANGUAGE.addDefault("enchantment.name", (ChatColor.GOLD + "Display Name: " + ChatColor.WHITE).replace("§", "&"));
 		LANGUAGE.addDefault("enchantment.description", (ChatColor.GOLD + "Description: " + ChatColor.WHITE).replace("§", "&"));
 		LANGUAGE.addDefault("enchantment.max-level", (ChatColor.GOLD + "Max Level: " + ChatColor.WHITE).replace("§", "&"));
@@ -607,6 +634,23 @@ public class ConfigFiles {
 		LANGUAGE.addDefault("enchantment.conflicting-enchantments", (ChatColor.GOLD + "Conflicting Enchantments: " + ChatColor.WHITE).replace("§", "&"));
 		LANGUAGE.addDefault("enchantment.enabled", (ChatColor.GOLD + "Enchantment Enabled: " + ChatColor.WHITE).replace("§", "&"));
 		LANGUAGE.addDefault("enchantment.treasure", (ChatColor.GOLD + "Treasure Enchantment: " + ChatColor.WHITE).replace("§", "&"));
+		LANGUAGE.addDefault("enchantment.disabled-items", (ChatColor.GOLD + "Disabled Items: " + ChatColor.WHITE).replace("§", "&"));
+		
+		for(CustomEnchantment enchant: DefaultEnchantments.getEnchantments()) {
+			if (enchant.getRelativeEnchantment() instanceof ApiEnchantmentWrapper) {
+				JavaPlugin plugin = ((ApiEnchantmentWrapper) enchant.getRelativeEnchantment()).getPlugin();
+				if(plugin == null) {
+					ChatUtils.sendToConsole(Level.WARNING, "Enchantment " + enchant.getName() + " (Display Name " + enchant.getDisplayName() + ")"
+							+ " does not have a JavaPlugin set. Refusing to set language defaults.");
+					continue;
+				}
+				LANGUAGE.addDefault("enchantment.descriptions." + plugin.getName() + "." + enchant.getName(), StringEscapeUtils.escapeJava(enchant.getDefaultDescription()));
+			} else if (enchant.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
+				LANGUAGE.addDefault("enchantment.descriptions." + "custom_enchantments." + enchant.getName(), StringEscapeUtils.escapeJava(enchant.getDefaultDescription()));
+			} else {
+				LANGUAGE.addDefault("enchantment.descriptions." + "default_enchantments." + enchant.getName(), StringEscapeUtils.escapeJava(enchant.getDefaultDescription()));
+			}
+		}
 		
 		LANGUAGE.saveConfig();
 		if(LANGUAGE.getString("commands.reload").equals("Config files have been reloaded. Please note that the enchantments.yml file requires a server restart to take effect.")) {
@@ -651,6 +695,17 @@ public class ConfigFiles {
 	
 	public static boolean useLapisInTable() {
 		return CONFIG.getBoolean("lapis_in_table");
+	}
+	
+	public static boolean useLegacyGrindstone() {
+		if(Version.VERSION_NUMBER < 4) {
+			return CONFIG.getBoolean("use_grindstone");
+		}
+		return false;
+	}
+	
+	public static int getMaxRepairLevel() {
+		return CONFIG.getInt("max_repair_level");
 	}
  
 }

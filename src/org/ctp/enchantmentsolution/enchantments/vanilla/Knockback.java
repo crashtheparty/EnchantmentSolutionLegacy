@@ -24,6 +24,7 @@ public class Knockback extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Increases knockback.");
 	}
 
 	@Override
@@ -50,10 +51,4 @@ public class Knockback extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(DefaultEnchantments.KNOCKUP);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases knockback.";
-	}
-
 }

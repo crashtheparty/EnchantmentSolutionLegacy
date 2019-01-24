@@ -23,6 +23,7 @@ public class SweepingEdge extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases sweeping attack damage.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class SweepingEdge extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases sweeping attack damage.";
-	}
-
 }

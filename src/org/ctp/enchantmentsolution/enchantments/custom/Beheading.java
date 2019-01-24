@@ -24,6 +24,7 @@ public class Beheading extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Adds a chance to drop mob heads on death.");
 	}
 	
 	@Override
@@ -49,11 +50,6 @@ public class Beheading extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Adds a chance to drop mob heads on death.";
 	}
 
 }

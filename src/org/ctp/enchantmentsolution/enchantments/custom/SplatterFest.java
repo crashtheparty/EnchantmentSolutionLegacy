@@ -25,6 +25,7 @@ public class SplatterFest extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Shoots eggs out of hoe on left click.");
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class SplatterFest extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
@@ -51,10 +52,4 @@ public class SplatterFest extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Shoots eggs out of hoe on left click.";
-	}
-
 }

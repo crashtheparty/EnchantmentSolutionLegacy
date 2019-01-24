@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.listeners.abilities.mcmmo.McMMOHandler;
-import org.ctp.enchantmentsolution.utils.AbilityUtilities;
+import org.ctp.enchantmentsolution.utils.AbilityUtils;
 import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 
 public class TelepathyListener implements Listener {
@@ -31,15 +31,15 @@ public class TelepathyListener implements Listener {
 			if (Enchantments
 					.hasEnchantment(item, DefaultEnchantments.TELEPATHY)) {
 				if(Enchantments.hasEnchantment(item, Enchantment.LOOT_BONUS_BLOCKS)) {
-					Collection<ItemStack> fortuneItems = AbilityUtilities.getFortuneItems(item, event.getBlock(), event.getBlock().getDrops(item));
+					Collection<ItemStack> fortuneItems = AbilityUtils.getFortuneItems(item, event.getBlock(), event.getBlock().getDrops(item));
 					for (ItemStack drop : fortuneItems) {
 						ItemUtils.giveItemToPlayer(player, drop, player.getLocation());
 					}
-				} else if(Enchantments.hasEnchantment(item, Enchantment.SILK_TOUCH) && AbilityUtilities.getSilkTouchItem(event.getBlock(), item) != null) {
-					ItemUtils.giveItemToPlayer(player, AbilityUtilities.getSilkTouchItem(event.getBlock(), item), player.getLocation());
+				} else if(Enchantments.hasEnchantment(item, Enchantment.SILK_TOUCH) && AbilityUtils.getSilkTouchItem(event.getBlock(), item) != null) {
+					ItemUtils.giveItemToPlayer(player, AbilityUtils.getSilkTouchItem(event.getBlock(), item), player.getLocation());
 				} else {
 					if(Enchantments.hasEnchantment(item, DefaultEnchantments.SMELTERY)) {
-						ItemStack smelted = AbilityUtilities.getSmelteryItem(event.getBlock(), item);
+						ItemStack smelted = AbilityUtils.getSmelteryItem(event.getBlock(), item);
 						if(smelted != null) {
 							ItemUtils.giveItemToPlayer(player, smelted, player.getLocation());
 						} else {
@@ -54,7 +54,7 @@ public class TelepathyListener implements Listener {
 					}
 				}
 				if(Enchantments.hasEnchantment(item, DefaultEnchantments.GOLD_DIGGER)) {
-					ItemStack goldDigger = AbilityUtilities.getGoldDiggerItems(item, event.getBlock());
+					ItemStack goldDigger = AbilityUtils.getGoldDiggerItems(item, event.getBlock());
 					if(goldDigger != null) {
 						event.getPlayer().giveExp(GoldDiggerListener.GoldDiggerCrop.getExp(event.getBlock().getType(), 
 								Enchantments.getLevel(item, DefaultEnchantments.GOLD_DIGGER)));

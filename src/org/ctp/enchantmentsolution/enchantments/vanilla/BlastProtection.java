@@ -24,6 +24,9 @@ public class BlastProtection extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(4);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Reduces explosion damage." + 
+				StringUtils.LF + 
+				"Also reduces explosion knockback by (15 × level)%. If multiple pieces have the enchantment, only the highest level's reduction is used.");
 	}
 	
 	@Override
@@ -50,12 +53,4 @@ public class BlastProtection extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_FIRE, Enchantment.PROTECTION_PROJECTILE);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Reduces explosion damage." + 
-				StringUtils.LF + 
-				"Also reduces explosion knockback by (15 × level)%. If multiple pieces have the enchantment, only the highest level's reduction is used.";
-	}
-
 }

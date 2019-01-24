@@ -25,6 +25,7 @@ public class SoulReaper extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Has a chance of stealing soulbounded items from the killed player.");
 	}
 	
 	@Override
@@ -39,7 +40,7 @@ public class SoulReaper extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
@@ -51,10 +52,4 @@ public class SoulReaper extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Has a chance of stealing soulbounded items from the killed player.";
-	}
-
 }

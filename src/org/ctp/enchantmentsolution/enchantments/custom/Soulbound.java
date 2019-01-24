@@ -25,6 +25,7 @@ public class Soulbound extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Keep item on death.");
 	}
 	
 	@Override
@@ -51,10 +52,4 @@ public class Soulbound extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Keep item on death.";
-	}
-
 }

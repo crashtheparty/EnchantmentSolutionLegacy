@@ -26,6 +26,10 @@ public class CurseOfBinding extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setCurse(true);
+		setDefaultDescription("Prevents removal of the cursed item." + 
+				StringUtils.LF + 
+				"The cursed item cannot be removed from any armor slot (outside of Creative mode) unless the player dies or the item breaks.");
 	}
 	
 	@Override
@@ -52,12 +56,4 @@ public class CurseOfBinding extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Prevents removal of the cursed item." + 
-				StringUtils.LF + 
-				"The cursed item cannot be removed from any armor slot (outside of Creative mode) unless the player dies or the item breaks.";
-	}
-
 }

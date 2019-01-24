@@ -24,6 +24,9 @@ public class Smite extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Increases damage to \"undead\" mobs (skeletons, zombies, withers, wither skeletons, zombie pigmen, skeleton horses and zombie horses)" + 
+				StringUtils.LF + 
+				"Each level separately adds 2.5 (half heart) extra damage to each hit, to \"undead\" mobs only.");
 	}
 	
 	@Override
@@ -50,12 +53,4 @@ public class Smite extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.DAMAGE_ARTHROPODS, Enchantment.DAMAGE_ALL);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases damage to \"undead\" mobs (skeletons, zombies, withers, wither skeletons, zombie pigmen, skeleton horses and zombie horses)" + 
-				StringUtils.LF + 
-				"Each level separately adds 2.5 (half heart) extra damage to each hit, to \"undead\" mobs only.";
-	}
-
 }

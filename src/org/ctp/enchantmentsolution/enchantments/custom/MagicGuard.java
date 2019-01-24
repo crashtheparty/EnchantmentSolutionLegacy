@@ -23,8 +23,9 @@ public class MagicGuard extends CustomEnchantment{
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(20);
 		setDefaultThirtyMaxLevel(1);
-		setDefaultWeight(Weight.RARE);
+		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Negates bad potion effects.");
 	}
 
 	@Override
@@ -50,11 +51,6 @@ public class MagicGuard extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Negates bad potion effects.";
 	}
 
 }

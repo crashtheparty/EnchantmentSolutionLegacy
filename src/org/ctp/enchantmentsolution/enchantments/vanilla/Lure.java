@@ -23,6 +23,7 @@ public class Lure extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases rate of fish biting your hook while fishing.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class Lure extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases rate of fish biting your hook while fishing.";
-	}
-
 }

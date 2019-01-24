@@ -24,6 +24,7 @@ public class Life extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases maximum health by 4 (half hearts) per level when worn.");
 	}
 	
 	@Override
@@ -49,11 +50,6 @@ public class Life extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Increases maximum health by 4 (half hearts) per level when worn.";
 	}
 
 }

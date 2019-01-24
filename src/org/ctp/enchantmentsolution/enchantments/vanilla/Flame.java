@@ -25,6 +25,9 @@ public class Flame extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Flaming arrows." + 
+				StringUtils.LF + 
+				"Arrows are on fire when shot and deal 4 (2 Hearts) fire damage over 5 seconds.");
 	}
 
 	@Override
@@ -51,12 +54,4 @@ public class Flame extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Flaming arrows." + 
-				StringUtils.LF + 
-				"Arrows are on fire when shot and deal 4 (2 Hearts) fire damage over 5 seconds.";
-	}
-
 }

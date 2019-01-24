@@ -24,6 +24,7 @@ public class ShockAspect extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Has a chance to strike lightning on attacked mobs.");
 	}
 	
 	@Override
@@ -49,10 +50,5 @@ public class ShockAspect extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Has a chance to strike lightning on attacked mobs.";
 	}
 }

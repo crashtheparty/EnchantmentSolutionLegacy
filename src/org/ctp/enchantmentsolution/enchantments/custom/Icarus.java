@@ -23,7 +23,8 @@ public class Icarus extends CustomEnchantment{
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
-		setDefaultWeight(Weight.RARE);
+		setDefaultWeight(Weight.VERY_RARE);
+		setDefaultDescription("Flying upwards will occasionally increase velocity.");
 	}
 	
 	@Override
@@ -38,17 +39,12 @@ public class Icarus extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
 		return Arrays.asList(ItemType.ELYTRA);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Flying upwards will occasionally increase velocity.";
 	}
 
 	@Override

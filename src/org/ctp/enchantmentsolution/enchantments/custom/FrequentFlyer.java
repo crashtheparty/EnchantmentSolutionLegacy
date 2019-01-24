@@ -24,6 +24,7 @@ public class FrequentFlyer extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.VERY_RARE);
+		setDefaultDescription("Allows flight. Durability damage every (3 * level) seconds when below 255 height and every (level) seconds above 255 height. Removes flight at 32 durability.");
 	}
 	
 	@Override
@@ -38,7 +39,7 @@ public class FrequentFlyer extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
@@ -49,11 +50,6 @@ public class FrequentFlyer extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(DefaultEnchantments.ICARUS);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Allows flight. Durability damage every (3 * level) seconds when below 255 height and every (level) seconds above 255 height. Removes flight at 32 durability.";
 	}
 
 }

@@ -25,6 +25,7 @@ public class Telepathy extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Items mined go straight into your inventory.");
 	}
 	
 	@Override
@@ -51,10 +52,4 @@ public class Telepathy extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Items mined go straight into your inventory.";
-	}
-
 }

@@ -24,6 +24,7 @@ public class Tank extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Gives additional unbreaking protection to armor.");
 	}
 	
 	@Override
@@ -50,10 +51,4 @@ public class Tank extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Gives additional unbreaking protection to armor.";
-	}
-
 }

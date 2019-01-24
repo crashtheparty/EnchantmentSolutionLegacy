@@ -24,6 +24,7 @@ public class Angler extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Catch one additional fish per level if you caught a fish.");
 	}
 	
 	@Override
@@ -49,11 +50,6 @@ public class Angler extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Catch one additional fish per level if you caught a fish.";
 	}
 
 }

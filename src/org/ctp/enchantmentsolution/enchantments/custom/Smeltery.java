@@ -25,6 +25,7 @@ public class Smeltery extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Smelts blocks while mining.");
 	}
 	
 	@Override
@@ -51,10 +52,4 @@ public class Smeltery extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.SILK_TOUCH);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Smelts blocks while mining.";
-	}
-
 }

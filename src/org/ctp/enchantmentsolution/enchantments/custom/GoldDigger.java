@@ -24,6 +24,7 @@ public class GoldDigger extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.COMMON);
+		setDefaultDescription("Earn experience and gold nuggets for breaking crops.");
 	}
 	
 	@Override
@@ -38,7 +39,7 @@ public class GoldDigger extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
@@ -49,11 +50,6 @@ public class GoldDigger extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Earn experience and gold nuggets for breaking crops.";
 	}
 
 }

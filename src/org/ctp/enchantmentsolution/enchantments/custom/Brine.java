@@ -25,6 +25,7 @@ public class Brine extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Doubles damage if opposing mob is below 50% health.");
 	}
 
 	@Override
@@ -50,11 +51,6 @@ public class Brine extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Doubles damage if opposing mob is below 50% health.";
 	}
 
 }

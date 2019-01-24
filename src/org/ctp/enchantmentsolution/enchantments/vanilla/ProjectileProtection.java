@@ -23,6 +23,7 @@ public class ProjectileProtection extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(4);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Reduces projectile damage (arrows, ghast/blaze fire charges, etc.).");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class ProjectileProtection extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_EXPLOSIONS, Enchantment.PROTECTION_FIRE);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Reduces projectile damage (arrows, ghast/blaze fire charges, etc.).";
-	}
-
 }

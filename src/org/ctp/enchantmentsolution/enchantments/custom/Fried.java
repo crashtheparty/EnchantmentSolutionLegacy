@@ -25,6 +25,7 @@ public class Fried extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Cooks fish upon catching them.");
 	}
 	
 	@Override
@@ -50,11 +51,6 @@ public class Fried extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Cooks fish upon catching them.";
 	}
 
 }

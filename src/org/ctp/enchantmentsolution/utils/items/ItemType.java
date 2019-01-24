@@ -12,7 +12,7 @@ public enum ItemType {
 	CARROT_ON_A_STICK("carrot_on_a_stick"), ELYTRA("elytra"), TRIDENT("trident"), RANGED("ranged"), ARMOR("armor"), TOOLS("tools"), MELEE("melee"), MISC("misc"), 
 	WOODEN_TOOLS("wooden_tools"), STONE_TOOLS("stone_tools"), IRON_TOOLS("iron_tools"), GOLDEN_TOOLS("golden_tools"), DIAMOND_TOOLS("diamond_tools"), 
 	LEATHER_ARMOR("leather_armor"), GOLDEN_ARMOR("golden_armor"), CHAINMAIL_ARMOR("chainmail_armor"), IRON_ARMOR("iron_armor"), DIAMOND_ARMOR("diamond_armor"), 
-	ALL("all");
+	BOOK("book"), ALL("all");
 	
 	private String type, display;
 	private List<Material> itemTypes;
@@ -39,6 +39,15 @@ public enum ItemType {
 		return display;
 	}
 	
+	public static boolean hasItemType(Material mat) {
+		for(ItemType type : values()) {
+			if(type.getItemTypes().contains(mat)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private String getDisplayType(String type) {
 		if (ALL.getType().equals(type)) {
 			return "All";
@@ -46,6 +55,8 @@ public enum ItemType {
 			return "Armor";
 		} else if (AXES.getType().equals(type)) {
 			return "Axes";
+		} else if (BOOK.getType().equals(type)) {
+			return "Books";
 		} else if (BOOTS.getType().equals(type)) {
 			return "Boots";
 		} else if (BOW.getType().equals(type)) {
@@ -129,6 +140,8 @@ public enum ItemType {
 		} else if (AXES.getType().equals(type)) {
 			itemTypes.addAll(Arrays.asList(Material.DIAMOND_AXE, Material.GOLD_AXE,
 					Material.IRON_AXE, Material.STONE_AXE, Material.WOOD_AXE));
+			return itemTypes;
+		} else if (BOOK.getType().equals(type)) {
 			return itemTypes;
 		} else if (BOOTS.getType().equals(type)) {
 			itemTypes.addAll(Arrays.asList(Material.DIAMOND_BOOTS,

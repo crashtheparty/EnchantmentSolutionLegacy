@@ -24,6 +24,7 @@ public class Warp extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Gives a chance of teleporting a small distance away on hit.");
 	}
 	
 	@Override
@@ -50,10 +51,4 @@ public class Warp extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Gives a chance of teleporting a small distance away on hit.";
-	}
-
 }

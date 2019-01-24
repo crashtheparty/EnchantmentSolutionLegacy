@@ -24,6 +24,9 @@ public class FireAspect extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Sets the target on fire." + 
+				StringUtils.LF + 
+				"Fire Aspect adds 80 fireticks (4 seconds of burning) per level to the target.");
 	}
 
 	@Override
@@ -50,12 +53,4 @@ public class FireAspect extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Sets the target on fire." + 
-				StringUtils.LF + 
-				"Fire Aspect adds 80 fireticks (4 seconds of burning) per level to the target.";
-	}
-	
 }

@@ -83,6 +83,17 @@ public class Enchantments {
 		    return false;
 		}
 	}
+	
+	public static List<EnchantmentLevel> getEnchantmentLevels(ItemStack item){
+		List<EnchantmentLevel> levels = new ArrayList<EnchantmentLevel>();
+		if(item.getItemMeta() != null && item.getItemMeta().getEnchants() != null && item.getItemMeta().getEnchants().size() > 0){
+			for (Iterator<java.util.Map.Entry<Enchantment, Integer>> it = item.getItemMeta().getEnchants().entrySet().iterator(); it.hasNext();) {
+				java.util.Map.Entry<Enchantment, Integer> e = it.next();
+				levels.add(new EnchantmentLevel(DefaultEnchantments.getCustomEnchantment(e.getKey()), e.getValue()));
+			}
+		}
+		return levels;
+	}
 
 	public static boolean isEnchantable(ItemStack item) {
 		if (item == null) {
@@ -323,6 +334,26 @@ public class Enchantments {
 		return item;
 	}
 	
+	public static ItemStack removeAllEnchantments(ItemStack item) {
+		ItemMeta meta = item.getItemMeta();
+		List<String> lore = meta.getLore();
+		if(lore == null){
+			lore = new ArrayList<String>();
+		}
+		for(CustomEnchantment enchantment : DefaultEnchantments.getEnchantments()) {
+			if(Enchantments.hasEnchantment(item, enchantment.getRelativeEnchantment())){
+				String enchName = ChatColor.RESET + "" + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
+				meta.removeEnchant(enchantment.getRelativeEnchantment());
+				while(lore.contains(enchName)) {
+					lore.remove(enchName);
+				}
+			}
+		}
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
 	public static boolean hasEnchantment(ItemStack item, Enchantment enchant){
 		if(item.getItemMeta() != null && item.getItemMeta().getEnchants() != null && item.getItemMeta().getEnchants().size() > 0){
 			for (Iterator<java.util.Map.Entry<Enchantment, Integer>> it = item.getItemMeta().getEnchants().entrySet().iterator(); it.hasNext();) {
@@ -447,7 +478,7 @@ public class Enchantments {
 		return cost;
 	}
 	
-	private static boolean isRepairable(CustomEnchantment enchant) {
+	public static boolean isRepairable(CustomEnchantment enchant) {
 		if(ConfigFiles.getDefaultConfig().getString("disable_enchant_method").equals("repairable")) {
 			return true;
 		}

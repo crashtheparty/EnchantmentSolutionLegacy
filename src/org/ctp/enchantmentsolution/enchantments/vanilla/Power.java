@@ -23,6 +23,7 @@ public class Power extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.COMMON);
+		setDefaultDescription("Increases arrow damage by 25% × (level + 1), rounded up to nearest half-heart.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class Power extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases arrow damage by 25% × (level + 1), rounded up to nearest half-heart.";
-	}
-
 }

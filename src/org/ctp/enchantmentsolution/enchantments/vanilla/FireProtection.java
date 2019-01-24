@@ -23,6 +23,7 @@ public class FireProtection extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(4);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Reduces fire damage.");
 	}
 
 	@Override
@@ -49,10 +50,4 @@ public class FireProtection extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_EXPLOSIONS, Enchantment.PROTECTION_PROJECTILE);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Reduces fire damage.";
-	}
-
 }

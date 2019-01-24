@@ -23,6 +23,7 @@ public class Fortune extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases block drops.");
 	}
 	
 	@Override
@@ -37,22 +38,16 @@ public class Fortune extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.TOOLS, ItemType.HOES);
+		return Arrays.asList(ItemType.TOOLS);
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
-		return Arrays.asList(ItemType.TOOLS, ItemType.HOES);
+		return Arrays.asList(ItemType.TOOLS);
 	}
 
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.SILK_TOUCH);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases block drops.";
-	}
-
 }

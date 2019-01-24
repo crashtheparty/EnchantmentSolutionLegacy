@@ -24,6 +24,7 @@ public class ApiEnchantList {
 	 * @param enchant - the enchantment
 	 */
 	public static void addEnchantment(JavaPlugin plugin, ApiEnchantment enchant) {
+		if(plugin == null) throw new NullPointerException("Plugin cannot be null.");
 		List<ApiEnchantment> enchantments = ENCHANTMENTS.get(plugin);
 		if (enchantments == null) {
 			enchantments = new ArrayList<ApiEnchantment>();
@@ -39,9 +40,10 @@ public class ApiEnchantList {
 	 * @param plugin
 	 */
 	public static void setEnchantments(JavaPlugin plugin) {
+		if(plugin == null) throw new NullPointerException("Plugin cannot be null.");
 		List<ApiEnchantment> enchantments = ENCHANTMENTS.get(plugin);
 		if(enchantments == null) {
-			return;
+			throw new NullPointerException("Enchantments for this plugin are null: " + plugin.getName() + ".");
 		}
 		
 		for(ApiEnchantment enchant : enchantments) {

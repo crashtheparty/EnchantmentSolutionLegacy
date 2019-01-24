@@ -23,6 +23,7 @@ public class Protection extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(4);
 		setDefaultWeight(Weight.COMMON);
+		setDefaultDescription("Reduces all damage, except damage from the Void, the /kill command, or hunger damage.");
 	}
 
 	@Override
@@ -49,10 +50,4 @@ public class Protection extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.PROTECTION_PROJECTILE, Enchantment.PROTECTION_EXPLOSIONS, Enchantment.PROTECTION_FIRE);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Reduces all damage, except damage from the Void, the /kill command, or hunger damage.";
-	}
-
 }

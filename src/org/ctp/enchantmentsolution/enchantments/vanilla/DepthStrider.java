@@ -24,6 +24,7 @@ public class DepthStrider extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases underwater movement speed.");
 	}
 
 	@Override
@@ -50,10 +51,4 @@ public class DepthStrider extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.FROST_WALKER, DefaultEnchantments.MAGMA_WALKER, DefaultEnchantments.VOID_WALKER);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases underwater movement speed.";
-	}
-
 }

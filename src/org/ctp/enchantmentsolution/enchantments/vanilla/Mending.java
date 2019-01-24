@@ -25,6 +25,7 @@ public class Mending extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Repair durability with experience.");
 	}
 
 	@Override
@@ -51,10 +52,4 @@ public class Mending extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.ARROW_INFINITE);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Repair durability with experience.";
-	}
-
 }

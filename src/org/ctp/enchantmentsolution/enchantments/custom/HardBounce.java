@@ -23,7 +23,8 @@ public class HardBounce extends CustomEnchantment{
 		setDefaultThirtyStartLevel(1);
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
-		setDefaultWeight(Weight.RARE);
+		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Projectiles bounce back from the shield.");
 	}
 	
 	@Override
@@ -44,11 +45,6 @@ public class HardBounce extends CustomEnchantment{
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
 		return Arrays.asList(ItemType.SHIELD);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Projectiles bounce back from the shield.";
 	}
 
 	@Override

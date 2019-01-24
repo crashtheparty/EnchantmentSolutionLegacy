@@ -24,6 +24,7 @@ public class Sacrifice extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(2);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.VERY_RARE);
+		setDefaultDescription("Damage the mob who killed you based upon your experience level.");
 	}
 	
 	@Override
@@ -49,10 +50,5 @@ public class Sacrifice extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
-	}
-
-	@Override
-	public String getDescription() {
-		return "Damage the mob who killed you based upon your experience level.";
 	}
 }

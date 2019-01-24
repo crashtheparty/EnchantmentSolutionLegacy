@@ -26,6 +26,10 @@ public class CurseOfVanishing extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setCurse(true);
+		setDefaultDescription("Causes the item to disappear on death." + 
+				StringUtils.LF + 
+				"When the player dies, the item disappears instead of dropping on the ground. The item may still be dropped normally.");
 	}
 
 	@Override
@@ -52,12 +56,4 @@ public class CurseOfVanishing extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Causes the item to disappear on death." + 
-				StringUtils.LF + 
-				"When the player dies, the item disappears instead of dropping on the ground. The item may still be dropped normally.";
-	}
-
 }

@@ -25,6 +25,7 @@ public class FlowerGift extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Has a chance of dropping flowers when right clicking them.");
 	}
 	
 	@Override
@@ -39,7 +40,7 @@ public class FlowerGift extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
@@ -50,11 +51,6 @@ public class FlowerGift extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(DefaultEnchantments.GOLD_DIGGER, DefaultEnchantments.SOUL_REAPER);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Has a chance of dropping flowers when right clicking them.";
 	}
 
 }

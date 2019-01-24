@@ -23,6 +23,7 @@ public class FeatherFalling extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(4);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Reduces fall damage.");
 	}
 
 	@Override
@@ -49,10 +50,4 @@ public class FeatherFalling extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Reduces fall damage.";
-	}
-
 }

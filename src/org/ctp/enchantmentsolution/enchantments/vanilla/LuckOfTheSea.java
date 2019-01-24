@@ -23,6 +23,7 @@ public class LuckOfTheSea extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(4);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases luck while fishing.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class LuckOfTheSea extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases luck while fishing.";
-	}
-
 }

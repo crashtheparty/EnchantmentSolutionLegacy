@@ -23,6 +23,7 @@ public class Respiration extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Extends underwater breathing time.");
 	}
 	
 	@Override
@@ -49,10 +50,4 @@ public class Respiration extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Extends underwater breathing time.";
-	}
-
 }

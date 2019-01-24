@@ -24,6 +24,9 @@ public class Efficiency extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.COMMON);
+		setDefaultDescription("Increases mining speed." + 
+				StringUtils.LF + 
+				"One must use the proper tool for a block in order to receive the speed. Does not matter if you mine it with the incorrect tier.");
 	}
 
 	@Override
@@ -55,12 +58,4 @@ public class Efficiency extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases mining speed." + 
-				StringUtils.LF + 
-				"One must use the proper tool for a block in order to receive the speed. Does not matter if you mine it with the incorrect tier.";
-	}
-
 }

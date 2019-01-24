@@ -23,6 +23,7 @@ public class Unbreaking extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(5);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Increases effective durability.");
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class Unbreaking extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.TOOLS, ItemType.SWORDS, ItemType.ARMOR, ItemType.TRIDENT, ItemType.SHIELD);
+		return Arrays.asList(ItemType.TOOLS, ItemType.SWORDS, ItemType.ARMOR, ItemType.RANGED, ItemType.SHIELD);
 	}
 
 	@Override
@@ -49,10 +50,4 @@ public class Unbreaking extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases effective durability.";
-	}
-
 }

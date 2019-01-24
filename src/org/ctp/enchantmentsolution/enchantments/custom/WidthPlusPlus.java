@@ -24,18 +24,14 @@ public class WidthPlusPlus extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increase left/right break radius by 1 per level.");
 	}
 	
 	@Override
 	public Enchantment getRelativeEnchantment() {
 		return DefaultEnchantments.WIDTH_PLUS_PLUS;
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increase left/right break radius by 1 per level.";
-	}
-
+	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
 		return Arrays.asList(ItemType.TOOLS);

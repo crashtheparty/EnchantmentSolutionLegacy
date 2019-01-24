@@ -24,6 +24,7 @@ public class Infinity extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Shooting doesn't consume regular arrows.");
 	}
 
 	@Override
@@ -50,10 +51,4 @@ public class Infinity extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.MENDING);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Shooting doesn't consume regular arrows.";
-	}
-
 }

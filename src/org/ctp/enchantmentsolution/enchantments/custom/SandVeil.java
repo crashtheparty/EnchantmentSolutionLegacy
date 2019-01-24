@@ -24,6 +24,7 @@ public class SandVeil extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.COMMON);
+		setDefaultDescription("Lowers accuracy of entity's attacks.");
 	}
 	
 	@Override
@@ -38,7 +39,7 @@ public class SandVeil extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOK);
 	}
 
 	@Override
@@ -50,10 +51,4 @@ public class SandVeil extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Lowers accuracy of entity's attacks.";
-	}
-
 }

@@ -24,6 +24,9 @@ public class Sharpness extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.COMMON);
+		setDefaultDescription("Increases melee damage." + 
+				StringUtils.LF + 
+				"Adds 1 (half heart) extra damage for the first level, and 0.5 (half heart) for each additional level.");
 	}
 	
 	@Override
@@ -50,12 +53,4 @@ public class Sharpness extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.DAMAGE_ARTHROPODS, Enchantment.DAMAGE_UNDEAD);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases melee damage." + 
-				StringUtils.LF + 
-				"Adds 1 (half heart) extra damage for the first level, and 0.5 (half heart) for each additional level.";
-	}
-
 }

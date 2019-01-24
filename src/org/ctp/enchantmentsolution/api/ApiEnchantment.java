@@ -19,10 +19,13 @@ public abstract class ApiEnchantment extends CustomEnchantment{
 	 * @param fiftyMaxLevel - the max level at level 50
 	 * @param thirtyMaxLevel- the max level at level 30
 	 * @param weight - the weight of getting the enchantment
+	 * @param description - the description (in english) of the enchantment
+	 * 
+	 * Set curses using the setCurse() method, and set if max level is one using the setMaxLevelOne() method
 	 */
 	public ApiEnchantment(String displayName, int fiftyConstant, int thirtyConstant, int fiftyModifier, int thirtyModifier, 
 			int fiftyMaxConstant, int thirtyMaxConstant, int fiftyStartLevel, int thirtyStartLevel, int fiftyMaxLevel, int thirtyMaxLevel, 
-			Weight weight) {
+			Weight weight, String description) {
 		setDefaultDisplayName(displayName);
 		setDefaultFiftyConstant(fiftyConstant);
 		setDefaultThirtyConstant(thirtyConstant);
@@ -35,6 +38,7 @@ public abstract class ApiEnchantment extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(fiftyMaxLevel);
 		setDefaultThirtyMaxLevel(thirtyMaxLevel);
 		setDefaultWeight(weight);
+		setDefaultDescription(description);
 	}
 	
 }

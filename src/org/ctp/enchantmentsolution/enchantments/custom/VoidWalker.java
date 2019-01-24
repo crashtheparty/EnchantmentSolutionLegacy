@@ -25,6 +25,7 @@ public class VoidWalker extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(2);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Allows players to walk on air, turning it into obsidian.");
 	}
 	
 	@Override
@@ -51,10 +52,4 @@ public class VoidWalker extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.FROST_WALKER, Enchantment.DEPTH_STRIDER, DefaultEnchantments.MAGMA_WALKER);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Allows players to walk on air, turning it into bedrock.";
-	}
-
 }

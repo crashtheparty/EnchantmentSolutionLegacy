@@ -20,7 +20,7 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.utils.items.ItemBreakType;
 
-public class AbilityUtilities {
+public class AbilityUtils {
 
 	private static List<Material> FORTUNE_ITEMS = Arrays.asList(
 			Material.DIAMOND_ORE, Material.EMERALD_ORE,

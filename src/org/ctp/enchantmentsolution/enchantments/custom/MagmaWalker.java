@@ -25,6 +25,7 @@ public class MagmaWalker extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(2);
 		setDefaultThirtyMaxLevel(2);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Allows players to walk on lava, turning it into magma.");
 	}
 	
 	@Override
@@ -50,11 +51,6 @@ public class MagmaWalker extends CustomEnchantment{
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.FROST_WALKER, Enchantment.DEPTH_STRIDER, DefaultEnchantments.VOID_WALKER);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Allows players to walk on lava, turning it into magma.";
 	}
 
 }

@@ -26,6 +26,9 @@ public class SilkTouch extends CustomEnchantment{
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
 		setMaxLevelOne(true);
+		setDefaultDescription("Mined blocks drop themselves instead of the usual items." + 
+				StringUtils.LF + 
+				"Allows collection of blocks that are normally unobtainable.");
 	}
 	
 	@Override
@@ -52,12 +55,4 @@ public class SilkTouch extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.LOOT_BONUS_BLOCKS, DefaultEnchantments.SMELTERY);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Mined blocks drop themselves instead of the usual items." + 
-				StringUtils.LF + 
-				"Allows collection of blocks that are normally unobtainable.";
-	}
-
 }

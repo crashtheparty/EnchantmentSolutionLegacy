@@ -24,6 +24,7 @@ public class Sniper extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.RARE);
+		setDefaultDescription("Increases speed of projectiles.");
 	}
 	
 	@Override
@@ -50,10 +51,4 @@ public class Sniper extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList();
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases speed of projectiles.";
-	}
-
 }

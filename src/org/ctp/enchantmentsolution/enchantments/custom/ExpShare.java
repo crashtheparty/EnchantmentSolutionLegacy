@@ -24,6 +24,7 @@ public class ExpShare extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(3);
 		setDefaultThirtyMaxLevel(3);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Increase experience earned from killing mobs and breaking blocks.");
 	}
 	
 	@Override
@@ -44,11 +45,6 @@ public class ExpShare extends CustomEnchantment{
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
 		return Arrays.asList(ItemType.SWORDS, ItemType.TOOLS, ItemType.TRIDENT);
-	}
-
-	@Override
-	public String getDescription() {
-		return "Increase experience earned from killing mobs and breaking blocks.";
 	}
 
 	@Override

@@ -24,6 +24,11 @@ public class BaneOfArthropods extends CustomEnchantment{
 		setDefaultFiftyMaxLevel(6);
 		setDefaultThirtyMaxLevel(5);
 		setDefaultWeight(Weight.UNCOMMON);
+		setDefaultDescription("Increases damage to \"arthropod\" mobs (spiders, cave spiders, silverfish and endermites)." + 
+				StringUtils.LF + 
+				"Each level separately adds 2.5 (half heart) extra damage to each hit, to \"arthropods\" only." + 
+				StringUtils.LF + 
+				"The enchantment will also cause \"arthropods\" to have the Slowness IV effect when hit.");
 	}
 
 	@Override
@@ -50,14 +55,4 @@ public class BaneOfArthropods extends CustomEnchantment{
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
 		return Arrays.asList(Enchantment.DAMAGE_ALL, Enchantment.DAMAGE_UNDEAD);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Increases damage to \"arthropod\" mobs (spiders, cave spiders, silverfish and endermites)." + 
-				StringUtils.LF + 
-				"Each level separately adds 2.5 (half heart) extra damage to each hit, to \"arthropods\" only." + 
-				StringUtils.LF + 
-				"The enchantment will also cause \"arthropods\" to have the Slowness IV effect when hit.";
-	}
-
 }

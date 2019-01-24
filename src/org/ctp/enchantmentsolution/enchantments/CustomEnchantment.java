@@ -16,14 +16,14 @@ public abstract class CustomEnchantment {
 
 	private boolean enabled = true;
 	private boolean treasure = false;
-	private String displayName = "", defaultDisplayName = "";
+	private String displayName = "", defaultDisplayName = "", description = "", defaultDescription = "";
 	private int defaultThirtyConstant = -1, defaultFiftyConstant = -1, constant = -1, defaultThirtyModifier = -1,
 			defaultFiftyModifier = -1, modifier = -1, defaultThirtyMaxConstant = -1, defaultFiftyMaxConstant = -1,
 			maxConstant = -1, defaultThirtyStartLevel = -1, defaultFiftyStartLevel = -1, startLevel = -1,
 			defaultThirtyMaxLevel = -1, defaultFiftyMaxLevel = -1, maxLevel = -1;
 	private Weight defaultWeight = Weight.NULL;
 	private Weight weight = Weight.NULL;
-	private boolean maxLevelOne = false;
+	private boolean maxLevelOne = false, curse = false;
 	private List<Enchantment> conflictingEnchantments = new ArrayList<Enchantment>();
 	private List<Material> disabledItems = new ArrayList<Material>();
 
@@ -39,8 +39,6 @@ public abstract class CustomEnchantment {
 		}
 		return false;
 	}
-	
-	public abstract String getDescription();
 	
 	protected abstract List<ItemType> getEnchantmentItemTypes();
 	
@@ -93,10 +91,18 @@ public abstract class CustomEnchantment {
 			if (getEnchantmentItemTypes().get(0).equals(ItemType.ALL)) {
 				page += getEnchantmentItemTypes().get(0).getDisplayName() + "." + StringUtils.LF;
 			} else {
+				boolean includesBooks = false;
 				for(ItemType type : getEnchantmentItemTypes()) {
 					page += type.getDisplayName() + ", ";
+					if(type.getDisplayName().equals("Books")) {
+						includesBooks = true;
+					}
 				}
-				page += "Books." + StringUtils.LF;
+				if(!includesBooks) {
+					page += "Books." + StringUtils.LF;
+				} else {
+					page = page.substring(0, page.lastIndexOf(", ")) + "." + StringUtils.LF;
+				}
 			}
 		} else {
 			page += "None." + StringUtils.LF;
@@ -106,10 +112,18 @@ public abstract class CustomEnchantment {
 			if (getAnvilItemTypes().get(0).equals(ItemType.ALL)) {
 				page += getAnvilItemTypes().get(0).getDisplayName() + "." + StringUtils.LF;
 			} else {
+				boolean includesBooks = false;
 				for(ItemType type : getAnvilItemTypes()) {
 					page += type.getDisplayName() + ", ";
+					if(type.getDisplayName().equals("Books")) {
+						includesBooks = true;
+					}
 				}
-				page += "Books." + StringUtils.LF;
+				if(!includesBooks) {
+					page += "Books." + StringUtils.LF;
+				} else {
+					page = page.substring(0, page.lastIndexOf(", ")) + "." + StringUtils.LF;
+				}
 			}
 		} else {
 			page += "None." + StringUtils.LF;
@@ -144,7 +158,7 @@ public abstract class CustomEnchantment {
 			if(names.isEmpty()) {
 				page += "None";
 			} else {
-				page += StringUtils.join(names, ",");
+				page += StringUtils.join(names, ", ");
 			}
 			page += "." + StringUtils.LF;
 		} else {
@@ -466,6 +480,31 @@ public abstract class CustomEnchantment {
 			names.add(item.name());
 		}
 		return names;
+	}
+
+	public boolean isCurse() {
+		return curse;
+	}
+
+	protected void setCurse(boolean curse) {
+		this.curse = curse;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDefaultDescription() {
+		return defaultDescription;
+	}
+
+	protected void setDefaultDescription(String defaultDescription) {
+		this.defaultDescription = defaultDescription;
+		this.description = defaultDescription;
 	}
 
 }

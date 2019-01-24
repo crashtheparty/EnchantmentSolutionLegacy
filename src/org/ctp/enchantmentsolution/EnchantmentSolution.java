@@ -28,7 +28,6 @@ import org.ctp.enchantmentsolution.listeners.PlayerChatTabComplete;
 import org.ctp.enchantmentsolution.listeners.PlayerInteract;
 import org.ctp.enchantmentsolution.listeners.VanishListener;
 import org.ctp.enchantmentsolution.listeners.VersionCheck;
-import org.ctp.enchantmentsolution.listeners.VersionUpdater;
 import org.ctp.enchantmentsolution.listeners.abilities.BeheadingListener;
 import org.ctp.enchantmentsolution.listeners.abilities.BrineListener;
 import org.ctp.enchantmentsolution.listeners.abilities.ExpShareListener;
@@ -146,7 +145,7 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
 		getServer().getPluginManager().registerEvents(new VanishListener(), this);
-		getServer().getPluginManager().registerEvents(new VersionUpdater(), this);
+		getServer().getPluginManager().registerEvents(new VersionCheck(), this);
 		getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		if(Bukkit.getPluginManager().isPluginEnabled("mcMMO")) {
@@ -204,6 +203,10 @@ public class EnchantmentSolution extends JavaPlugin {
 		}
 		
 		return null;
+	}
+	
+	public static boolean hasInventory(InventoryData inv) {
+		return INVENTORIES.contains(inv);
 	}
 	
 	public static void addInventory(InventoryData inv) {

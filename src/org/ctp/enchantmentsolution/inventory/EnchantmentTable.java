@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -409,6 +410,7 @@ public class EnchantmentTable implements InventoryData {
 				}
 			}
 		}
+		player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
 		enchantableItem = Enchantments.addEnchantmentsToItem(enchantableItem,
 				levels.getEnchants().get(level));
 		playerItems.set(slot, enchantableItem);
