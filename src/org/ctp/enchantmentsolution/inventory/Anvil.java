@@ -132,12 +132,10 @@ public class Anvil implements InventoryData{
 				int playerLevel = player.getLevel();
 				List<String> lore = new ArrayList<String>();
 				if(player.getGameMode().equals(GameMode.CREATIVE) || repairCost <= playerLevel) {
-					if(player.getGameMode().equals(GameMode.CREATIVE) || repairCost <= playerLevel) {
+					if (!player.getGameMode().equals(GameMode.CREATIVE) && repairCost > ConfigFiles.getMaxRepairLevel()) {
 						combine = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 5);
-						HashMap<String, Object> loreCodes = getCodes();
-						loreCodes.put("%repairCost%", repairCost);
-						lore.add(ChatUtils.getMessage(loreCodes, "anvil.repair-cost"));
-					}else {
+						lore.add(ChatUtils.getMessage(getCodes(), "anvil.cannot-repair"));
+					} else {
 						combine = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 14);
 						HashMap<String, Object> loreCodes = getCodes();
 						loreCodes.put("%repairCost%", repairCost);
