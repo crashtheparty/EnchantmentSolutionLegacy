@@ -9,7 +9,7 @@ import org.bukkit.Material;
 public enum ItemType {
 	HELMETS("helmets"), CHESTPLATES("chestplates"), LEGGINGS("leggings"), BOOTS("boots"), SWORDS("swords"), PICKAXES("pickaxes"), SHOVELS("shovels"), AXES("axes"), 
 	HOES("hoes"), BOW("bow"), SHIELD("shield"), FISHING_ROD("fishing_rod"), SHEARS("shears"), FLINT_AND_STEEL("flint_and_steel"), 
-	CARROT_ON_A_STICK("carrot_on_a_stick"), ELYTRA("elytra"), TRIDENT("trident"), RANGED("ranged"), ARMOR("armor"), TOOLS("tools"), MELEE("melee"), MISC("misc"), 
+	CARROT_ON_A_STICK("carrot_on_a_stick"), ELYTRA("elytra"), RANGED("ranged"), ARMOR("armor"), TOOLS("tools"), MELEE("melee"), MISC("misc"), 
 	WOODEN_TOOLS("wooden_tools"), STONE_TOOLS("stone_tools"), IRON_TOOLS("iron_tools"), GOLDEN_TOOLS("golden_tools"), DIAMOND_TOOLS("diamond_tools"), 
 	LEATHER_ARMOR("leather_armor"), GOLDEN_ARMOR("golden_armor"), CHAINMAIL_ARMOR("chainmail_armor"), IRON_ARMOR("iron_armor"), DIAMOND_ARMOR("diamond_armor"), 
 	BOOK("book"), ALL("all");
@@ -113,8 +113,6 @@ public enum ItemType {
 			return "Swords";
 		} else if (TOOLS.getType().equals(type)) {
 			return "Tools";
-		} else if (TRIDENT.getType().equals(type)) {
-			return "Trident";
 		} else if (WOODEN_TOOLS.getType().equals(type)) {
 			return "Wooden Tools";
 		}
@@ -240,7 +238,6 @@ public enum ItemType {
 			return itemTypes;
 		} else if (RANGED.getType().equals(type)) {
 			itemTypes.addAll(getItemTypes(BOW.getType()));
-			itemTypes.addAll(getItemTypes(TRIDENT.getType()));
 			return itemTypes;
 		} else if (SHEARS.getType().equals(type)) {
 			itemTypes.add(Material.SHEARS);
