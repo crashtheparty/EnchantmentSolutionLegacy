@@ -87,18 +87,23 @@ public class InventoryClickUtils {
 			}
 		} else {
 			ItemStack item = clickedInv.getItem(slot);
-			if(slot == 4) {
+			if (slot == 4) {
 				if(item.getType().equals(Material.STAINED_GLASS_PANE) && item.getData().getData() == 5) {
 					Anvil_GUI_NMS.createAnvil(player, anvil);
 				}
-			}else if(slot == 16) {
+			} else if (slot == 16) {
 				anvil.combine();
 				anvil.setInventory();
-			}else if (slot == 31 && item.getType().equals(Material.ANVIL)) {
+			} else if ((slot == 31 || slot == 30) && item.getType().equals(Material.ANVIL)) {
 				anvil.close(false);
 				AnvilUtils.addLegacyAnvil(player);
 				ChatUtils.sendMessage(player, ChatUtils.getMessage(ChatUtils.getCodes(), "anvil.legacy-gui-open"));
-			}else if (anvil.getItems().contains(item)) {
+			} else if ((slot == 31 || slot == 32) && item.getType().equals(Material.STEP) && item.getData().getData() == 0) {
+				anvil.close(false);
+				Grindstone stone = new Grindstone(player, anvil.getBlock());
+				EnchantmentSolution.addInventory(stone);
+				stone.setInventory();
+			} else if (anvil.getItems().contains(item)) {
 				if (anvil.removeItem(slot)) {
 					anvil.setInventory();
 					ItemUtils.giveItemToPlayer(player, item, player.getLocation());

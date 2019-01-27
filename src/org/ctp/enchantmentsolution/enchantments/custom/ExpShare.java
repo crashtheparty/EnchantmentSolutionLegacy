@@ -39,12 +39,12 @@ public class ExpShare extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.SWORDS, ItemType.TOOLS, ItemType.TRIDENT);
+		return Arrays.asList(ItemType.SWORDS, ItemType.TOOLS);
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
-		return Arrays.asList(ItemType.SWORDS, ItemType.TOOLS, ItemType.TRIDENT);
+		return Arrays.asList(ItemType.SWORDS, ItemType.TOOLS);
 	}
 
 	@Override

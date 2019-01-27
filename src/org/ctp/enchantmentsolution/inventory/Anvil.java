@@ -100,7 +100,7 @@ public class Anvil implements InventoryData{
 					anvilMeta.setLore(ChatUtils.getMessages(getCodes(), "anvil.legacy-gui-warning"));
 					anvil.setItemMeta(anvilMeta);
 					inv.setItem(30, anvil);
-					ItemStack grindstone = new ItemStack(Material.DOUBLE_STONE_SLAB2, 1, (byte) 8);
+					ItemStack grindstone = new ItemStack(Material.STEP, 1);
 					ItemMeta grindstoneMeta = grindstone.getItemMeta();
 					grindstoneMeta.setDisplayName(ChatUtils.getMessage(getCodes(), "grindstone.legacy-open"));
 					grindstone.setItemMeta(grindstoneMeta);
@@ -113,7 +113,7 @@ public class Anvil implements InventoryData{
 					anvil.setItemMeta(anvilMeta);
 					inv.setItem(31, anvil);
 				} else {
-					ItemStack grindstone = new ItemStack(Material.DOUBLE_STONE_SLAB2, 1, (byte) 8);
+					ItemStack grindstone = new ItemStack(Material.STEP, 1);
 					ItemMeta grindstoneMeta = grindstone.getItemMeta();
 					grindstoneMeta.setDisplayName(ChatUtils.getMessage(getCodes(), "grindstone.legacy-open"));
 					grindstone.setItemMeta(grindstoneMeta);

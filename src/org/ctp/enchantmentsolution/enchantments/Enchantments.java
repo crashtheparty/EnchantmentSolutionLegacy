@@ -278,7 +278,7 @@ public class Enchantments {
 			}
 			if(enchant != null && enchant.getRelativeEnchantment() instanceof CustomEnchantmentWrapper){
 				String enchName = RomanNumerals.returnEnchantmentName(enchant, level.getLevel());
-				lore.add(ChatColor.RESET + "" + ChatColor.GRAY + enchName);
+				lore.add(ChatUtils.hideText("legacy") + "" + ChatColor.GRAY + enchName);
 			}
 		}
 		meta.setLore(lore);
@@ -293,7 +293,7 @@ public class Enchantments {
 			lore = new ArrayList<String>();
 		}
 		if(Enchantments.hasEnchantment(item, enchantment.getRelativeEnchantment())){
-			String enchName = ChatColor.RESET + "" + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
+			String enchName = ChatUtils.hideText("legacy") + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
 			meta.removeEnchant(enchantment.getRelativeEnchantment());
 			while(lore.contains(enchName)) {
 				lore.remove(enchName);
@@ -309,7 +309,7 @@ public class Enchantments {
 		}
 		if(enchant != null && enchant.getRelativeEnchantment() instanceof CustomEnchantmentWrapper){
 			String enchName = RomanNumerals.returnEnchantmentName(enchant, level);
-			lore.add(ChatColor.RESET + "" + ChatColor.GRAY + enchName);
+			lore.add(ChatUtils.hideText("legacy") + "" + ChatColor.GRAY + enchName);
 		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);
@@ -323,7 +323,7 @@ public class Enchantments {
 			lore = new ArrayList<String>();
 		}
 		if(Enchantments.hasEnchantment(item, enchantment.getRelativeEnchantment())){
-			String enchName = ChatColor.RESET + "" + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
+			String enchName = ChatUtils.hideText("legacy") + "" + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
 			meta.removeEnchant(enchantment.getRelativeEnchantment());
 			while(lore.contains(enchName)) {
 				lore.remove(enchName);
@@ -342,7 +342,7 @@ public class Enchantments {
 		}
 		for(CustomEnchantment enchantment : DefaultEnchantments.getEnchantments()) {
 			if(Enchantments.hasEnchantment(item, enchantment.getRelativeEnchantment())){
-				String enchName = ChatColor.RESET + "" + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
+				String enchName = ChatUtils.hideText("legacy") + "" + ChatColor.GRAY + RomanNumerals.returnEnchantmentName(enchantment, meta.getEnchantLevel(enchantment.getRelativeEnchantment()));
 				meta.removeEnchant(enchantment.getRelativeEnchantment());
 				while(lore.contains(enchName)) {
 					lore.remove(enchName);

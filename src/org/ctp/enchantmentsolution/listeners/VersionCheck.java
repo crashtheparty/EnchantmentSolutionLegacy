@@ -22,7 +22,7 @@ public class VersionCheck implements Listener, Runnable{
 	        String latestversion;
 	        boolean isupdate = false;
 	        try {
-	            URL urlv = new URL("https://raw.githubusercontent.com/crashtheparty/EnchantmentSolution/master/Version");
+	            URL urlv = new URL("https://raw.githubusercontent.com/crashtheparty/EnchantmentSolutionLegacy/master/Version");
 	            BufferedReader in = new BufferedReader(new InputStreamReader(urlv.openStream()));
 	            latestversion = in.readLine();
 	            if(latestversion.equalsIgnoreCase(EnchantmentSolution.PLUGIN.getDescription().getVersion())){
@@ -39,7 +39,7 @@ public class VersionCheck implements Listener, Runnable{
 	        	ChatUtils.sendToConsole(Level.INFO, "Your version is up-to-date.");
 	        }else{
 	        	EnchantmentSolution.NEWEST_VERSION = false;
-	        	ChatUtils.sendToConsole(Level.WARNING, "New version of EnchantmentSolution is available! Download it here: https://www.spigotmc.org/resources/enchantment-solution.59556/");
+	        	ChatUtils.sendToConsole(Level.WARNING, "New version of EnchantmentSolutionLegacy is available! Download it here: https://www.spigotmc.org/resources/enchantment-solution.59556/");
 	        }
 		}
 	}
@@ -49,7 +49,7 @@ public class VersionCheck implements Listener, Runnable{
 		Player player = event.getPlayer();
 		if(EnchantmentSolution.NEWEST_VERSION == false) {
 			if(player.hasPermission("enchantmentsolution.version-updater")) {
-				ChatUtils.sendMessage(player, "New version of EnchantmentSolution is available! Download it here: ", "https://www.spigotmc.org/resources/enchantment-solution.59556/");
+				ChatUtils.sendMessage(player, "New version of EnchantmentSolutionLegacy is available! Download it here: ", "https://www.spigotmc.org/resources/enchantment-solution.59556/");
 			}
 		}
 	}

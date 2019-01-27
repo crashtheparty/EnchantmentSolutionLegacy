@@ -32,9 +32,6 @@ public class GrindstoneUtils {
 			combined = new ItemStack(Material.BOOK);
 		}
 		
-		ItemMeta firstMeta = first.getItemMeta();
-		ItemMeta combinedMeta = combined.getItemMeta();
-		
 		if(first.getType() != Material.BOOK && first.getType() != Material.ENCHANTED_BOOK && ItemType.hasItemType(first.getType())) {
 			combined.setDurability(first.getDurability());
 			RepairType repairType = RepairType.getRepairType(first, second);
@@ -49,6 +46,9 @@ public class GrindstoneUtils {
 		} else {
 			combined.setAmount(first.getAmount() + second.getAmount());
 		}
+		
+		ItemMeta firstMeta = first.getItemMeta();
+		ItemMeta combinedMeta = combined.getItemMeta();
 		
 		Enchantments.addEnchantmentsToItem(combined, combineEnchants(player, first, second));
 		
