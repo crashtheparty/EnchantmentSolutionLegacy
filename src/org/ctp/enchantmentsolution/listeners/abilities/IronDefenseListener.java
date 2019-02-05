@@ -1,8 +1,5 @@
 package org.ctp.enchantmentsolution.listeners.abilities;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
@@ -12,20 +9,17 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
+import org.ctp.enchantmentsolution.nms.abilities.IronDefenseContacts;
 
 public class IronDefenseListener implements Listener{
-	
-	private static List<DamageCause> CONTACT_CAUSES = Arrays.asList(DamageCause.BLOCK_EXPLOSION, DamageCause.CONTACT, DamageCause.CUSTOM, DamageCause.ENTITY_ATTACK,
-			DamageCause.ENTITY_EXPLOSION, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.LIGHTNING, DamageCause.PROJECTILE, DamageCause.THORNS);
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if(!DefaultEnchantments.isEnabled(DefaultEnchantments.IRON_DEFENSE)) return;
-		if(!CONTACT_CAUSES.contains(event.getCause())) return;
+		if(!IronDefenseContacts.getDamageCauses().contains(event.getCause())) return;
 		Entity attacked = event.getEntity();
 		Entity attacker = event.getDamager();
 		if(attacker instanceof AreaEffectCloud) return;

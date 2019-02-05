@@ -40,7 +40,7 @@ public class FrostWalker extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.BOOTS);
 	}
 
 	@Override

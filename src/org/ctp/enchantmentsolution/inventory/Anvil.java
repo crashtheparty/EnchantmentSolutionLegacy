@@ -245,11 +245,7 @@ public class Anvil implements InventoryData{
 		}
 		int repairCostOne = AnvilNMS.getRepairCost(playerItems.get(0));
 		int repairCostTwo = AnvilNMS.getRepairCost(playerItems.get(1));
-		if(repairCostOne > repairCostTwo) {
-			repairCost += repairCostOne;
-		}else {
-			repairCost += repairCostTwo;
-		}
+		repairCost += repairCostOne + repairCostTwo;
 		
 		if(type.equals(RepairType.COMBINE)) {
 			repairCost += Enchantments.combineEnchantmentsLevel(playerItems.get(0), playerItems.get(1));

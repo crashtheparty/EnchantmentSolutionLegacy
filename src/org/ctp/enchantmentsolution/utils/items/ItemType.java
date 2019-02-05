@@ -12,7 +12,7 @@ public enum ItemType {
 	CARROT_ON_A_STICK("carrot_on_a_stick"), ELYTRA("elytra"), RANGED("ranged"), ARMOR("armor"), TOOLS("tools"), MELEE("melee"), MISC("misc"), 
 	WOODEN_TOOLS("wooden_tools"), STONE_TOOLS("stone_tools"), IRON_TOOLS("iron_tools"), GOLDEN_TOOLS("golden_tools"), DIAMOND_TOOLS("diamond_tools"), 
 	LEATHER_ARMOR("leather_armor"), GOLDEN_ARMOR("golden_armor"), CHAINMAIL_ARMOR("chainmail_armor"), IRON_ARMOR("iron_armor"), DIAMOND_ARMOR("diamond_armor"), 
-	BOOK("book"), ALL("all");
+	BOOK("book"), ALL("all"), ENCHANTABLE("enchantable");
 	
 	private String type, display;
 	private List<Material> itemTypes;
@@ -73,6 +73,8 @@ public enum ItemType {
 			return "Diamond Tools";
 		} else if (ELYTRA.getType().equals(type)) {
 			return "Elytra";
+		} else if (ENCHANTABLE.getType().equals(type)) {
+			return "Enchantable";
 		} else if (FISHING_ROD.getType().equals(type)) {
 			return "Fishing Rod";
 		} else if (FLINT_AND_STEEL.getType().equals(type)) {
@@ -171,6 +173,15 @@ public enum ItemType {
 			itemTypes.addAll(Arrays.asList(Material.DIAMOND_AXE,
 					Material.DIAMOND_SWORD, Material.DIAMOND_SPADE,
 					Material.DIAMOND_PICKAXE));
+			return itemTypes;
+		} else if (ENCHANTABLE.getType().equals(type)) {
+			itemTypes.addAll(getItemTypes(ARMOR.getType()));
+			itemTypes.addAll(getItemTypes(TOOLS.getType()));
+			itemTypes.addAll(getItemTypes(MELEE.getType()));
+			itemTypes.addAll(getItemTypes(RANGED.getType()));
+			itemTypes.addAll(getItemTypes(SHIELD.getType()));
+			itemTypes.addAll(getItemTypes(FISHING_ROD.getType()));
+			itemTypes.addAll(getItemTypes(ELYTRA.getType()));
 			return itemTypes;
 		} else if (ELYTRA.getType().equals(type)) {
 			itemTypes.add(Material.ELYTRA);

@@ -27,7 +27,7 @@ public class MobSpawning implements Listener{
 					if(armor[i] != null) {
 						if(armor[i].getItemMeta() != null) {
 							if(armor[i].getItemMeta().hasEnchants()) {
-								armor[i] = ItemUtils.addNMSEnchantment(armor[i]);
+								armor[i] = ItemUtils.addNMSEnchantment(armor[i], "mobs");
 							}
 						}
 					}
@@ -36,7 +36,7 @@ public class MobSpawning implements Listener{
 				if(holding != null) {
 					if(holding.getItemMeta() != null) {
 						if(holding.getItemMeta().hasEnchants()) {
-							holding = ItemUtils.addNMSEnchantment(holding);
+							holding = ItemUtils.addNMSEnchantment(holding, "mobs");
 						}
 					}
 				}

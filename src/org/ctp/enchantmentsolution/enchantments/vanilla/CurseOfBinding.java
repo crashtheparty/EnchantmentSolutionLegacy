@@ -44,7 +44,7 @@ public class CurseOfBinding extends CustomEnchantment{
 	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList();
+		return Arrays.asList(ItemType.ELYTRA, ItemType.ARMOR);
 	}
 
 	@Override

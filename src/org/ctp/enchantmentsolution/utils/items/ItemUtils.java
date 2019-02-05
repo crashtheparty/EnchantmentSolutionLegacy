@@ -17,6 +17,7 @@ import org.ctp.enchantmentsolution.enchantments.EnchantmentLevel;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.enchantments.PlayerLevels;
 import org.ctp.enchantmentsolution.utils.AnvilUtils.RepairType;
+import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 
 public class ItemUtils {
 	
@@ -120,23 +121,23 @@ public class ItemUtils {
 		}
 	}
 	
-	public static ItemStack addNMSEnchantment(ItemStack item) {
+	public static ItemStack addNMSEnchantment(ItemStack item, String type) {
 		ItemStack returnItem = new ItemStack(item.getType());
 		ItemStack duplicate = item.clone();
 		ItemMeta returnItemMeta = returnItem.getItemMeta();
 		ItemMeta duplicateMeta = duplicate.getItemMeta();
 		
 		returnItemMeta.setDisplayName(duplicateMeta.getDisplayName());
-		returnItemMeta.setLocalizedName(duplicateMeta.getLocalizedName());
 		returnItem.setItemMeta(returnItemMeta);
 		returnItem.setDurability(duplicate.getDurability());
 		
 		List<EnchantmentLevel> enchants = null;
 		while(enchants == null) {
-			PlayerLevels levels = PlayerLevels.generateFakePlayerLevels(returnItem.getType());
+			int bookshelves = ConfigFiles.getBookshelvesFromType(type);
+			PlayerLevels levels = PlayerLevels.generateFakePlayerLevels(returnItem.getType(), bookshelves);
 			int i = 0;
 			while(i < 3) {
-				int random = (int)(Math.random() * levels.getEnchants().size() + 2);
+				int random = (int)(Math.random() * levels.getEnchants().size() + ConfigFiles.getLevelFromType(type));
 				if(random > levels.getEnchants().size() - 1) random = levels.getEnchants().size() - 1;
 				if(levels.getEnchants().get(random).size() > 0) {
 					enchants = levels.getEnchants().get(random);

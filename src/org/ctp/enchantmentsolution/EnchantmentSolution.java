@@ -26,7 +26,6 @@ import org.ctp.enchantmentsolution.listeners.InventoryClick;
 import org.ctp.enchantmentsolution.listeners.InventoryClose;
 import org.ctp.enchantmentsolution.listeners.PlayerChatTabComplete;
 import org.ctp.enchantmentsolution.listeners.PlayerInteract;
-import org.ctp.enchantmentsolution.listeners.VanishListener;
 import org.ctp.enchantmentsolution.listeners.VersionCheck;
 import org.ctp.enchantmentsolution.listeners.abilities.BeheadingListener;
 import org.ctp.enchantmentsolution.listeners.abilities.BrineListener;
@@ -59,6 +58,8 @@ import org.ctp.enchantmentsolution.listeners.fishing.EnchantsFishingListener;
 import org.ctp.enchantmentsolution.listeners.fishing.McMMOFishingListener;
 import org.ctp.enchantmentsolution.listeners.mobs.MobSpawning;
 import org.ctp.enchantmentsolution.nms.Version;
+import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
+import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v2;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 import org.ctp.enchantmentsolution.utils.save.SaveUtils;
 
@@ -144,7 +145,11 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FlowerGiftListener(), this);
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
-		getServer().getPluginManager().registerEvents(new VanishListener(), this);
+		if(Version.VERSION_NUMBER > 8) {
+			getServer().getPluginManager().registerEvents(new VanishListener_v2(), this);
+		} else {
+			getServer().getPluginManager().registerEvents(new VanishListener_v1(), this);
+		}
 		getServer().getPluginManager().registerEvents(new VersionCheck(), this);
 		getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
