@@ -197,7 +197,7 @@ public class EnchantmentTable implements InventoryData {
 						ItemMeta bookMeta = book.getItemMeta();
 						String name = item.getItemMeta().getDisplayName();
 						if (name == null || name.equals("")) {
-							name = item.getType().name();
+							name = ConfigFiles.getLocalizedName(item.getType());
 						}
 						loreCodes = getCodes();
 						loreCodes.put("%level%", extra - 2);
@@ -429,16 +429,18 @@ public class EnchantmentTable implements InventoryData {
 
 	@Override
 	public void close(boolean external) {
-		for(ItemStack item : getItems()){
-			ItemUtils.giveItemToPlayer(player, item, player.getLocation());
+		if(EnchantmentSolution.hasInventory(this)) {
+			for(ItemStack item : getItems()){
+				ItemUtils.giveItemToPlayer(player, item, player.getLocation());
+			}
+			if(lapisStack != null) {
+				ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation());
+			}
+			EnchantmentSolution.removeInventory(this);
+			if(!external) {
+				player.closeInventory();
+			}
 		}
-		if(lapisStack != null) {
-			ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation());
-		}
-		if(!external) {
-			player.closeInventory();
-		}
-		EnchantmentSolution.removeInventory(this);
 	}
 
 	public HashMap<String, Object> getCodes() {

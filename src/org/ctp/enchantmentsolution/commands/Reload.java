@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.ctp.enchantmentsolution.nms.Version;
+import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v2;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
@@ -21,7 +21,7 @@ public class Reload implements CommandExecutor{
 			player = (Player) sender;
 			if(player.hasPermission("enchantmentsolution.command.reload")) {
 				ConfigFiles.reload();
-				if(Version.VERSION_NUMBER > 8) {
+				if(EnchantmentSolution.getBukkitVersion().getVersionNumber() > 8) {
 					VanishListener_v2.reload();
 				} else {
 					VanishListener_v1.reload();
@@ -32,7 +32,7 @@ public class Reload implements CommandExecutor{
 			}
 		} else {
 			ConfigFiles.reload();
-			if(Version.VERSION_NUMBER > 8) {
+			if(EnchantmentSolution.getBukkitVersion().getVersionNumber() > 8) {
 				VanishListener_v2.reload();
 			} else {
 				VanishListener_v1.reload();

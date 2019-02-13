@@ -2,7 +2,9 @@ package org.ctp.enchantmentsolution.utils.items;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Material;
 
@@ -282,6 +284,18 @@ public enum ItemType {
 			return itemTypes;
 		}
 		return null;
+	}
+
+	public static String getUnlocalizedName(Material material) {
+		return (material.isBlock() ? "block" : "item" ) + ".minecraft." + material.name().toLowerCase();
+	}
+	
+	public Map<Material, String> getUnlocalizedNames() {
+		Map<Material, String> names = new HashMap<Material, String>();
+		for(Material material : getItemTypes()) {
+			names.put(material, getUnlocalizedName(material));
+		}
+		return names;
 	}
 	
 }

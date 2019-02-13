@@ -18,9 +18,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
+import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.nms.ChestPopulateNMS;
-import org.ctp.enchantmentsolution.nms.Version;
 import org.ctp.enchantmentsolution.nms.listeners.ChestLoot_v1;
 import org.ctp.enchantmentsolution.nms.listeners.ChestLoot_v2;
 
@@ -92,7 +92,7 @@ public class ChestLootListener implements Listener{
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if(!Enchantments.getChestLoot()) return;
-		if(Version.VERSION_NUMBER == 1) {
+		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() == 1) {
 			ChestLoot_v1 chestLoot = new ChestLoot_v1();
 			chestLoot.onPlayerInteract(event);
 		} else {

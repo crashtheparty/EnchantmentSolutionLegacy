@@ -2,12 +2,14 @@ package org.ctp.enchantmentsolution.utils.save;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
@@ -18,11 +20,12 @@ import org.ctp.enchantmentsolution.enchantments.PlayerLevels;
 import org.ctp.enchantmentsolution.enchantments.Weight;
 import org.ctp.enchantmentsolution.enchantments.mcmmo.Fishing;
 import org.ctp.enchantmentsolution.enchantments.wrappers.CustomEnchantmentWrapper;
-import org.ctp.enchantmentsolution.nms.Version;
+import org.ctp.enchantmentsolution.nms.ItemNameNMS;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 import org.ctp.enchantmentsolution.utils.config.YamlConfigBackup;
 import org.ctp.enchantmentsolution.utils.config.YamlInfo;
+import org.ctp.enchantmentsolution.utils.items.ItemType;
 import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 
 public class ConfigFiles {
@@ -201,6 +204,7 @@ public class ConfigFiles {
 		CONFIG.addDefault("level_divisor", 4, new String[] {"Greater numbers allow more anvil uses"});
 		CONFIG.addDefault("level_50_enchants", true, new String[] {"Allow enchantments up to level 50", "- To make this easier, you can try the XpBank plugin: https://www.spigotmc.org/resources/xpbank.59580/"});
 		CONFIG.addDefault("max_repair_level", 60, new String[] {"The highest repair level that will be allowed in the anvil."});
+		CONFIG.addMinMax("max_repair_level", 40, 1000000);
 		CONFIG.addDefault("disable_enchant_method", "visible", new String[] {"How disabling an enchantment in enchantments.yml or enchantments_advanced.yml will work.", 
 				"Options:", "vanish - removes enchantment from items", "visible - keeps enchantment on item, but custom effects will not work and anvil will remove enchant", 
 				"repairable - same as above but anvil will not remove enchant"});
@@ -208,7 +212,9 @@ public class ConfigFiles {
 		CONFIG.addDefault("use_advanced_file", false, new String[] {"Use enchantments_advanced.yml as the enchantment config."});
 		CONFIG.addDefault("default_anvil_use", false, new String[] {"Allow default use of anvil GUI via option at bottom right of custom GUI.", 
 				"Using this feature MAY REMOVE CUSTOM ENCHANTMENTS FROM ITEMS on accident. Should only be true if anvil is used for custom recipes."});
-		CONFIG.addDefault("use_grindstone", false, new String[] {"Use the grindstone from within the anvil in version < 1.14"});
+		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() < 4) {
+			CONFIG.addDefault("use_grindstone", false, new String[] {"Use the grindstone from within the anvil in version < 1.14"});
+		}
 		CONFIG.addDefault("update_legacy_enchantments", false, new String[] {"Update any enchantments generated in EnchantmentSolutionLegacy"});
 		CONFIG.addDefault("chest_loot", true, new String[] {"Allow custom and/or high level enchants to spawn in chests"});
 		CONFIG.addDefault("mob_loot", true, new String[] {"Allow custom and/or high level enchantments to spawn on mobs"});
@@ -221,9 +227,17 @@ public class ConfigFiles {
 		CONFIG.addDefault("loots.end_city_treasure.levels", 3);
 		CONFIG.addDefault("loots.dungeon.bookshelves", 0);
 		CONFIG.addDefault("loots.dungeon.levels", 0);
-		if(Version.VERSION_NUMBER > 5) {
-			CONFIG.addDefault("loots.woodland_mansion.bookshelves", 10);
-			CONFIG.addDefault("loots.woodland_mansion.levels", 1);
+		CONFIG.addDefault("loots.shipwreck_supply.bookshelves", 0);
+		CONFIG.addDefault("loots.shipwreck_supply.levels", 0);
+		CONFIG.addDefault("loots.woodland_mansion.bookshelves", 10);
+		CONFIG.addDefault("loots.woodland_mansion.levels", 1);
+		CONFIG.addDefault("loots.underwater_ruin_big.bookshelves", 0);
+		CONFIG.addDefault("loots.underwater_ruin_big.levels", 0);
+		CONFIG.addDefault("loots.underwater_ruin_small.bookshelves", 0);
+		CONFIG.addDefault("loots.underwater_ruin_small.levels", 0);
+		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() > 3) {
+			CONFIG.addDefault("loots.pillager_outpost.bookshelves", 10);
+			CONFIG.addDefault("loots.pillager_outpost.levels", 1);
 		}
 		CONFIG.addDefault("language_file", "language.yml", new String[] {"The yml language file"});
 		CONFIG.addDefault("use_comments", true, new String[] {"Show helpful comments in the config files"});
@@ -663,6 +677,11 @@ public class ConfigFiles {
 			}
 		}
 		
+		for (Iterator<java.util.Map.Entry<Material, String>> it = ItemType.ALL.getUnlocalizedNames().entrySet().iterator(); it.hasNext();) {
+			java.util.Map.Entry<Material, String> e = it.next();
+			LANGUAGE.addDefault("vanilla." + e.getValue(), ItemNameNMS.returnLocalizedItemName(e.getKey()));
+		}
+		
 		LANGUAGE.saveConfig();
 		if(LANGUAGE.getString("commands.reload").equals("Config files have been reloaded. Please note that the enchantments.yml file requires a server restart to take effect.")) {
 			LANGUAGE.set("commands.reload", "Config files have been reloaded.");
@@ -709,7 +728,10 @@ public class ConfigFiles {
 	}
 	
 	public static boolean useLegacyGrindstone() {
-		return CONFIG.getBoolean("use_grindstone");
+		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() < 4) {
+			return CONFIG.getBoolean("use_grindstone");
+		}
+		return false;
 	}
 	
 	public static int getMaxRepairLevel() {
@@ -726,6 +748,10 @@ public class ConfigFiles {
 	
 	public static int getBookshelvesFromType(String type) {
 		return CONFIG.getInt("loots."+type+".bookshelves");
+	}
+	
+	public static String getLocalizedName(Material material) {
+		return LANGUAGE.getString("vanilla." + ItemType.getUnlocalizedName(material));
 	}
  
 }

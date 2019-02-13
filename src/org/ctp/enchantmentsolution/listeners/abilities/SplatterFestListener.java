@@ -1,5 +1,6 @@
 package org.ctp.enchantmentsolution.listeners.abilities;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
@@ -23,6 +24,7 @@ public class SplatterFestListener implements Listener{
 			ItemStack item = player.getInventory().getItemInMainHand();
 			if(Enchantments.hasEnchantment(item, DefaultEnchantments.SPLATTER_FEST)) {
 				boolean removed = false;
+				if(player.getGameMode().equals(GameMode.CREATIVE)) removed = true;
 				for(int i = 0; i < player.getInventory().getSize(); i++) {
 					if(removed) break;
 					ItemStack removeItem = player.getInventory().getItem(i);

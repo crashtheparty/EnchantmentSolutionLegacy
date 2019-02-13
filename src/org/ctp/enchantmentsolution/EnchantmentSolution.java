@@ -55,13 +55,15 @@ import org.ctp.enchantmentsolution.listeners.abilities.WarpListener;
 import org.ctp.enchantmentsolution.listeners.abilities.WidthHeightListener;
 import org.ctp.enchantmentsolution.listeners.chestloot.ChestLootListener;
 import org.ctp.enchantmentsolution.listeners.fishing.EnchantsFishingListener;
-import org.ctp.enchantmentsolution.listeners.fishing.McMMOFishingListener;
+import org.ctp.enchantmentsolution.listeners.fishing.McMMOFishingNMS;
 import org.ctp.enchantmentsolution.listeners.mobs.MobSpawning;
-import org.ctp.enchantmentsolution.nms.Version;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v2;
+import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 import org.ctp.enchantmentsolution.utils.save.SaveUtils;
+import org.ctp.enchantmentsolution.version.BukkitVersion;
+import org.ctp.enchantmentsolution.version.PluginVersion;
 
 public class EnchantmentSolution extends JavaPlugin {
 
@@ -70,11 +72,16 @@ public class EnchantmentSolution extends JavaPlugin {
 	public static HashMap<Material, HashMap<List<EnchantmentLevel>, Integer>> DEBUG = new HashMap<Material, HashMap<List<EnchantmentLevel>, Integer>>();
 	public static boolean NEWEST_VERSION = true, DISABLE = false;
 	private static SQLite DB;
+	private static String MCMMO_TYPE;
+	private static BukkitVersion BUKKIT_VERSION;
+	private static PluginVersion PLUGIN_VERSION;
 
 	public void onEnable() {
 		PLUGIN = this;
-		if(!Version.VERSION_ALLOWED) {
-			Bukkit.getLogger().log(Level.WARNING, "Version " + Version.VERSION + " is not compatible with this plugin. Please use a version that is compatible.");
+		BUKKIT_VERSION = new BukkitVersion();
+		PLUGIN_VERSION = new PluginVersion();
+		if(!BUKKIT_VERSION.isVersionAllowed()) {
+			Bukkit.getLogger().log(Level.WARNING, "BukkitVersion " + BUKKIT_VERSION.getVersion() + " is not compatible with this plugin. Please use a version that is compatible.");
 			Bukkit.getPluginManager().disablePlugin(PLUGIN);
 			return;
 		}
@@ -145,7 +152,7 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FlowerGiftListener(), this);
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
-		if(Version.VERSION_NUMBER > 8) {
+		if(getBukkitVersion().getVersionNumber() > 8) {
 			getServer().getPluginManager().registerEvents(new VanishListener_v2(), this);
 		} else {
 			getServer().getPluginManager().registerEvents(new VanishListener_v1(), this);
@@ -153,10 +160,30 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new VersionCheck(), this);
 		getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
+		
 		if(Bukkit.getPluginManager().isPluginEnabled("mcMMO")) {
-			getServer().getPluginManager().registerEvents(new McMMOFishingListener(), this);
+			String version = Bukkit.getPluginManager().getPlugin("mcMMO").getDescription().getVersion();
+			ChatUtils.sendToConsole(Level.INFO, "mcMMO Version: " + version);
+			if(version.substring(0, version.indexOf(".")).equals("2")) {
+				ChatUtils.sendToConsole(Level.WARNING, "Using the Overhaul Version!");
+				ChatUtils.sendToConsole(Level.WARNING, "No compatibility yet! Please tell the plugin owner.");
+				MCMMO_TYPE = "Disabled";
+			} else {
+				ChatUtils.sendToConsole(Level.INFO, "Using the Classic BukkitVersion! Compatibility should be intact.");
+				MCMMO_TYPE = "Classic";
+			}
 		} else {
+			MCMMO_TYPE = "Disabled";
+		}
+		
+		switch(MCMMO_TYPE) {
+		case "Overhaul":
+		case "Classic":
+			getServer().getPluginManager().registerEvents(new McMMOFishingNMS(), this);
+			break;
+		case "Disabled":
 			getServer().getPluginManager().registerEvents(new EnchantsFishingListener(), this);
+			break;
 		}
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
@@ -228,5 +255,17 @@ public class EnchantmentSolution extends JavaPlugin {
 
 	public static SQLite getDb() {
 		return DB;
+	}
+
+	public static String getMcMMOType() {
+		return MCMMO_TYPE;
+	}
+
+	public static BukkitVersion getBukkitVersion() {
+		return BUKKIT_VERSION;
+	}
+
+	public static PluginVersion getPluginVersion() {
+		return PLUGIN_VERSION;
 	}
 }

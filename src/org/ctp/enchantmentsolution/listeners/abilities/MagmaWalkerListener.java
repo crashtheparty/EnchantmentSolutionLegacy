@@ -18,7 +18,6 @@ import org.bukkit.metadata.MetadataValue;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
-import org.ctp.enchantmentsolution.nms.Version;
 import org.ctp.enchantmentsolution.nms.abilities.MagmaWalkerListener_v4;
 import org.ctp.enchantmentsolution.utils.LocationUtils;
 
@@ -28,7 +27,7 @@ public class MagmaWalkerListener implements Listener, Runnable{
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event){
-		if(Version.VERSION_NUMBER >= 4) {
+		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() >= 4) {
 			MagmaWalkerListener_v4 listener = new MagmaWalkerListener_v4();
 			listener.onPlayerMove(event);
 		}
@@ -36,7 +35,7 @@ public class MagmaWalkerListener implements Listener, Runnable{
 	
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent event) {
-		if(Version.VERSION_NUMBER >= 4) {
+		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() >= 4) {
 			MagmaWalkerListener_v4 listener = new MagmaWalkerListener_v4();
 			listener.onEntityDamage(event);
 		}
