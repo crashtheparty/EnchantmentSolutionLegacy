@@ -1,12 +1,13 @@
-package org.ctp.enchantmentsolution.utils.items;
+package org.ctp.enchantmentsolution.utils.items.nms.itemrepair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.ctp.enchantmentsolution.utils.items.nms.ItemRepairType;
 
-public enum ItemRepairType {
+public enum ItemRepair_v1_10 implements ItemRepairType{
 	DIAMOND_AXE(Material.DIAMOND_AXE), DIAMOND_SWORD(Material.DIAMOND_SWORD), DIAMOND_SHOVEL(Material.DIAMOND_SPADE), DIAMOND_PICKAXE(Material.DIAMOND_PICKAXE), 
 	DIAMOND_HOE(Material.DIAMOND_HOE), DIAMOND_HELMET(Material.DIAMOND_HELMET), DIAMOND_CHESTPLATE(Material.DIAMOND_CHESTPLATE), 
 	DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS), DIAMOND_BOOTS(Material.DIAMOND_BOOTS), IRON_AXE(Material.IRON_AXE), IRON_SWORD(Material.IRON_SWORD), 
@@ -21,12 +22,12 @@ public enum ItemRepairType {
 	WOODEN_HOE(Material.WOOD_HOE), LEATHER_HELMET(Material.LEATHER_HELMET), LEATHER_CHESTPLATE(Material.LEATHER_CHESTPLATE), 
 	LEATHER_LEGGINGS(Material.LEATHER_LEGGINGS), LEATHER_BOOTS(Material.LEATHER_BOOTS), ELYTRA(Material.ELYTRA), BOW(Material.BOW), FISHING_ROD(Material.FISHING_ROD), 
 	BOOK(Material.BOOK), ENCHANTED_BOOK(Material.ENCHANTED_BOOK), SHEARS(Material.SHEARS), FLINT_AND_STEEL(Material.FLINT_AND_STEEL),
-	SHIELD(Material.SHIELD);
+	SHIELD(Material.SHIELD), CARROT_ON_A_STICK(Material.CARROT_STICK);
 	
 	private Material material;
 	private List<Material> repairTypes;
 	
-	ItemRepairType(Material material){
+	ItemRepair_v1_10(Material material){
 		this.material = material;
 		this.repairTypes = getItemRepairTypes(material);
 	}
@@ -40,7 +41,7 @@ public enum ItemRepairType {
 	}
 	
 	public static ItemRepairType getType(Material type) {
-		for(ItemRepairType repairType : ItemRepairType.values()) {
+		for(ItemRepairType repairType : ItemRepair_v1_9.values()) {
 			if(repairType.getMaterial().equals(type)) {
 				return repairType;
 			}
@@ -56,6 +57,9 @@ public enum ItemRepairType {
 			return itemTypes;
 		case BOW:
 			itemTypes.addAll(Arrays.asList(Material.BOW, Material.STRING, Material.BOOK, Material.ENCHANTED_BOOK));
+			return itemTypes;
+		case CARROT_STICK:
+			itemTypes.addAll(Arrays.asList(Material.CARROT_STICK, Material.BOOK, Material.ENCHANTED_BOOK));
 			return itemTypes;
 		case CHAINMAIL_BOOTS:
 			itemTypes.addAll(Arrays.asList(Material.CHAINMAIL_BOOTS, Material.BOOK, Material.ENCHANTED_BOOK));

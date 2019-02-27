@@ -26,38 +26,14 @@ public class BukkitVersion {
 
 		// Check
 		switch(version) {
-		case "1.9":
+		case "1.13":
 			versionNumber = 1;
 			return true;
-		case "1.9.2":
+		case "1.13.1":
 			versionNumber = 2;
 			return true;
-		case "1.9.4":
+		case "1.13.2":
 			versionNumber = 3;
-			return true;
-		case "1.10":
-			versionNumber = 4;
-			return true;
-		case "1.10.2":
-			versionNumber = 5;
-			return true;
-		case "1.11":
-			versionNumber = 6;
-			return true;
-		case "1.11.1":
-			versionNumber = 7;
-			return true;
-		case "1.11.2":
-			versionNumber = 8;
-			return true;
-		case "1.12":
-			versionNumber = 9;
-			return true;
-		case "1.12.1":
-			versionNumber = 10;
-			return true;
-		case "1.12.2":
-			versionNumber = 11;
 			return true;
 		}
 		return false;

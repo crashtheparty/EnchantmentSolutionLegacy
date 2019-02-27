@@ -19,8 +19,8 @@ import org.ctp.enchantmentsolution.nms.AnvilNMS;
 import org.ctp.enchantmentsolution.utils.AnvilUtils;
 import org.ctp.enchantmentsolution.utils.AnvilUtils.RepairType;
 import org.ctp.enchantmentsolution.utils.items.ItemUtils;
-import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
+import org.ctp.enchantmentsolution.utils.JobsUtils;
 
 public class Anvil implements InventoryData{
 
@@ -43,7 +43,7 @@ public class Anvil implements InventoryData{
 	public void setInventory(List<ItemStack> items) {
 		try {
 			int size = 27;
-			if(ConfigFiles.useDefaultAnvil() || ConfigFiles.useLegacyGrindstone()) {
+			if(EnchantmentSolution.getConfigFiles().useDefaultAnvil() || EnchantmentSolution.getConfigFiles().useLegacyGrindstone()) {
 				size = 45;
 			}
 			Inventory inv = Bukkit.createInventory(null, size, ChatUtils.getMessage(getCodes(), "anvil.name"));
@@ -74,7 +74,7 @@ public class Anvil implements InventoryData{
 			inv.setItem(24, mirror);
 			inv.setItem(25, mirror);
 			inv.setItem(26, mirror);
-			if(ConfigFiles.useDefaultAnvil() || ConfigFiles.useLegacyGrindstone()) {
+			if(EnchantmentSolution.getConfigFiles().useDefaultAnvil() || EnchantmentSolution.getConfigFiles().useLegacyGrindstone()) {
 				inv.setItem(27, mirror);
 				inv.setItem(28, mirror);
 				inv.setItem(29, mirror);
@@ -93,7 +93,7 @@ public class Anvil implements InventoryData{
 				inv.setItem(42, mirror);
 				inv.setItem(43, mirror);
 				inv.setItem(44, mirror);
-				if(ConfigFiles.useDefaultAnvil() && ConfigFiles.useLegacyGrindstone()) {
+				if(EnchantmentSolution.getConfigFiles().useDefaultAnvil() && EnchantmentSolution.getConfigFiles().useLegacyGrindstone()) {
 					ItemStack anvil = new ItemStack(Material.ANVIL);
 					ItemMeta anvilMeta = anvil.getItemMeta();
 					anvilMeta.setDisplayName(ChatUtils.getMessage(getCodes(), "anvil.legacy-gui"));
@@ -105,7 +105,7 @@ public class Anvil implements InventoryData{
 					grindstoneMeta.setDisplayName(ChatUtils.getMessage(getCodes(), "grindstone.legacy-open"));
 					grindstone.setItemMeta(grindstoneMeta);
 					inv.setItem(32, grindstone);
-				} else if (ConfigFiles.useDefaultAnvil()) {
+				} else if (EnchantmentSolution.getConfigFiles().useDefaultAnvil()) {
 					ItemStack anvil = new ItemStack(Material.ANVIL);
 					ItemMeta anvilMeta = anvil.getItemMeta();
 					anvilMeta.setDisplayName(ChatUtils.getMessage(getCodes(), "anvil.legacy-gui"));
@@ -132,7 +132,7 @@ public class Anvil implements InventoryData{
 				int playerLevel = player.getLevel();
 				List<String> lore = new ArrayList<String>();
 				if(player.getGameMode().equals(GameMode.CREATIVE) || repairCost <= playerLevel) {
-					if (!player.getGameMode().equals(GameMode.CREATIVE) && repairCost > ConfigFiles.getMaxRepairLevel()) {
+					if (!player.getGameMode().equals(GameMode.CREATIVE) && repairCost > EnchantmentSolution.getConfigFiles().getMaxRepairLevel()) {
 						combine = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 5);
 						lore.add(ChatUtils.getMessage(getCodes(), "anvil.cannot-repair"));
 					} else {
@@ -143,7 +143,7 @@ public class Anvil implements InventoryData{
 					}
 				}else {
 					combine = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 14);
-					if (!player.getGameMode().equals(GameMode.CREATIVE) && repairCost > ConfigFiles.getMaxRepairLevel()) {
+					if (!player.getGameMode().equals(GameMode.CREATIVE) && repairCost > EnchantmentSolution.getConfigFiles().getMaxRepairLevel()) {
 						lore.add(ChatUtils.getMessage(getCodes(), "anvil.cannot-repair"));
 					} else {
 						HashMap<String, Object> loreCodes = getCodes();
@@ -273,6 +273,9 @@ public class Anvil implements InventoryData{
 				ItemStack repairItem = playerItems.get(1).clone();
 				repairItem.setAmount(repairItem.getAmount() - ItemUtils.repairItem(playerItems.get(0), repairItem));
 				ItemUtils.giveItemToPlayer(player, repairItem, player.getLocation());
+			}
+			if(EnchantmentSolution.isJobsEnabled()) {
+				JobsUtils.sendAnvilAction(player, playerItems.get(1), combinedItem);
 			}
 			combinedItem = null;
 			playerItems.clear();

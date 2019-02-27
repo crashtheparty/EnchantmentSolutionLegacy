@@ -15,7 +15,7 @@ import org.bukkit.util.Vector;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.nms.McMMO;
-import org.ctp.enchantmentsolution.utils.AbilityUtils;
+import org.ctp.enchantmentsolution.utils.items.nms.AbilityUtils;
 
 public class SmelteryListener implements Listener{
 

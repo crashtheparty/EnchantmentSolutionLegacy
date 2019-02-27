@@ -18,12 +18,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Dye;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
-import org.ctp.enchantmentsolution.enchantments.EnchantmentLevel;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
-import org.ctp.enchantmentsolution.enchantments.PlayerLevels;
+import org.ctp.enchantmentsolution.enchantments.helper.EnchantmentLevel;
+import org.ctp.enchantmentsolution.enchantments.helper.PlayerLevels;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
-import org.ctp.enchantmentsolution.utils.RomanNumerals;
-import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
+import org.ctp.enchantmentsolution.utils.JobsUtils;
+import org.ctp.enchantmentsolution.utils.StringUtils;
 import org.ctp.enchantmentsolution.utils.items.ItemSerialization;
 import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 
@@ -197,7 +197,7 @@ public class EnchantmentTable implements InventoryData {
 						ItemMeta bookMeta = book.getItemMeta();
 						String name = item.getItemMeta().getDisplayName();
 						if (name == null || name.equals("")) {
-							name = ConfigFiles.getLocalizedName(item.getType());
+							name = EnchantmentSolution.getConfigFiles().getLocalizedName(item.getType());
 						}
 						loreCodes = getCodes();
 						loreCodes.put("%level%", extra - 2);
@@ -211,7 +211,7 @@ public class EnchantmentTable implements InventoryData {
 						lapis = new Dye();
 						lapis.setColor(DyeColor.BLUE);
 						int numLapis = 0;
-						if(ConfigFiles.useLapisInTable()) {
+						if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
 							if(lapisStack != null) {
 								numLapis = lapisStack.getAmount();
 							}
@@ -237,7 +237,7 @@ public class EnchantmentTable implements InventoryData {
 							levelReq = ChatUtils.getMessage(loreCodes, "table.level-cost-lack");
 						}
 						loreCodes.remove("%levelReq%");
-						loreCodes.put("%enchant%", RomanNumerals.returnEnchantmentName(enchants
+						loreCodes.put("%enchant%", StringUtils.returnEnchantmentName(enchants
 								.get(0).getEnchant(), enchants.get(0)
 								.getLevel()));
 						bookMeta.setLore(Arrays.asList(
@@ -274,7 +274,7 @@ public class EnchantmentTable implements InventoryData {
 			}
 		}
 		
-		if(ConfigFiles.useLapisInTable()) {
+		if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
 			if(lapisStack == null) {
 				ItemStack blueMirror = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 11);
 				ItemMeta blueMirrorMeta = blueMirror.getItemMeta();
@@ -304,7 +304,7 @@ public class EnchantmentTable implements InventoryData {
 	}
 	
 	public ItemStack addToLapisStack(ItemStack item) {
-		if(ConfigFiles.useLapisInTable()) {
+		if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
 			ItemStack clone = item.clone();
 			if(lapisStack == null) {
 				lapisStack = item;
@@ -390,7 +390,7 @@ public class EnchantmentTable implements InventoryData {
 		if (player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) {
 			player.setLevel(player.getLevel() - level - 1);
 			int remove = level + 1;
-			if(ConfigFiles.useLapisInTable()) {
+			if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
 				removeFromLapisStack(remove);
 			} else {
 				for(int i = 0; i < player.getInventory().getSize(); i++) {
@@ -410,12 +410,17 @@ public class EnchantmentTable implements InventoryData {
 				}
 			}
 		}
+		List<EnchantmentLevel> enchLevels = levels.getEnchants().get(level);
 		player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
 		enchantableItem = Enchantments.addEnchantmentsToItem(enchantableItem,
-				levels.getEnchants().get(level));
+				enchLevels);
 		playerItems.set(slot, enchantableItem);
+		
 		PlayerLevels.removePlayerLevels(player);
 		setInventory(playerItems);
+		if(EnchantmentSolution.isJobsEnabled()) {
+			JobsUtils.sendEnchantAction(player, enchantItem, enchantableItem, enchLevels);
+		}
 	}
 
 	@Override

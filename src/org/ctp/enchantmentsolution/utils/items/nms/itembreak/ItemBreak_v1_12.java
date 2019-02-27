@@ -1,12 +1,13 @@
-package org.ctp.enchantmentsolution.utils.items;
+package org.ctp.enchantmentsolution.utils.items.nms.itembreak;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.ctp.enchantmentsolution.utils.items.nms.ItemBreakType;
 
-public enum ItemBreakType {
+public enum ItemBreak_v1_12 implements ItemBreakType{
 	DIAMOND_AXE(Material.DIAMOND_AXE), DIAMOND_SHOVEL(Material.DIAMOND_SPADE), DIAMOND_PICKAXE(Material.DIAMOND_PICKAXE), 
 	IRON_AXE(Material.IRON_AXE), IRON_SHOVEL(Material.IRON_SPADE), IRON_PICKAXE(Material.IRON_PICKAXE), 
 	GOLDEN_AXE(Material.GOLD_AXE), GOLDEN_SHOVEL(Material.GOLD_SPADE), GOLDEN_PICKAXE(Material.GOLD_PICKAXE), 
@@ -16,7 +17,7 @@ public enum ItemBreakType {
 	private Material material;
 	private List<Material> breakTypes;
 	
-	ItemBreakType(Material material) {
+	ItemBreak_v1_12(Material material) {
 		this.material = material;
 		this.breakTypes = getItemBreakTypes(material);
 	}
@@ -29,8 +30,8 @@ public enum ItemBreakType {
 		return breakTypes;
 	}
 	
-	public static ItemBreakType getType(Material type) {
-		for(ItemBreakType breakType : ItemBreakType.values()) {
+	public static ItemBreak_v1_9 getType(Material type) {
+		for(ItemBreak_v1_9 breakType : ItemBreak_v1_9.values()) {
 			if(breakType.getMaterial().equals(type)) {
 				return breakType;
 			}
@@ -40,7 +41,7 @@ public enum ItemBreakType {
 	
 	public static List<Material> allBreakTypes(){
 		List<Material> itemTypes = new ArrayList<Material>();
-		for(ItemBreakType type : ItemBreakType.values()) {
+		for(ItemBreak_v1_9 type : ItemBreak_v1_9.values()) {
 			itemTypes.addAll(type.getBreakTypes());
 		}
 		return itemTypes;

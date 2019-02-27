@@ -14,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
-import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 import org.ctp.enchantmentsolution.version.PluginVersion;
 import org.ctp.enchantmentsolution.version.Version;
 import org.ctp.enchantmentsolution.version.Version.VersionType;
@@ -23,11 +22,11 @@ public class VersionCheck implements Listener, Runnable {
 
 	@Override
 	public void run() {
-		if (ConfigFiles.getDefaultConfig().getBoolean("get_latest_version")) {
+		if (EnchantmentSolution.getConfigFiles().getDefaultConfig().getBoolean("get_latest_version")) {
 			List<Version> versionHistory = new ArrayList<Version>();
 			try {
 				URL urlv = new URL(
-						"https://raw.githubusercontent.com/crashtheparty/EnchantmentSolutionLegacy/master/VersionHistory");
+						"https://raw.githubusercontent.com/crashtheparty/EnchantmentSolution/master/VersionHistory");
 				BufferedReader in = new BufferedReader(new InputStreamReader(urlv.openStream()));
 				String line = in.readLine();
 				while (line != null) {
@@ -84,12 +83,12 @@ public class VersionCheck implements Listener, Runnable {
 			} else if (version.isExperimentalVersion()) {
 				ChatUtils.sendMessage(player,
 						"Thank you for using an experimental version of EnchantmentSolution! Please report any bugs you find to github.");
-				ChatUtils.sendMessage(player, "Link: ", "https://github.com/crashtheparty/EnchantmentSolutionLegacy");
+				ChatUtils.sendMessage(player, "Link: ", "https://github.com/crashtheparty/EnchantmentSolution");
 				ChatUtils.sendMessage(player, "Version: " + version.getCurrent());
 			} else if (version.isUpcomingVersion()) {
 				ChatUtils.sendMessage(player,
 						"Thank you for using an upcoming version of EnchantmentSolution! Please report any bugs you find to github.");
-				ChatUtils.sendMessage(player, "Link: ", "https://github.com/crashtheparty/EnchantmentSolutionLegacy");
+				ChatUtils.sendMessage(player, "Link: ", "https://github.com/crashtheparty/EnchantmentSolution");
 				ChatUtils.sendMessage(player, "Version: " + version.getCurrent());
 			}
 		}

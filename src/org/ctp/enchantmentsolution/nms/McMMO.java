@@ -8,8 +8,6 @@ public class McMMO {
 	
 	public static void handleMcMMO(BlockBreakEvent event) {
 		switch(EnchantmentSolution.getMcMMOType()) {
-		case "Overhaul":
-			break;
 		case "Classic":
 			McMMOClassicHandler.handleMcMMO(event);
 			break;

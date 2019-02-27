@@ -1,4 +1,4 @@
-package org.ctp.enchantmentsolution.utils;
+package org.ctp.enchantmentsolution.utils.items.nms.fortune;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,22 +6,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bukkit.CropState;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NetherWartsState;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Crops;
-import org.bukkit.material.NetherWarts;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
-import org.ctp.enchantmentsolution.utils.items.ItemBreakType;
+import org.ctp.enchantmentsolution.utils.TreeType;
+import org.ctp.enchantmentsolution.utils.items.nms.AbilityUtils;
+import org.ctp.enchantmentsolution.utils.items.nms.ItemBreakType;
 
-public class AbilityUtils {
-
+public class Fortune_v1_10 {
 	private static List<Material> FORTUNE_ITEMS = Arrays.asList(
 			Material.DIAMOND_ORE, Material.EMERALD_ORE,
 			Material.COAL_ORE, Material.QUARTZ_ORE, Material.LAPIS_ORE,
@@ -67,7 +62,7 @@ public class AbilityUtils {
 		} else if (!(FORTUNE_ITEMS.contains(brokenBlock.getType()))) {
 			if(Enchantments.hasEnchantment(item, DefaultEnchantments.SMELTERY)) {
 				if(DefaultEnchantments.isEnabled(DefaultEnchantments.SMELTERY)) {
-					ItemStack smelted = getSmelteryItem(brokenBlock, item);
+					ItemStack smelted = AbilityUtils.getSmelteryItem(brokenBlock, item);
 					if(smelted != null) {
 						priorItems.clear();
 						priorItems.add(smelted);
@@ -262,186 +257,5 @@ public class AbilityUtils {
 		}
 
 		return priorItems;
-	}
-	
-	@SuppressWarnings("deprecation")
-	public static ItemStack getSmelteryItem(Block block, ItemStack item) {
-		Material material = null;
-		int data = 0;
-		boolean fortune = false;
-		ItemBreakType type = ItemBreakType.getType(item.getType());
-		switch(block.getType()) {
-		case IRON_ORE:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				material = Material.IRON_INGOT;
-				fortune = true;
-			}
-			break;
-		case GOLD_ORE:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				material = Material.GOLD_INGOT;
-				fortune = true;
-			}
-			break;
-		case SAND:
-			material = Material.GLASS;
-			break;
-		case COBBLESTONE:
-		case STONE:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				if(block.getData() == 0) {
-					material = Material.STONE;
-				}
-			}
-			break;
-		case SMOOTH_BRICK:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				if(block.getData() == 0) {
-					material = Material.SMOOTH_BRICK;
-					data = 2;
-				}
-			}
-			break;
-		case NETHERRACK:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				material = Material.NETHER_BRICK_ITEM;
-			}
-			break;
-		case CLAY:
-			material = Material.HARD_CLAY;
-			break;
-		case CACTUS:
-			material = Material.INK_SACK;
-			data = 2;
-			break;
-		case LOG:
-		case LOG_2:
-			material = Material.COAL;
-			data = 1;
-			break;
-		case CHORUS_FRUIT:
-			material = Material.CHORUS_FRUIT_POPPED;
-			break;
-		case SPONGE:
-			if(block.getData() == 1) {
-				material = Material.SPONGE;
-			}
-			break;
-		default:
-			
-		}
-		int num = 1;
-		if(fortune && Enchantments.hasEnchantment(item, Enchantment.LOOT_BONUS_BLOCKS)) {
-			int level = Enchantments.getLevel(item,
-					Enchantment.LOOT_BONUS_BLOCKS) + 2;
-			int multiply = (int) (Math.random() * level);
-			if(multiply > 1) {
-				num *= multiply;
-			}
-		}
-		if(material != null) {
-			return new ItemStack(material, num, (byte) data);
-		}
-		return null;
-	}
-	
-	@SuppressWarnings("deprecation")
-	public static ItemStack getSilkTouchItem(Block block, ItemStack item){
-		ItemBreakType type = ItemBreakType.getType(item.getType());
-		switch(block.getType()) {
-		case COAL_ORE:
-		case QUARTZ_ORE:
-		case STONE:
-		case LAPIS_ORE:
-		case EMERALD_ORE:
-		case DIAMOND_ORE:
-		case REDSTONE_ORE:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				return new ItemStack(block.getType());
-			}
-			break;
-		case MONSTER_EGGS:
-			if(type != null && type.getBreakTypes().contains(block.getType())) {
-				if(block.getData() == 0) {
-					return new ItemStack(Material.STONE);
-				}
-				if(block.getData() == 1) {
-					return new ItemStack(Material.COBBLESTONE);
-				}
-				if(block.getData() >= 2 && block.getData() <= 5) {
-					return new ItemStack(Material.SMOOTH_BRICK, 1, (byte) (block.getData() - 2));
-				}
-			}
-			return null;
-		case BOOKSHELF:
-		case CLAY:
-		case ENDER_CHEST:
-		case GLASS:
-		case THIN_GLASS:
-		case GLOWSTONE:
-		case GRASS:
-		case MYCEL:
-		case HUGE_MUSHROOM_1:
-		case HUGE_MUSHROOM_2:
-		case MELON_BLOCK:
-		case SEA_LANTERN:
-		case ICE:
-		case PACKED_ICE:
-		case SNOW_BLOCK:
-			return new ItemStack(block.getType());
-		case STAINED_GLASS:
-		case STAINED_GLASS_PANE:
-			return new ItemStack(block.getType(), 1, block.getData());
-		case LEAVES:
-		case LEAVES_2:
-			return new ItemStack(block.getType(), 1, (byte)(block.getData() % 4));
-		case DIRT:
-			if(block.getData() == 2) {
-				return new ItemStack(block.getType(), 1, block.getData());
-			}
-		default:
-			break;
-		}
-		return null;
-	}
-	
-	public static ItemStack getGoldDiggerItems(ItemStack item,
-			Block brokenBlock) {
-		
-		if(brokenBlock.getState().getData() instanceof Crops) {
-			Crops c = (Crops) brokenBlock.getState().getData();
-            if(!c.getState().equals(CropState.RIPE)) {
-            	return null;
-            }
-		} else if(brokenBlock.getState().getData() instanceof NetherWarts) {
-			NetherWarts c = (NetherWarts) brokenBlock.getState().getData();
-            if(!c.getState().equals(NetherWartsState.RIPE)) {
-            	return null;
-            }
-		} else {
-			return null;
-		}
-		int level = Enchantments.getLevel(item,
-				DefaultEnchantments.GOLD_DIGGER);
-		int amount = 0;
-		while(level > 0) {
-			double random = Math.random();
-			double chance = 1.0 / 6.0;
-			if(chance > random) {
-				amount ++;
-			}
-			level --;
-		}
-		if(amount > 0) {
-			return (new ItemStack(Material.GOLD_NUGGET, amount));
-		}
-		
-		return null;
-	}
-	
-	public static void dropExperience(Location loc, int amount) {
-		if(amount > 0) {
-			((ExperienceOrb)loc.getWorld().spawn(loc, ExperienceOrb.class)).setExperience(amount);
-		}
 	}
 }

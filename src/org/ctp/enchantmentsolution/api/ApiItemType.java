@@ -3,7 +3,7 @@ package org.ctp.enchantmentsolution.api;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.ctp.enchantmentsolution.utils.items.ItemType;
+import org.ctp.enchantmentsolution.utils.items.nms.ItemType;
 
 public class ApiItemType {
 	

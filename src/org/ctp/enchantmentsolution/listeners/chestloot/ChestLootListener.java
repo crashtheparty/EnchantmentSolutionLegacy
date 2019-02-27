@@ -2,8 +2,6 @@ package org.ctp.enchantmentsolution.listeners.chestloot;
 
 import java.util.List;
 
-import javax.xml.bind.PropertyException;
-
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -11,6 +9,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -18,11 +17,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
-import org.ctp.enchantmentsolution.EnchantmentSolution;
+import org.bukkit.inventory.EquipmentSlot;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.nms.ChestPopulateNMS;
-import org.ctp.enchantmentsolution.nms.listeners.ChestLoot_v1;
-import org.ctp.enchantmentsolution.nms.listeners.ChestLoot_v2;
 
 public class ChestLootListener implements Listener{
 
@@ -38,7 +35,7 @@ public class ChestLootListener implements Listener{
 				for(Block bLoot : blockLoot) {
 					ChestPopulateNMS.populateChest(bLoot);
 				}
-			} catch (PropertyException e) {
+			} catch (ChestLootException e) {
 				e.printStackTrace();
 			}
 		}
@@ -92,12 +89,18 @@ public class ChestLootListener implements Listener{
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if(!Enchantments.getChestLoot()) return;
-		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() == 1) {
-			ChestLoot_v1 chestLoot = new ChestLoot_v1();
-			chestLoot.onPlayerInteract(event);
-		} else {
-			ChestLoot_v2 chestLoot = new ChestLoot_v2();
-			chestLoot.onPlayerInteract(event);
+		if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+			if (event.getHand() == EquipmentSlot.OFF_HAND) {
+		        return; // off hand packet, ignore.
+		    }
+			Block block = event.getClickedBlock();
+			if(block != null) {
+				if(block.getType() == Material.CHEST) {
+					if(ChestPopulateNMS.isLootChest(block)) {
+						ChestPopulateNMS.populateChest(block);
+					}
+				}
+			}
 		}
 	}
 	
