@@ -15,7 +15,7 @@ public interface ItemRepairType {
 	public List<Material> getRepairTypes();
 	
 	public static ItemRepairType getType(Material type) {
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:
@@ -36,7 +36,7 @@ public interface ItemRepairType {
 	}
 	
 	public static ItemRepairType[] getValues(){
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:

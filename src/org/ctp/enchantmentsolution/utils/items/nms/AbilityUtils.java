@@ -30,7 +30,7 @@ import org.ctp.enchantmentsolution.utils.items.nms.smeltery.Smeltery_v1_9;
 public class AbilityUtils {
 	
 	public static ItemStack getSmelteryItem(Block block, ItemStack item) {
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:
@@ -51,7 +51,7 @@ public class AbilityUtils {
 	}
 	
 	public static ItemStack getSilkTouchItem(Block block, ItemStack item){
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:
@@ -73,7 +73,7 @@ public class AbilityUtils {
 
 	public static Collection<ItemStack> getFortuneItems(ItemStack item,
 			Block brokenBlock, Collection<ItemStack> priorItems) {
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:

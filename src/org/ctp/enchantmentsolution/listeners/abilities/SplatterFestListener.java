@@ -52,14 +52,16 @@ public class SplatterFestListener implements Listener{
 				}
 				if(removed) {
 					player.launchProjectile(Egg.class);
-					int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
-					double chance = (1.0D) / (unbreaking + 1.0D);
-					double random = Math.random();
-					if(chance > random) {
-						item.setDurability((short) (item.getDurability() + 1));
-						if(item.getDurability() > item.getType().getMaxDurability()) {
-							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-							player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+					if(!player.getGameMode().equals(GameMode.CREATIVE)) {
+						int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
+						double chance = (1.0D) / (unbreaking + 1.0D);
+						double random = Math.random();
+						if(chance > random) {
+							item.setDurability((short) (item.getDurability() + 1));
+							if(item.getDurability() > item.getType().getMaxDurability()) {
+								player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+								player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+							}
 						}
 					}
 				}

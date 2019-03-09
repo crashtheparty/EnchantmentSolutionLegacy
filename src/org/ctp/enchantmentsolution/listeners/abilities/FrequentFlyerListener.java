@@ -8,88 +8,69 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 
-public class FrequentFlyerListener implements Listener, Runnable{
+public class FrequentFlyerListener implements Runnable{
 	
-	public static List<FrequentFlyerPlayer> canFly = new ArrayList<FrequentFlyerPlayer>();
+	public static List<FrequentFlyerPlayer> CAN_FLY = new ArrayList<FrequentFlyerPlayer>();
 	
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerLogin(PlayerLoginEvent event) {
-		if(!DefaultEnchantments.isEnabled(DefaultEnchantments.FREQUENT_FLYER)) return;
-		Bukkit.getScheduler().runTaskLater(EnchantmentSolution.PLUGIN, new Runnable(){
-			
-			@Override
-			public void run() {
-				Player player = event.getPlayer();
-				ItemStack elytra = player.getInventory().getChestplate();
-				if(elytra != null && !elytra.getType().equals(Material.ELYTRA)) {
-					elytra = null;
-				}
-				FrequentFlyerPlayer ffPlayer = new FrequentFlyerPlayer(player, elytra);
-				if(ffPlayer.canFly() && !player.isOnGround() && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
-					player.setFlying(true);
-				}
-				canFly.add(ffPlayer);
-			}
-		}, 0l);
-		
-	}
-	
-	@EventHandler
-	public void onPlayerLogout(PlayerQuitEvent event) {
-		if(!DefaultEnchantments.isEnabled(DefaultEnchantments.FREQUENT_FLYER)) return;
-		FrequentFlyerPlayer remove = null;
-		for(FrequentFlyerPlayer ffPlayer : canFly) {
-			if(ffPlayer.getPlayer().getUniqueId().toString().equals(event.getPlayer().getUniqueId().toString())) {
-				ffPlayer.setElytra(null);
-				remove = ffPlayer;
-				break;
+	private boolean canFly(Player player) {
+		for(FrequentFlyerPlayer ffPlayer : CAN_FLY) {
+			if(ffPlayer.getPlayer().getUniqueId().equals(player.getUniqueId())) {
+				return true;
 			}
 		}
-		if(remove != null) {
-			canFly.remove(remove);
-		}
+		return false;
 	}
 
 	@Override
 	public void run() {
 		if(!DefaultEnchantments.isEnabled(DefaultEnchantments.FREQUENT_FLYER)) return;
-		for(FrequentFlyerPlayer ffPlayer : canFly) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			if(!canFly(player)) {
+				try {
+					ItemStack elytra = player.getInventory().getChestplate();
+					if(elytra != null && !elytra.getType().equals(Material.ELYTRA)) {
+						elytra = null;
+					}
+					FrequentFlyerPlayer ffPlayer = new FrequentFlyerPlayer(player, elytra);
+					if(ffPlayer.canFly() && !player.isOnGround() && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
+						player.setFlying(true);
+					}
+					CAN_FLY.add(ffPlayer);
+				} catch(Exception ex) { }
+			}
+		}
+		for(int i = CAN_FLY.size() - 1; i >= 0; i--) {
+			FrequentFlyerPlayer ffPlayer = CAN_FLY.get(i);
 			Player player = ffPlayer.getPlayer();
-			if(player != null && Bukkit.getOnlinePlayers().contains(player)) {
+			if (player != null && Bukkit.getOnlinePlayers().contains(player)) {
 				ItemStack elytra = player.getInventory().getChestplate();
-				if(elytra != null && elytra.getType().equals(Material.ELYTRA)) {
-					if(ffPlayer.getElytra() != null) {
-						if(!elytra.toString().equalsIgnoreCase(ffPlayer.getElytra().toString())) {
-							ffPlayer.setElytra(player.getInventory().getChestplate(), true);
+				if (elytra != null && elytra.getType().equals(Material.ELYTRA)) {
+					if (ffPlayer.getElytra() != null) {
+						if (!elytra.toString().equalsIgnoreCase(ffPlayer.getElytra().toString())) {
+							ffPlayer.setElytra(elytra, true);
 						}
-						if(player.isFlying() && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
+						if (player.isFlying() && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
 							ffPlayer.minus();
 						}
-					}else {
-						ffPlayer.setElytra(player.getInventory().getChestplate());
+					} else {
+						ffPlayer.setElytra(elytra);
 					}
-				}else {
-					if((elytra == null || !elytra.getType().equals(Material.ELYTRA)) && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
+				} else {
+					if((elytra == null || !elytra.getType().equals(Material.ELYTRA)) && !player.getGameMode().equals(GameMode.CREATIVE) 
+							&& !player.getGameMode().equals(GameMode.SPECTATOR)) {
 						ffPlayer.setElytra(null);
 						ffPlayer.setCanFly(false);
 					}
 				}
-			}else {
-				canFly.remove(ffPlayer);
+			} else {
+				CAN_FLY.remove(ffPlayer);
 			}
 		}
 	}
-	
 	protected class FrequentFlyerPlayer{
 		
 		private Player player;
@@ -101,7 +82,6 @@ public class FrequentFlyerListener implements Listener, Runnable{
 		public FrequentFlyerPlayer(Player player, ItemStack elytra) {
 			this.player = player;
 			this.setElytra(elytra, true);
-			
 		}
 
 		public Player getPlayer() {
@@ -114,6 +94,7 @@ public class FrequentFlyerListener implements Listener, Runnable{
 		
 		public void setElytra(ItemStack elytra) {
 			boolean reset = false;
+			
 			if(elytra != null && previousElytra != null && elytra.toString().equalsIgnoreCase(previousElytra.toString())) {
 				reset = true;
 			}
@@ -128,8 +109,8 @@ public class FrequentFlyerListener implements Listener, Runnable{
 			boolean fly = false;
 			if(elytra != null && Enchantments.hasEnchantment(elytra, DefaultEnchantments.FREQUENT_FLYER)) {
 				int level = Enchantments.getLevel(elytra, DefaultEnchantments.FREQUENT_FLYER);
-				underLimit = level * 4;
-				aboveLimit = level;
+				underLimit = level * 4 * 20;
+				aboveLimit = level * 20;
 				if(elytra.getDurability() < 400) {
 					fly = true;
 				}

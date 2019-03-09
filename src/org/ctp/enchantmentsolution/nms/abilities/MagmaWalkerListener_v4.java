@@ -43,7 +43,7 @@ public class MagmaWalkerListener_v4 {
 								continue;
 							}
 							if((lava.getType().equals(Material.STATIONARY_LAVA) || lava.getType().equals(Material.LAVA)) && lava.getData() == 0){
-								lava.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.PLUGIN, new Integer(4)));
+								lava.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.getPlugin(), new Integer(4)));
 								lava.setType(Material.MAGMA);
 								MagmaWalkerListener.BLOCKS.add(lava);
 							}else if(lava.getType().equals(Material.MAGMA)){
@@ -51,7 +51,7 @@ public class MagmaWalkerListener_v4 {
 								if(values != null){
 									for(MetadataValue value : values){
 										if(value.asInt() > 0){
-											lava.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.PLUGIN, new Integer(4)));
+											lava.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.getPlugin(), new Integer(4)));
 										}
 									}
 								}

@@ -10,7 +10,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.Statistic;
+import org.bukkit.advancement.Advancement;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -197,7 +200,7 @@ public class EnchantmentTable implements InventoryData {
 						ItemMeta bookMeta = book.getItemMeta();
 						String name = item.getItemMeta().getDisplayName();
 						if (name == null || name.equals("")) {
-							name = EnchantmentSolution.getConfigFiles().getLocalizedName(item.getType());
+							name = EnchantmentSolution.getPlugin().getConfigFiles().getLocalizedName(item.getType());
 						}
 						loreCodes = getCodes();
 						loreCodes.put("%level%", extra - 2);
@@ -211,7 +214,7 @@ public class EnchantmentTable implements InventoryData {
 						lapis = new Dye();
 						lapis.setColor(DyeColor.BLUE);
 						int numLapis = 0;
-						if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
+						if(EnchantmentSolution.getPlugin().getConfigFiles().useLapisInTable()) {
 							if(lapisStack != null) {
 								numLapis = lapisStack.getAmount();
 							}
@@ -274,7 +277,7 @@ public class EnchantmentTable implements InventoryData {
 			}
 		}
 		
-		if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
+		if(EnchantmentSolution.getPlugin().getConfigFiles().useLapisInTable()) {
 			if(lapisStack == null) {
 				ItemStack blueMirror = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 11);
 				ItemMeta blueMirrorMeta = blueMirror.getItemMeta();
@@ -304,7 +307,7 @@ public class EnchantmentTable implements InventoryData {
 	}
 	
 	public ItemStack addToLapisStack(ItemStack item) {
-		if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
+		if(EnchantmentSolution.getPlugin().getConfigFiles().useLapisInTable()) {
 			ItemStack clone = item.clone();
 			if(lapisStack == null) {
 				lapisStack = item;
@@ -368,6 +371,7 @@ public class EnchantmentTable implements InventoryData {
 		return playerItems;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void enchantItem(int slot, int level) {
 		ItemStack enchantableItem = playerItems.get(slot);
 		int itemSlot = 17 + (9 * slot) + (4 + level);
@@ -390,7 +394,7 @@ public class EnchantmentTable implements InventoryData {
 		if (player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) {
 			player.setLevel(player.getLevel() - level - 1);
 			int remove = level + 1;
-			if(EnchantmentSolution.getConfigFiles().useLapisInTable()) {
+			if(EnchantmentSolution.getPlugin().getConfigFiles().useLapisInTable()) {
 				removeFromLapisStack(remove);
 			} else {
 				for(int i = 0; i < player.getInventory().getSize(); i++) {
@@ -418,7 +422,10 @@ public class EnchantmentTable implements InventoryData {
 		
 		PlayerLevels.removePlayerLevels(player);
 		setInventory(playerItems);
-		if(EnchantmentSolution.isJobsEnabled()) {
+		player.setStatistic(Statistic.ITEM_ENCHANTED, player.getStatistic(Statistic.ITEM_ENCHANTED) + 1);
+		Advancement enchanted = Bukkit.getAdvancement(new NamespacedKey("minecraft", "story/enchant_item"));
+		player.getAdvancementProgress(enchanted).awardCriteria("enchanted_item");
+		if(EnchantmentSolution.getPlugin().isJobsEnabled()) {
 			JobsUtils.sendEnchantAction(player, enchantItem, enchantableItem, enchLevels);
 		}
 	}
@@ -434,14 +441,14 @@ public class EnchantmentTable implements InventoryData {
 
 	@Override
 	public void close(boolean external) {
-		if(EnchantmentSolution.hasInventory(this)) {
+		if(EnchantmentSolution.getPlugin().hasInventory(this)) {
 			for(ItemStack item : getItems()){
 				ItemUtils.giveItemToPlayer(player, item, player.getLocation());
 			}
 			if(lapisStack != null) {
 				ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation());
 			}
-			EnchantmentSolution.removeInventory(this);
+			EnchantmentSolution.getPlugin().removeInventory(this);
 			if(!external) {
 				player.closeInventory();
 			}

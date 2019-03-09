@@ -27,7 +27,7 @@ public class MagmaWalkerListener implements Listener, Runnable{
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event){
-		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() >= 4) {
+		if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() >= 4) {
 			MagmaWalkerListener_v4 listener = new MagmaWalkerListener_v4();
 			listener.onPlayerMove(event);
 		}
@@ -35,7 +35,7 @@ public class MagmaWalkerListener implements Listener, Runnable{
 	
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent event) {
-		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() >= 4) {
+		if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() >= 4) {
 			MagmaWalkerListener_v4 listener = new MagmaWalkerListener_v4();
 			listener.onEntityDamage(event);
 		}
@@ -60,17 +60,17 @@ public class MagmaWalkerListener implements Listener, Runnable{
 									Location locMin = new Location(player.getWorld(), player.getLocation().getBlockX() - radius, player.getLocation().getBlockY() - 1, player.getLocation().getBlockZ() - radius);
 									Location locMax = new Location(player.getWorld(), player.getLocation().getBlockX() + radius, player.getLocation().getBlockY() - 1, player.getLocation().getBlockZ() + radius);
 									if(!(LocationUtils.getIntersecting(locMin, locMax, block.getLocation(), block.getLocation()))){
-										block.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.PLUGIN, new Integer(value.asInt() - 1)));
+										block.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.getPlugin(), new Integer(value.asInt() - 1)));
 									}
 									BLOCKS.set(i, block);
 								}
 							}
 						}
 						if(update){
-							block.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.PLUGIN, new Integer(value.asInt() - 1)));
+							block.setMetadata("MagmaWalker", new FixedMetadataValue(EnchantmentSolution.getPlugin(), new Integer(value.asInt() - 1)));
 						}
 					}else{
-						block.removeMetadata("MagmaWalker", EnchantmentSolution.PLUGIN);
+						block.removeMetadata("MagmaWalker", EnchantmentSolution.getPlugin());
 						block.setType(Material.LAVA);
 						BLOCKS.remove(i);
 					}
@@ -78,6 +78,46 @@ public class MagmaWalkerListener implements Listener, Runnable{
 			}else{
 				block.setType(Material.LAVA);
 				BLOCKS.remove(i);
+			}
+		}
+		for(int i = VoidWalkerListener.BLOCKS.size() - 1; i >= 0; i--){
+			if(!DefaultEnchantments.isEnabled(DefaultEnchantments.VOID_WALKER)) continue;
+			Block block = VoidWalkerListener.BLOCKS.get(i);
+			List<MetadataValue> values = block.getMetadata("VoidWalker");
+			if(values != null){
+				for(MetadataValue value : values){
+					if(value.asInt() > 0){
+						boolean update = true;
+						for(Player player : Bukkit.getOnlinePlayers()){
+							ItemStack boots = player.getInventory().getBoots();
+							if(boots != null && update){
+								if(Enchantments.hasEnchantment(boots, DefaultEnchantments.VOID_WALKER)){
+									int radius = 1 + Enchantments.getLevel(boots, DefaultEnchantments.VOID_WALKER);
+									List<Block> blocks = new ArrayList<Block>();
+									for(int x = -radius; x <= radius; x++){
+										for(int z = -radius; z <= radius; z++){
+											if(Math.abs(x) + Math.abs(z) > radius + 1) continue;
+											blocks.add(player.getLocation().getBlock().getRelative(x, -1, z));
+										}
+									}
+									if(blocks.contains(block)) {
+										update = false;
+									}
+								}
+							}
+						}
+						if(update){
+							block.setMetadata("VoidWalker", new FixedMetadataValue(EnchantmentSolution.getPlugin(), new Integer(value.asInt() - 1)));
+						}
+					}else{
+						block.removeMetadata("VoidWalker", EnchantmentSolution.getPlugin());
+						block.setType(Material.AIR);
+						VoidWalkerListener.BLOCKS.remove(i);
+					}
+				}
+			}else{
+				block.setType(Material.AIR);
+				VoidWalkerListener.BLOCKS.remove(i);
 			}
 		}
 	}

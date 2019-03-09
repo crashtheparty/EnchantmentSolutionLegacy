@@ -22,18 +22,18 @@ public class PlayerInteract_v2 {
 		    }
 			Block block = event.getClickedBlock();
 			if(block.getType().equals(Material.ENCHANTMENT_TABLE)){
-				Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.PLUGIN, new Runnable() {
+				Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.getPlugin(), new Runnable() {
 					public void run() {
 						if(event.isCancelled()) return;
 						Player player = event.getPlayer();
-						InventoryData inv = EnchantmentSolution.getInventory(player);
+						InventoryData inv = EnchantmentSolution.getPlugin().getInventory(player);
 						if(inv == null) {
 							inv = new EnchantmentTable(player, block);
-							EnchantmentSolution.addInventory(inv);
+							EnchantmentSolution.getPlugin().addInventory(inv);
 						} else if (!(inv instanceof EnchantmentTable)) {
 							inv.close(true);
 							inv = new EnchantmentTable(player, block);
-							EnchantmentSolution.addInventory(inv);
+							EnchantmentSolution.getPlugin().addInventory(inv);
 						}
 						inv.setInventory(null);
 					}
@@ -41,18 +41,18 @@ public class PlayerInteract_v2 {
 				}, 1l);
 			}
 			if(block.getType().equals(Material.ANVIL)){
-				Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.PLUGIN, new Runnable() {
+				Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.getPlugin(), new Runnable() {
 					public void run() {
 						if(event.isCancelled()) return;
 						Player player = event.getPlayer();
-						InventoryData inv = EnchantmentSolution.getInventory(player);
+						InventoryData inv = EnchantmentSolution.getPlugin().getInventory(player);
 						if(inv == null || !(inv instanceof Anvil)) {
 							inv = new Anvil(player, block);
-							EnchantmentSolution.addInventory(inv);
+							EnchantmentSolution.getPlugin().addInventory(inv);
 						} else if (!(inv instanceof Anvil)) {
 							inv.close(true);
 							inv = new Anvil(player, block);
-							EnchantmentSolution.addInventory(inv);
+							EnchantmentSolution.getPlugin().addInventory(inv);
 						}
 						inv.setInventory(null);
 					}

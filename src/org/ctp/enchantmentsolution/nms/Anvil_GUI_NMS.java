@@ -13,7 +13,7 @@ import org.ctp.enchantmentsolution.nms.anvil.AnvilGUI_v1_9_R2;
 public class Anvil_GUI_NMS {
 
 	public static void createAnvil(Player player, Anvil anvil) {
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 			AnvilGUI_v1_9_R1.createAnvil(player, anvil);
@@ -39,7 +39,7 @@ public class Anvil_GUI_NMS {
 	}
 	
 	public static void createAnvil(Player player, ConfigInventory anvil) {
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 			AnvilGUI_v1_9_R1.createAnvil(player, anvil);

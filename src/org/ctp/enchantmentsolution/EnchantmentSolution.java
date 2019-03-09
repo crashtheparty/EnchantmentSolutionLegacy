@@ -1,12 +1,10 @@
 package org.ctp.enchantmentsolution;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +17,6 @@ import org.ctp.enchantmentsolution.commands.Reset;
 import org.ctp.enchantmentsolution.commands.UnsafeEnchant;
 import org.ctp.enchantmentsolution.database.SQLite;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
-import org.ctp.enchantmentsolution.enchantments.helper.EnchantmentLevel;
 import org.ctp.enchantmentsolution.inventory.InventoryData;
 import org.ctp.enchantmentsolution.listeners.BlockBreak;
 import org.ctp.enchantmentsolution.listeners.ChatMessage;
@@ -70,23 +67,23 @@ import org.ctp.enchantmentsolution.version.PluginVersion;
 
 public class EnchantmentSolution extends JavaPlugin {
 
-	public static EnchantmentSolution PLUGIN;
-	public static List<InventoryData> INVENTORIES = new ArrayList<InventoryData>();
-	public static HashMap<Material, HashMap<List<EnchantmentLevel>, Integer>> DEBUG = new HashMap<Material, HashMap<List<EnchantmentLevel>, Integer>>();
-	public static boolean NEWEST_VERSION = true, DISABLE = false;
-	private static SQLite DB;
-	private static String MCMMO_TYPE;
-	private static BukkitVersion BUKKIT_VERSION;
-	private static PluginVersion PLUGIN_VERSION;
-	private static Plugin JOBS_REBORN;
-	private static ConfigFiles FILES;
+	private static EnchantmentSolution PLUGIN;
+	private List<InventoryData> inventories = new ArrayList<InventoryData>();
+	private boolean disable = false;
+	private SQLite db;
+	private String mcmmoType;
+	private BukkitVersion bukkitVersion;
+	private PluginVersion pluginVersion;
+	private Plugin jobsReborn;
+	private ConfigFiles files;
+	private VersionCheck check;
 
 	public void onEnable() {
 		PLUGIN = this;
-		BUKKIT_VERSION = new BukkitVersion();
-		PLUGIN_VERSION = new PluginVersion();
-		if(!BUKKIT_VERSION.isVersionAllowed()) {
-			Bukkit.getLogger().log(Level.WARNING, "Bukkit Version " + BUKKIT_VERSION.getVersion() + " is not compatible with this plugin. Please use a version that is compatible.");
+		bukkitVersion = new BukkitVersion();
+		pluginVersion = new PluginVersion(getDescription().getVersion());
+		if(!bukkitVersion.isVersionAllowed()) {
+			Bukkit.getLogger().log(Level.WARNING, "Bukkit Version " + bukkitVersion.getVersion() + " is not compatible with this plugin. Please use a version that is compatible.");
 			Bukkit.getPluginManager().disablePlugin(PLUGIN);
 			return;
 		}
@@ -95,15 +92,15 @@ public class EnchantmentSolution extends JavaPlugin {
 			getDataFolder().mkdirs();
 		}
 		
-		DB = new SQLite(this);
-		DB.load();
+		db = new SQLite(this);
+		db.load();
 		
 		DefaultEnchantments.addDefaultEnchantments();
 		
-		FILES = new ConfigFiles(this);
-		FILES.createConfigFiles();
+		files = new ConfigFiles(this);
+		files.createConfigFiles();
 		
-		if(DISABLE) {
+		if(disable) {
 			Bukkit.getPluginManager().disablePlugin(PLUGIN);
 			return;
 		}
@@ -127,8 +124,6 @@ public class EnchantmentSolution extends JavaPlugin {
 				this);
 		getServer().getPluginManager().registerEvents(new BeheadingListener(),
 				this);
-		getServer().getPluginManager().registerEvents(new LifeListener(null),
-				this);
 		getServer().getPluginManager().registerEvents(new WarpListener(), this);
 		getServer().getPluginManager().registerEvents(new ExpShareListener(),
 				this);
@@ -143,7 +138,6 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SacrificeListener(),
 				this);
 		getServer().getPluginManager().registerEvents(new FishingListener(), this);
-		getServer().getPluginManager().registerEvents(new FrequentFlyerListener(), this);
 		getServer().getPluginManager().registerEvents(new TankListener(), this);
 		getServer().getPluginManager().registerEvents(new BrineListener(), this);
 		getServer().getPluginManager().registerEvents(new WidthHeightListener(), this);
@@ -161,13 +155,12 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
 		getServer().getPluginManager().registerEvents(new VanishListener(), this);
-		getServer().getPluginManager().registerEvents(new VersionCheck(), this);
 		getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new UpdateEnchantments(), this);
 		
 		if(Bukkit.getPluginManager().isPluginEnabled("Jobs")) {
-			JOBS_REBORN = Bukkit.getPluginManager().getPlugin("Jobs");
+			jobsReborn = Bukkit.getPluginManager().getPlugin("Jobs");
 			ChatUtils.sendInfo("Jobs Reborn compatibility enabled!");
 		}
 		
@@ -175,18 +168,22 @@ public class EnchantmentSolution extends JavaPlugin {
 			String version = Bukkit.getPluginManager().getPlugin("mcMMO").getDescription().getVersion();
 			ChatUtils.sendToConsole(Level.INFO, "mcMMO Version: " + version);
 			if(version.substring(0, version.indexOf(".")).equals("2")) {
-				ChatUtils.sendToConsole(Level.WARNING, "Using the Overhaul Version!");
-				ChatUtils.sendToConsole(Level.WARNING, "No compatibility yet! Please tell the plugin owner.");
-				MCMMO_TYPE = "Disabled";
+				ChatUtils.sendToConsole(Level.INFO, "Using the Overhaul Version!");
+				ChatUtils.sendToConsole(Level.INFO, "Checking for compatibility plugin...");
+				if(version.substring(0, version.indexOf(".")).equals("2")) {
+					ChatUtils.sendToConsole(Level.WARNING, "Using the Overhaul Version!");
+					ChatUtils.sendToConsole(Level.WARNING, "No compatibility yet! Please tell the plugin owner.");
+					mcmmoType = "Disabled";
+				}
 			} else {
 				ChatUtils.sendToConsole(Level.INFO, "Using the Classic BukkitVersion! Compatibility should be intact.");
-				MCMMO_TYPE = "Classic";
+				mcmmoType = "Classic";
 			}
 		} else {
-			MCMMO_TYPE = "Disabled";
+			mcmmoType = "Disabled";
 		}
 		
-		switch(MCMMO_TYPE) {
+		switch(mcmmoType) {
 		case "Overhaul":
 		case "Classic":
 			getServer().getPluginManager().registerEvents(new McMMOFishingNMS(), this);
@@ -199,13 +196,17 @@ public class EnchantmentSolution extends JavaPlugin {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
 				new MagmaWalkerListener(), 20l, 20l);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
-				new FrequentFlyerListener(), 20l, 20l);
+				new FrequentFlyerListener(), 1l, 1l);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
 				new VoidWalkerListener(), 1l, 1l);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
 				new IcarusListener(), 20l, 20l);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
 				new MagicGuardListener(), 1l, 1l);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
+				new GungHoListener(), 1l, 1l);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
+				new LifeListener(), 1l, 1l);
 
 		getCommand("Enchant").setExecutor(new Enchant());
 		getCommand("Info").setExecutor(new EnchantInfo());
@@ -219,8 +220,13 @@ public class EnchantmentSolution extends JavaPlugin {
 		getCommand("RemoveEnchant").setTabCompleter(new PlayerChatTabComplete());
 		getCommand("EnchantUnsafe").setTabCompleter(new PlayerChatTabComplete());
 		
-		FILES.updateEnchantments();
+		files.updateEnchantments();
 		
+
+		check = new VersionCheck(pluginVersion, "https://raw.githubusercontent.com/crashtheparty/EnchantmentSolution/master/VersionHistory", 
+				"https://www.spigotmc.org/resources/enchantment-solution.59556/", "https://github.com/crashtheparty/EnchantmentSolution", 
+				getConfigFiles().getDefaultConfig().getBoolean("get_latest_version"));
+		getServer().getPluginManager().registerEvents(check, this);
 		checkVersion();
 	}
 
@@ -230,15 +236,15 @@ public class EnchantmentSolution extends JavaPlugin {
 		resetInventories();
 	}
 	
-	public static void resetInventories() {
-		for(int i = INVENTORIES.size() - 1; i >= 0; i--) {
-			InventoryData inv = INVENTORIES.get(i);
+	public void resetInventories() {
+		for(int i = inventories.size() - 1; i >= 0; i--) {
+			InventoryData inv = inventories.get(i);
 			inv.close(true);
 		}
 	}
 	
-	public static InventoryData getInventory(Player player) {
-		for(InventoryData inv : INVENTORIES) {
+	public InventoryData getInventory(Player player) {
+		for(InventoryData inv : inventories) {
 			if(inv.getPlayer().getUniqueId().equals(player.getUniqueId())) {
 				return inv;
 			}
@@ -247,43 +253,47 @@ public class EnchantmentSolution extends JavaPlugin {
 		return null;
 	}
 	
-	public static boolean hasInventory(InventoryData inv) {
-		return INVENTORIES.contains(inv);
+	public boolean hasInventory(InventoryData inv) {
+		return inventories.contains(inv);
 	}
 	
-	public static void addInventory(InventoryData inv) {
-		INVENTORIES.add(inv);
+	public void addInventory(InventoryData inv) {
+		inventories.add(inv);
 	}
 	
-	public static void removeInventory(InventoryData inv) {
-		INVENTORIES.remove(inv);
+	public void removeInventory(InventoryData inv) {
+		inventories.remove(inv);
 	}
 	
 	private void checkVersion(){
-		Bukkit.getScheduler().runTaskTimerAsynchronously(PLUGIN, new VersionCheck(), 20l, 20 * 60 * 60 * 4l);
+		Bukkit.getScheduler().runTaskTimerAsynchronously(PLUGIN, check, 20l, 20 * 60 * 60 * 4l);
     }
 
-	public static SQLite getDb() {
-		return DB;
+	public SQLite getDb() {
+		return db;
 	}
 
-	public static String getMcMMOType() {
-		return MCMMO_TYPE;
+	public String getMcMMOType() {
+		return mcmmoType;
 	}
 
-	public static BukkitVersion getBukkitVersion() {
-		return BUKKIT_VERSION;
+	public BukkitVersion getBukkitVersion() {
+		return bukkitVersion;
 	}
 
-	public static PluginVersion getPluginVersion() {
-		return PLUGIN_VERSION;
+	public PluginVersion getPluginVersion() {
+		return pluginVersion;
 	}
 
-	public static boolean isJobsEnabled() {
-		return JOBS_REBORN != null;
+	public boolean isJobsEnabled() {
+		return jobsReborn != null;
 	}
 
-	public static ConfigFiles getConfigFiles() {
-		return FILES;
+	public ConfigFiles getConfigFiles() {
+		return files;
+	}
+	
+	public static EnchantmentSolution getPlugin() {
+		return PLUGIN;
 	}
 }

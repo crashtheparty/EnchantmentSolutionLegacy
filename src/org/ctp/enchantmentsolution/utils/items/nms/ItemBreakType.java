@@ -15,7 +15,7 @@ public interface ItemBreakType {
 	public List<Material> getBreakTypes();
 	
 	public static ItemBreakType getType(Material type) {
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:
@@ -36,7 +36,7 @@ public interface ItemBreakType {
 	}
 	
 	public static List<Material> allBreakTypes(){
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:

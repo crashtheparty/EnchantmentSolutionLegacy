@@ -19,7 +19,7 @@ public class ItemNameNMS {
 		case GERMAN:
 			return GermanNames_v1_9_to_12.getName(item.getType());
 		case US:
-			switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+			switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 			case 1:
 			case 2:
 				return ItemName_v1_9_R1.returnLocalizedItemName(item);

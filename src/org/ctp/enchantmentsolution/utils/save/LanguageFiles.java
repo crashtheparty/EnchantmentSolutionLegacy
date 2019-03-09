@@ -56,14 +56,14 @@ public class LanguageFiles {
 			language = new YamlConfigBackup(languageFile, null);
 			
 			language.getFromConfig();
-			YamlConfig main = EnchantmentSolution.getConfigFiles().getDefaultConfig();
+			YamlConfig main = EnchantmentSolution.getPlugin().getConfigFiles().getDefaultConfig();
 			if(main.getBoolean("reset_language")) {
 				language.resetConfig();
 				main.set("reset_language", false);
 				main.saveConfig();
 			}
-			language.copyDefaults(getLanguageFile());
 		}
+		language.copyDefaults(getLanguageFile());
 		
 		language.saveConfig();
 	}
@@ -94,7 +94,7 @@ public class LanguageFiles {
 	}
 	
 	private void createDefaultFiles() {
-		File dataFolder = EnchantmentSolution.PLUGIN.getDataFolder();
+		File dataFolder = EnchantmentSolution.getPlugin().getDataFolder();
 		
 		try {
 			File langs = new File(dataFolder + "/languages/");
@@ -114,7 +114,8 @@ public class LanguageFiles {
 	}
 	
 	private void defaultenglishUSFile() {
-		englishUS = new YamlConfigBackup(englishUSFile, new String[0]);
+		if(englishUS == null)
+			englishUS = new YamlConfigBackup(englishUSFile, new String[0]);
 		
 		englishUS.getFromConfig();
 		
@@ -234,7 +235,8 @@ public class LanguageFiles {
 	}
 
 	private void defaultGermanFile() {
-		german = new YamlConfigBackup(germanFile, new String[0]);
+		if(german == null)
+			german = new YamlConfigBackup(germanFile, new String[0]);
 		
 		german.getFromConfig();
 		

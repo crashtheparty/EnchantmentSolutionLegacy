@@ -9,7 +9,7 @@ import org.ctp.enchantmentsolution.EnchantmentSolution;
 public class IronDefenseContacts {
 
 	public static List<DamageCause> getDamageCauses(){
-		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() > 6) {
+		if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() > 6) {
 			return Arrays.asList(DamageCause.BLOCK_EXPLOSION, DamageCause.CONTACT, DamageCause.CUSTOM, DamageCause.ENTITY_ATTACK,
 					DamageCause.ENTITY_EXPLOSION, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.LIGHTNING, DamageCause.PROJECTILE, DamageCause.THORNS);
 		}

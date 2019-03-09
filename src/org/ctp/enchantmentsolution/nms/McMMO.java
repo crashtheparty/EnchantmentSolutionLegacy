@@ -7,7 +7,7 @@ import org.ctp.enchantmentsolution.listeners.abilities.mcmmo.McMMOClassicHandler
 public class McMMO {
 	
 	public static void handleMcMMO(BlockBreakEvent event) {
-		switch(EnchantmentSolution.getMcMMOType()) {
+		switch(EnchantmentSolution.getPlugin().getMcMMOType()) {
 		case "Classic":
 			McMMOClassicHandler.handleMcMMO(event);
 			break;

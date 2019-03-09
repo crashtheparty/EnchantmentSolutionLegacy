@@ -11,7 +11,7 @@ public class PlayerInteract implements Listener{
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event){
-		if(EnchantmentSolution.getBukkitVersion().getVersionNumber() == 1) {
+		if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() == 1) {
 			PlayerInteract_v1 interact = new PlayerInteract_v1();
 			interact.onPlayerInteract(event);
 		} else {

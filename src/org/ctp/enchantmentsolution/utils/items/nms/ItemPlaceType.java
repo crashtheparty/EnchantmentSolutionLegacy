@@ -14,7 +14,7 @@ public interface ItemPlaceType {
 	public List<Material> getItemPlaceTypes();
 	
 	public static List<Material> getPlaceTypes(){
-		switch(EnchantmentSolution.getBukkitVersion().getVersionNumber()) {
+		switch(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber()) {
 		case 1:
 		case 2:
 		case 3:

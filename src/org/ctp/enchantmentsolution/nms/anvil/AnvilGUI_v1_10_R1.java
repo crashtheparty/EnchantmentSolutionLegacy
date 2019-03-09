@@ -207,7 +207,7 @@ public class AnvilGUI_v1_10_R1 {
 						inv.clear();
 						destroy();
 						if (data instanceof Anvil) {
-							Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.PLUGIN, new Runnable() {
+							Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.getPlugin(), new Runnable() {
 
 								@Override
 								public void run() {
@@ -216,7 +216,7 @@ public class AnvilGUI_v1_10_R1 {
 								
 							}, 2l);
 						} else if (data instanceof ConfigInventory) {
-							Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.PLUGIN, new Runnable() {
+							Bukkit.getScheduler().scheduleSyncDelayedTask(EnchantmentSolution.getPlugin(), new Runnable() {
 
 								@Override
 								public void run() {
@@ -237,8 +237,7 @@ public class AnvilGUI_v1_10_R1 {
 			}
 		};
 
-		Bukkit.getPluginManager().registerEvents(listener, EnchantmentSolution.PLUGIN); // Replace with instance of main
-																						// class
+		Bukkit.getPluginManager().registerEvents(listener, EnchantmentSolution.getPlugin()); 
 	}
 
 	public Player getPlayer() {
