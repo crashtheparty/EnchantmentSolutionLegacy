@@ -10,37 +10,31 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.helper.Weight;
 import org.ctp.enchantmentsolution.utils.items.nms.ItemType;
 
-public class Wand extends CustomEnchantment{
-	
-	public Wand() {
-		addDefaultDisplayName("Wand");
-		addDefaultDisplayName(Language.GERMAN, "Zauberstab");
-		setDefaultFiftyConstant(20);
-		setDefaultThirtyConstant(10);
-		setDefaultFiftyModifier(15);
-		setDefaultThirtyModifier(10);
+public class Net extends CustomEnchantment{
+
+	public Net() {
+		addDefaultDisplayName("Net");
+		addDefaultDisplayName(Language.GERMAN, "Netzgewebe");
+		setDefaultFiftyConstant(0);
+		setDefaultThirtyConstant(15);
+		setDefaultFiftyModifier(30);
+		setDefaultThirtyModifier(0);
 		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(35);
+		setDefaultThirtyMaxConstant(45);
 		setDefaultFiftyStartLevel(30);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(3);
-		setDefaultThirtyMaxLevel(2);
+		setDefaultFiftyMaxLevel(2);
+		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
-		setTreasure(true);
-		addDefaultDescription("Places blocks from the offhand.");
-		addDefaultDescription(Language.GERMAN, "Platziert Blöcke von der Nebenhand.");
+		addDefaultDescription("Grabs animals to place later.");
+		addDefaultDescription(Language.GERMAN, "Packt Tiere, um sie später zu platzieren.");
 	}
 	
 	@Override
 	public Enchantment getRelativeEnchantment() {
-		return DefaultEnchantments.WAND;
+		return DefaultEnchantments.NET;
 	}
 
-	@Override
-	public String getName() {
-		return "wand";
-	}
-	
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
 		return Arrays.asList(ItemType.BOOK);
@@ -53,6 +47,12 @@ public class Wand extends CustomEnchantment{
 
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
-		return Arrays.asList(DefaultEnchantments.NET);
+		return Arrays.asList(DefaultEnchantments.WAND);
 	}
+
+	@Override
+	public String getName() {
+		return "net";
+	}
+
 }

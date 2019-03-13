@@ -49,15 +49,9 @@ public class FrequentFlyerListener implements Runnable{
 			if (player != null && Bukkit.getOnlinePlayers().contains(player)) {
 				ItemStack elytra = player.getInventory().getChestplate();
 				if (elytra != null && elytra.getType().equals(Material.ELYTRA)) {
-					if (ffPlayer.getElytra() != null) {
-						if (!elytra.toString().equalsIgnoreCase(ffPlayer.getElytra().toString())) {
-							ffPlayer.setElytra(elytra, true);
-						}
-						if (player.isFlying() && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
-							ffPlayer.minus();
-						}
-					} else {
-						ffPlayer.setElytra(elytra);
+					ffPlayer.setElytra(elytra);
+					if (player.isFlying() && !player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
+						ffPlayer.minus();
 					}
 				} else {
 					if((elytra == null || !elytra.getType().equals(Material.ELYTRA)) && !player.getGameMode().equals(GameMode.CREATIVE) 
@@ -127,7 +121,7 @@ public class FrequentFlyerListener implements Runnable{
 		}
 
 		public void setCanFly(boolean canFly) {
-			this.canFly = canFly || player.getGameMode() == null || player.getGameMode().equals(GameMode.CREATIVE) 
+			this.canFly = canFly || player.getGameMode().equals(GameMode.CREATIVE) 
 					|| player.getGameMode().equals(GameMode.SPECTATOR);
 			if(this.canFly || !player.hasPermission("enchantmentsolution.enable-flight")) {
 				player.setAllowFlight(this.canFly);

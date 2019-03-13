@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
 import org.bukkit.block.DoubleChest;
@@ -15,7 +14,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -26,17 +24,16 @@ import org.ctp.enchantmentsolution.nms.McMMO;
 import org.ctp.enchantmentsolution.utils.items.nms.AbilityUtils;
 import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 
-public class TelepathyListener implements Listener {
+public class TelepathyListener extends EnchantmentListener {
 	
 	private static List<Material> SHULKER_BOXES = Arrays.asList(Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX,
 			Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX,
 			Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX,
 			Material.SILVER_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX);
-
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event) {
-		if (!DefaultEnchantments.isEnabled(DefaultEnchantments.TELEPATHY))
-			return;
+		if(!canRun(DefaultEnchantments.TELEPATHY, event)) return;
 		Player player = event.getPlayer();
 		if (player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR))
 			return;
@@ -114,21 +111,10 @@ public class TelepathyListener implements Listener {
 	
 	private void damageItem(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR))
-			return;
 		ItemStack item = player.getInventory().getItemInMainHand();
-		int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
-		double chance = (1.0D) / (unbreaking + 1.0D);
-		double random = Math.random();
-		if(chance > random) {
-			item.setDurability((short) (item.getDurability() + 1));
-			if(item.getDurability() > item.getType().getMaxDurability()) {
-				player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-			}
-		}
+		super.damageItem(player, item);
 		McMMO.handleMcMMO(event);
-		event.getPlayer().giveExp(event.getExpToDrop());
+		AbilityUtils.giveExperience(player, event.getExpToDrop());
 		event.getBlock().setType(Material.AIR);
 	}
 	

@@ -27,9 +27,9 @@ import org.ctp.enchantmentsolution.utils.items.nms.ItemType;
 
 public class ConfigFiles {
 
-	private File walkerFile, mainFile, fishingFile, enchantmentFile, enchantmentAdvancedFile;
+	private File abilityFile, mainFile, fishingFile, enchantmentFile, enchantmentAdvancedFile;
 	private File dataFolder;
-	private YamlConfig walkerConfig;
+	private YamlConfig abilityConfig;
 	private YamlConfigBackup config, fishing, enchantment, enchantmentAdvanced;
 	private LanguageFiles languageFiles;
 	
@@ -45,8 +45,8 @@ public class ConfigFiles {
 		return fishing;
 	}
 	
-	public YamlConfig getWalkerConfig() {
-		return walkerConfig;
+	public YamlConfig getAbilityConfig() {
+		return abilityConfig;
 	}
 	
 	public YamlConfigBackup getLanguageFile() {
@@ -70,12 +70,12 @@ public class ConfigFiles {
 			if (!extras.exists()) {
 				extras.mkdirs();
 			}
-			walkerFile = new File(dataFolder + "/extras/walker-enchantments.yml");
-			if (!walkerFile.exists()) {
-				walkerFile.createNewFile();
+			abilityFile = new File(dataFolder + "/extras/ability-enchantments.yml");
+			if (!abilityFile.exists()) {
+				abilityFile.createNewFile();
 			}
-			YamlConfiguration.loadConfiguration(walkerFile);
-			walkerConfig();
+			YamlConfiguration.loadConfiguration(abilityFile);
+			abilityConfig();
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -427,15 +427,15 @@ public class ConfigFiles {
 		EnchantmentSolution.getPlugin().getDb().updateConfig(getEnchantmentAdvancedConfig());
 	}
 	
-	private void walkerConfig() {
-		ChatUtils.sendInfo("Loading walker enchantment file...");
-		walkerConfig = new YamlConfig(walkerFile, new String[0]);
+	private void abilityConfig() {
+		ChatUtils.sendInfo("Loading ability enchantment file...");
+		abilityConfig = new YamlConfig(abilityFile, new String[0]);
 		
-		walkerConfig.getFromConfig();
+		abilityConfig.getFromConfig();
 		
-		walkerConfig.saveConfig();
+		abilityConfig.saveConfig();
 
-		ChatUtils.sendInfo("Walker enchantment file initialized!");
+		ChatUtils.sendInfo("Ability enchantment file initialized!");
 	}
 	
 	private void mcMMOFishing() {

@@ -7,11 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -20,17 +19,16 @@ import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.utils.LocationUtils;
 import org.ctp.enchantmentsolution.utils.items.ItemSerialization;
 import org.ctp.enchantmentsolution.utils.items.nms.ItemPlaceType;
-import org.bukkit.event.Listener;
 
-public class WandListener implements Listener{
+public class WandListener extends EnchantmentListener{
 	
 	private static List<Block> IGNORE_BLOCKS = new ArrayList<Block>();
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if(!(DefaultEnchantments.isEnabled(DefaultEnchantments.WAND))) return;
+		if(!canRun(DefaultEnchantments.WAND, event)) return;
 		if(IGNORE_BLOCKS.contains(event.getBlock())) {
 			IGNORE_BLOCKS.remove(event.getBlock());
 			return;
@@ -134,15 +132,6 @@ public class WandListener implements Listener{
 		if (player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR))
 			return;
 		ItemStack item = player.getInventory().getItemInMainHand();
-		int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
-		double chance = (1.0D) / (unbreaking + 2.0D);
-		double random = Math.random();
-		if(chance > random) {
-			item.setDurability((short) (item.getDurability() + 1));
-			if(item.getDurability() > item.getType().getMaxDurability()) {
-				player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-			}
-		}
+		super.damageItem(player, item, 1, 2);
 	}
 }

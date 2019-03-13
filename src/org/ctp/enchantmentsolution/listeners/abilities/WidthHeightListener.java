@@ -6,26 +6,26 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.utils.items.nms.AbilityUtils;
 import org.ctp.enchantmentsolution.utils.items.nms.ItemBreakType;
-import org.bukkit.event.Listener;
 
-public class WidthHeightListener implements Listener{
+public class WidthHeightListener extends EnchantmentListener{
 	
 	private static List<Block> IGNORE_BLOCKS = new ArrayList<Block>();
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
+		if(!canRun(event, false, DefaultEnchantments.WIDTH_PLUS_PLUS, DefaultEnchantments.HEIGHT_PLUS_PLUS)) return;
 		if(!(DefaultEnchantments.isEnabled(DefaultEnchantments.WIDTH_PLUS_PLUS) && DefaultEnchantments.isEnabled(DefaultEnchantments.HEIGHT_PLUS_PLUS))) return;
 		if(IGNORE_BLOCKS.contains(event.getBlock())) {
 			IGNORE_BLOCKS.remove(event.getBlock());
@@ -118,16 +118,7 @@ public class WidthHeightListener implements Listener{
 								if(item != null && newEvent.getBlock().getType() != Material.AIR) {
 									newEvent.getBlock().breakNaturally(item);
 									AbilityUtils.dropExperience(newEvent.getBlock().getLocation().add(0.5, 0.5, 0.5), newEvent.getExpToDrop());
-									int unbreaking = Enchantments.getLevel(item, Enchantment.DURABILITY);
-									double chance = (1.0D) / (unbreaking + 1.0D);
-									double random = Math.random();
-									if(chance > random) {
-										item.setDurability((short) (item.getDurability() + 1));
-										if(item.getDurability() > item.getType().getMaxDurability()) {
-											player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-											player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-										}
-									}
+									super.damageItem(player, item);
 								}
 							}
 						}

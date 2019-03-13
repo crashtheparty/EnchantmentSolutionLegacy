@@ -7,7 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
-import org.ctp.enchantmentsolution.listeners.VanishListener;
+import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
+import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v2;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 
 public class Reload implements CommandExecutor{
@@ -19,14 +20,22 @@ public class Reload implements CommandExecutor{
 			player = (Player) sender;
 			if(player.hasPermission("enchantmentsolution.command.reload")) {
 				EnchantmentSolution.getPlugin().getConfigFiles().reload();
-				VanishListener.reload();
+				if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() > 8) {
+					VanishListener_v2.reload();
+				} else {
+					VanishListener_v1.reload();
+				}
 				ChatUtils.sendMessage(player, ChatUtils.getMessage(ChatUtils.getCodes(), "commands.reload"));
 			} else {
 				ChatUtils.sendMessage(player, ChatUtils.getMessage(ChatUtils.getCodes(), "commands.no-permission"));
 			}
 		} else {
 			EnchantmentSolution.getPlugin().getConfigFiles().reload();
-			VanishListener.reload();
+			if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() > 8) {
+				VanishListener_v2.reload();
+			} else {
+				VanishListener_v1.reload();
+			}
 			ChatUtils.sendToConsole(Level.INFO, ChatUtils.getMessage(ChatUtils.getCodes(), "commands.reload"));
 		}
 		return true;

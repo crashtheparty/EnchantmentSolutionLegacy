@@ -1,14 +1,20 @@
 package org.ctp.enchantmentsolution.utils.items.nms;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import org.bukkit.CropState;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NetherWartsState;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.Crops;
 import org.bukkit.material.NetherWarts;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
@@ -130,6 +136,39 @@ public class AbilityUtils {
 	public static void dropExperience(Location loc, int amount) {
 		if(amount > 0) {
 			((ExperienceOrb)loc.getWorld().spawn(loc, ExperienceOrb.class)).setExperience(amount);
+		}
+	}
+
+	public static void giveExperience(Player player, int amount) {
+		List<ItemStack> items = new ArrayList<ItemStack>();
+		PlayerInventory playerInv = player.getInventory();
+		for(ItemStack i : playerInv.getArmorContents()) {
+			if(i != null && Enchantments.hasEnchantment(i, Enchantment.MENDING)) {
+				items.add(i);
+			}
+		}
+		if(playerInv.getItemInMainHand() != null && Enchantments.hasEnchantment(playerInv.getItemInMainHand(), Enchantment.MENDING)) {
+			items.add(playerInv.getItemInMainHand());
+		}
+		if(playerInv.getItemInOffHand() != null && Enchantments.hasEnchantment(playerInv.getItemInOffHand(), Enchantment.MENDING)) {
+			items.add(playerInv.getItemInOffHand());
+		}
+		
+		if(items.size() > 0) {
+			Collections.shuffle(items);
+			ItemStack item = items.get(0);
+			int durability = item.getDurability();
+			while(amount > 0 && durability > 0) {
+				durability -= 2;
+				amount--;
+			}
+			if(durability < 0) durability = 0;
+			item.setDurability((short) durability);
+			if(amount > 0) {
+				player.giveExp(amount);
+			}
+		} else {
+			player.giveExp(amount);
 		}
 	}
 }

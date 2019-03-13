@@ -24,7 +24,6 @@ import org.ctp.enchantmentsolution.listeners.InventoryClick;
 import org.ctp.enchantmentsolution.listeners.InventoryClose;
 import org.ctp.enchantmentsolution.listeners.PlayerChatTabComplete;
 import org.ctp.enchantmentsolution.listeners.PlayerInteract;
-import org.ctp.enchantmentsolution.listeners.VanishListener;
 import org.ctp.enchantmentsolution.listeners.VersionCheck;
 import org.ctp.enchantmentsolution.listeners.abilities.BeheadingListener;
 import org.ctp.enchantmentsolution.listeners.abilities.BrineListener;
@@ -41,6 +40,7 @@ import org.ctp.enchantmentsolution.listeners.abilities.KnockUpListener;
 import org.ctp.enchantmentsolution.listeners.abilities.LifeListener;
 import org.ctp.enchantmentsolution.listeners.abilities.MagicGuardListener;
 import org.ctp.enchantmentsolution.listeners.abilities.MagmaWalkerListener;
+import org.ctp.enchantmentsolution.listeners.abilities.NetListener;
 import org.ctp.enchantmentsolution.listeners.abilities.SacrificeListener;
 import org.ctp.enchantmentsolution.listeners.abilities.SandVeilListener;
 import org.ctp.enchantmentsolution.listeners.abilities.ShockAspectListener;
@@ -59,6 +59,8 @@ import org.ctp.enchantmentsolution.listeners.fishing.EnchantsFishingListener;
 import org.ctp.enchantmentsolution.listeners.fishing.McMMOFishingNMS;
 import org.ctp.enchantmentsolution.listeners.legacy.UpdateEnchantments;
 import org.ctp.enchantmentsolution.listeners.mobs.MobSpawning;
+import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
+import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v2;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.utils.save.ConfigFiles;
 import org.ctp.enchantmentsolution.utils.save.SaveUtils;
@@ -152,9 +154,14 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FlowerGiftListener(), this);
 		getServer().getPluginManager().registerEvents(new GungHoListener(), this);
 		getServer().getPluginManager().registerEvents(new WandListener(), this);
+		getServer().getPluginManager().registerEvents(new NetListener(), this);
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
-		getServer().getPluginManager().registerEvents(new VanishListener(), this);
+		if(getBukkitVersion().getVersionNumber() > 8) {
+			getServer().getPluginManager().registerEvents(new VanishListener_v2(), this);
+		} else {
+			getServer().getPluginManager().registerEvents(new VanishListener_v1(), this);
+		}
 		getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new UpdateEnchantments(), this);
@@ -222,7 +229,6 @@ public class EnchantmentSolution extends JavaPlugin {
 		
 		files.updateEnchantments();
 		
-
 		check = new VersionCheck(pluginVersion, "https://raw.githubusercontent.com/crashtheparty/EnchantmentSolution/master/VersionHistory", 
 				"https://www.spigotmc.org/resources/enchantment-solution.59556/", "https://github.com/crashtheparty/EnchantmentSolution", 
 				getConfigFiles().getDefaultConfig().getBoolean("get_latest_version"));
@@ -231,7 +237,7 @@ public class EnchantmentSolution extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		SaveUtils.setWalkerData();
+		SaveUtils.setAbilityData();
 		
 		resetInventories();
 	}

@@ -27,6 +27,7 @@ import org.ctp.enchantmentsolution.enchantments.custom.KnockUp;
 import org.ctp.enchantmentsolution.enchantments.custom.Life;
 import org.ctp.enchantmentsolution.enchantments.custom.MagicGuard;
 import org.ctp.enchantmentsolution.enchantments.custom.MagmaWalker;
+import org.ctp.enchantmentsolution.enchantments.custom.Net;
 import org.ctp.enchantmentsolution.enchantments.custom.Sacrifice;
 import org.ctp.enchantmentsolution.enchantments.custom.SandVeil;
 import org.ctp.enchantmentsolution.enchantments.custom.ShockAspect;
@@ -90,6 +91,7 @@ import org.ctp.enchantmentsolution.enchantments.wrappers.KnockUpWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.LifeWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.MagicGuardWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.MagmaWalkerWrapper;
+import org.ctp.enchantmentsolution.enchantments.wrappers.NetWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SacrificeWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.SandVeilWrapper;
 import org.ctp.enchantmentsolution.enchantments.wrappers.ShockAspectWrapper;
@@ -144,6 +146,7 @@ public class DefaultEnchantments {
 	public static final Enchantment FLOWER_GIFT = new FlowerGiftWrapper();
 	public static final Enchantment GUNG_HO = new GungHoWrapper();
 	public static final Enchantment WAND = new WandWrapper();
+	public static final Enchantment NET = new NetWrapper();
 
 	public static List<CustomEnchantment> getEnchantments() {
 		return ENCHANTMENTS;
@@ -368,6 +371,7 @@ public class DefaultEnchantments {
 		if(versionNumber > 3) {
 			DefaultEnchantments.addDefaultEnchantment(new MagmaWalker());
 		}
+		DefaultEnchantments.addDefaultEnchantment(new Net());
 		DefaultEnchantments.addDefaultEnchantment(new Sacrifice());
 		DefaultEnchantments.addDefaultEnchantment(new SandVeil());
 		DefaultEnchantments.addDefaultEnchantment(new ShockAspect());

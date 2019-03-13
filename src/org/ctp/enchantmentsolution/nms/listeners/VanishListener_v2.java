@@ -1,4 +1,4 @@
-package org.ctp.enchantmentsolution.listeners;
+package org.ctp.enchantmentsolution.nms.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.inventory.InventoryData;
 
-public class VanishListener implements Listener{
+public class VanishListener_v2 implements Listener{
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
