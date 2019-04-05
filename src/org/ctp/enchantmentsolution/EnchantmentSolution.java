@@ -83,7 +83,7 @@ public class EnchantmentSolution extends JavaPlugin {
 	public void onEnable() {
 		PLUGIN = this;
 		bukkitVersion = new BukkitVersion();
-		pluginVersion = new PluginVersion(getDescription().getVersion());
+		pluginVersion = new PluginVersion(this, getDescription().getVersion());
 		if(!bukkitVersion.isVersionAllowed()) {
 			Bukkit.getLogger().log(Level.WARNING, "Bukkit Version " + bukkitVersion.getVersion() + " is not compatible with this plugin. Please use a version that is compatible.");
 			Bukkit.getPluginManager().disablePlugin(PLUGIN);

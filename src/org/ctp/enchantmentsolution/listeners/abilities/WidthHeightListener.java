@@ -22,11 +22,10 @@ public class WidthHeightListener extends EnchantmentListener{
 	
 	private static List<Block> IGNORE_BLOCKS = new ArrayList<Block>();
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		if(!canRun(event, false, DefaultEnchantments.WIDTH_PLUS_PLUS, DefaultEnchantments.HEIGHT_PLUS_PLUS)) return;
-		if(!(DefaultEnchantments.isEnabled(DefaultEnchantments.WIDTH_PLUS_PLUS) && DefaultEnchantments.isEnabled(DefaultEnchantments.HEIGHT_PLUS_PLUS))) return;
 		if(IGNORE_BLOCKS.contains(event.getBlock())) {
 			IGNORE_BLOCKS.remove(event.getBlock());
 			return;
@@ -115,7 +114,7 @@ public class WidthHeightListener extends EnchantmentListener{
 								}
 								newEvent.setExpToDrop(exp);
 								Bukkit.getServer().getPluginManager().callEvent(newEvent);
-								if(item != null && newEvent.getBlock().getType() != Material.AIR) {
+								if(item != null && newEvent.getBlock().getType() != Material.AIR && !newEvent.isCancelled()) {
 									newEvent.getBlock().breakNaturally(item);
 									AbilityUtils.dropExperience(newEvent.getBlock().getLocation().add(0.5, 0.5, 0.5), newEvent.getExpToDrop());
 									super.damageItem(player, item);

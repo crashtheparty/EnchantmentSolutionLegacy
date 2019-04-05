@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.version.PluginVersion;
 import org.ctp.enchantmentsolution.version.Version;
@@ -77,7 +76,7 @@ public class VersionCheck implements Listener, Runnable {
 						+ " of EnchantmentSolution is available! Download it here: " + spigot);
 			}
 			if(!checked) {
-				Bukkit.getScheduler().runTaskLater(EnchantmentSolution.getPlugin(), new Runnable() {
+				Bukkit.getScheduler().runTaskLater(version.getPlugin(), new Runnable() {
 					public void run() {
 						for(Player player : Bukkit.getOnlinePlayers()) {
 							if (latestVersion && player.hasPermission("enchantmentsolution.version-updater")) {

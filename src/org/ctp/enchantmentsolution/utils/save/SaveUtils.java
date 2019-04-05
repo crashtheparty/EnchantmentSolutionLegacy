@@ -3,14 +3,13 @@ package org.ctp.enchantmentsolution.utils.save;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.EntityType;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.listeners.abilities.MagmaWalkerListener;
-import org.ctp.enchantmentsolution.listeners.abilities.NetListener;
-import org.ctp.enchantmentsolution.listeners.abilities.NetListener.AnimalMob;
 import org.ctp.enchantmentsolution.listeners.abilities.VoidWalkerListener;
+import org.ctp.enchantmentsolution.nms.AnimalMobNMS;
+import org.ctp.enchantmentsolution.nms.animalmob.AnimalMob;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 
 public class SaveUtils {
@@ -67,19 +66,7 @@ public class SaveUtils {
 		if(config.containsElements("animals")) {
 			int i = 0;
 			while (config.getString("animals." + i + ".entity_type") != null) {
-				EntityType type = EntityType.valueOf(config.getString("animals." + i + ".entity_type"));
-				String name = config.getString("animals." + i + ".name");
-				int age = config.getInt("animals." + i + ".age");
-				double health = config.getDouble("animals." + i + ".health");
-				int entityID = config.getInt("animals." + i + ".entity_id");
-				
-				NetListener.ANIMALS.add(new AnimalMob(type, name, health, age, entityID));
-				
-				config.removeKey("animals." + i + ".entity_type");
-				config.removeKey("animals." + i + ".name");
-				config.removeKey("animals." + i + ".age");
-				config.removeKey("animals." + i + ".health");
-				config.removeKey("animals." + i + ".entity_id");
+				AnimalMobNMS.getFromConfig(config, i);
 				i++;
 			}
 		}
@@ -100,6 +87,7 @@ public class SaveUtils {
 			}
 			i++;
 		}
+		i = 0;
 		for (Block block : VoidWalkerListener.BLOCKS) {
 			for(MetadataValue value : block.getMetadata("VoidWalker")){
 				config.set("obsidian_blocks." + i,
@@ -108,12 +96,13 @@ public class SaveUtils {
 			}
 			i++;
 		}
-		for (AnimalMob animal : NetListener.ANIMALS) {
-			config.set("animals." + i + ".entity_type", animal.getMob().name());
-			config.set("animals." + i + ".name", animal.getName());
-			config.set("animals." + i + ".age", animal.getAge());
-			config.set("animals." + i + ".health", animal.getHealth());
-			config.set("animals." + i + ".entity_id", animal.getEntityID());
+		i = 0;
+		for (AnimalMob animal : AnimalMob.ANIMALS) {
+			try {
+				animal.setConfig(config, i);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 			i++;
 		}
 		config.saveConfig();
