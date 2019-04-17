@@ -33,7 +33,8 @@ public class InventoryClickUtils {
 			lapis.setColor(DyeColor.BLUE);
 			if (Enchantments.isEnchantable(item)) {
 				ItemStack replace = new ItemStack(Material.AIR);
-				if(item.getAmount() > 1){
+				int original_amount = item.getAmount();
+				if(original_amount > 1){
 					replace = item.clone();
 					replace.setAmount(replace.getAmount() - 1);
 					item.setAmount(1);
@@ -41,6 +42,8 @@ public class InventoryClickUtils {
 				if (table.addItem(item)) {
 					table.setInventory();
 					player.getInventory().setItem(slot, replace);
+				} else if (original_amount > 1){
+					item.setAmount(original_amount);
 				}
 			} else if(item != null && item.getType().equals(lapis.toItemStack(1).getType())) {
 				player.getInventory().setItem(slot, table.addToLapisStack(item));
@@ -51,7 +54,7 @@ public class InventoryClickUtils {
 			if (table.getItems().contains(item)) {
 				if (table.removeItem(item, slot)) {
 					table.setInventory();
-					ItemUtils.giveItemToPlayer(player, item, player.getLocation());
+					ItemUtils.giveItemToPlayer(player, item, player.getLocation(), false);
 				}
 			}else if(slot > 17 && slot % 9 >= 3 && slot % 9 <= 8 && item != null && item.getType() != Material.STAINED_GLASS_PANE){
 				int itemSlot = (slot - 18) / 9;
@@ -60,7 +63,7 @@ public class InventoryClickUtils {
 			} else if (slot == 10) {
 				ItemStack lapisStack = table.removeFromLapisStack();
 				if(lapisStack != null) {
-					ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation());
+					ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation(), false);
 				}
 				table.setInventory();
 			}
@@ -76,7 +79,8 @@ public class InventoryClickUtils {
 				return;
 			}
 			ItemStack replace = new ItemStack(Material.AIR);
-			if(item.getAmount() > 1 && item.getType() == Material.BOOK){
+			int original_amount = item.getAmount();
+			if(original_amount > 1 && (item.getType() == Material.BOOK && item.hasItemMeta() && item.getItemMeta().hasEnchants())){
 				replace = item.clone();
 				replace.setAmount(replace.getAmount() - 1);
 				item.setAmount(1);
@@ -84,6 +88,8 @@ public class InventoryClickUtils {
 			if (anvil.addItem(item)) {
 				anvil.setInventory();
 				player.getInventory().setItem(slot, replace);
+			} else if (original_amount > 1){
+				item.setAmount(original_amount);
 			}
 		} else {
 			ItemStack item = clickedInv.getItem(slot);
@@ -106,7 +112,7 @@ public class InventoryClickUtils {
 			} else if (anvil.getItems().contains(item)) {
 				if (anvil.removeItem(slot)) {
 					anvil.setInventory();
-					ItemUtils.giveItemToPlayer(player, item, player.getLocation());
+					ItemUtils.giveItemToPlayer(player, item, player.getLocation(), false);
 				}
 			}
 		}
@@ -119,7 +125,8 @@ public class InventoryClickUtils {
 				return;
 			}
 			ItemStack replace = new ItemStack(Material.AIR);
-			if(item.getAmount() > 1){
+			int original_amount = item.getAmount();
+			if(original_amount > 1){
 				replace = item.clone();
 				replace.setAmount(replace.getAmount() - 1);
 				item.setAmount(1);
@@ -127,6 +134,8 @@ public class InventoryClickUtils {
 			if (stone.addItem(item)) {
 				stone.setInventory();
 				player.getInventory().setItem(slot, replace);
+			} else if (original_amount > 1){
+				item.setAmount(original_amount);
 			}
 		} else {
 			ItemStack item = clickedInv.getItem(slot);
@@ -141,7 +150,7 @@ public class InventoryClickUtils {
 			} else if (stone.getItems().contains(item)) {
 				if (stone.removeItem(slot)) {
 					stone.setInventory();
-					ItemUtils.giveItemToPlayer(player, item, player.getLocation());
+					ItemUtils.giveItemToPlayer(player, item, player.getLocation(), false);
 				}
 			}
 		}
@@ -151,9 +160,9 @@ public class InventoryClickUtils {
 		if (!(inv.getType().equals(InventoryType.CHEST))) {
 			return;
 		} else {
-			ConfigFiles files = EnchantmentSolution.getPlugin().getConfigFiles();
 			ItemStack item = clickedInv.getItem(slot);
 			if(item == null) return;
+			ConfigFiles files = EnchantmentSolution.getPlugin().getConfigFiles();
 			switch(configInv.getScreen()) {
 			case LIST_FILES:
 				switch(slot) {

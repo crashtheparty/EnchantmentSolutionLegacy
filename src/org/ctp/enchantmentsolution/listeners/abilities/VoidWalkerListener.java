@@ -11,7 +11,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -21,7 +20,7 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.nms.abilities.MagmaWalkerListener_v4;
 
-public class VoidWalkerListener implements Listener, Runnable{
+public class VoidWalkerListener extends EnchantmentListener implements Runnable{
 	
 	public static List<Block> BLOCKS = new ArrayList<Block>();
 	private static List<VoidWalkerPlayer> HAS_VOID_WALKER = new ArrayList<VoidWalkerPlayer>();
@@ -33,6 +32,7 @@ public class VoidWalkerListener implements Listener, Runnable{
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event){
+		if(!canRun(DefaultEnchantments.VOID_WALKER, event)) return;
 		if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() >= 4) {
 			MagmaWalkerListener_v4 listener = new MagmaWalkerListener_v4();
 			listener.onPlayerMove(event);

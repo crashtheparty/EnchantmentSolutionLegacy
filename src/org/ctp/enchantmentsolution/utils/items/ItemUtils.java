@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -96,13 +97,13 @@ public class ItemUtils {
 		
 		ItemMeta firstMeta = first.getItemMeta();
 		ItemMeta combinedMeta = combined.getItemMeta();
-
+		
 		if(firstMeta instanceof LeatherArmorMeta && combinedMeta instanceof LeatherArmorMeta) {
 			((LeatherArmorMeta) combinedMeta).setColor(((LeatherArmorMeta) firstMeta).getColor());
 		}
 		
 		combinedMeta.setDisplayName(firstMeta.getDisplayName());
-		combinedMeta.setLocalizedName(firstMeta.getLocalizedName());
+		combinedMeta.setLore(firstMeta.getLore());
 		
 		combined.setItemMeta(combinedMeta);
 		
@@ -111,12 +112,14 @@ public class ItemUtils {
 		return combined;
 	}
 	
-	public static void giveItemToPlayer(Player player, ItemStack item, Location fallback) {
+	public static void giveItemToPlayer(Player player, ItemStack item, Location fallback, boolean statistic) {
 		HashMap<Integer, ItemStack> leftOver = new HashMap<Integer, ItemStack>();
+		int amount = item.getAmount();
 		leftOver.putAll((player.getInventory().addItem(item)));
 		if (!leftOver.isEmpty()) {
 			for (Iterator<java.util.Map.Entry<Integer, ItemStack>> it = leftOver.entrySet().iterator(); it.hasNext();) {
 				java.util.Map.Entry<Integer, ItemStack> e = it.next();
+				amount -= e.getValue().getAmount();
 				fallback.add(0.5, 0.5, 0.5);
 				Item droppedItem = player.getWorld().dropItem(
 						fallback,
@@ -124,6 +127,9 @@ public class ItemUtils {
 				droppedItem.setVelocity(new Vector(0,0,0));
 				droppedItem.teleport(fallback);
 			}
+		}
+		if(amount > 0 && statistic) {
+			player.incrementStatistic(Statistic.PICKUP, item.getType(), amount);
 		}
 	}
 	

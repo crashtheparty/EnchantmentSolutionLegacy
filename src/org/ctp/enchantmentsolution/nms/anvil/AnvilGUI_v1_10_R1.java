@@ -337,6 +337,9 @@ public class AnvilGUI_v1_10_R1 {
 				event.getData().setItemName(event.getName());
 			}
 		};
+		if(data instanceof Anvil) {
+			((Anvil) data).setInLegacy(true);
+		}
 		AnvilGUI_v1_10_R1 gui = new AnvilGUI_v1_10_R1(player, handler, data);
 		gui.open();
 	}

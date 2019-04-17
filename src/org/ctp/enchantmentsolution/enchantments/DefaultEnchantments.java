@@ -10,102 +10,10 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.api.ApiEnchantmentWrapper;
-import org.ctp.enchantmentsolution.enchantments.custom.Angler;
-import org.ctp.enchantmentsolution.enchantments.custom.Beheading;
-import org.ctp.enchantmentsolution.enchantments.custom.Brine;
-import org.ctp.enchantmentsolution.enchantments.custom.ExpShare;
-import org.ctp.enchantmentsolution.enchantments.custom.FlowerGift;
-import org.ctp.enchantmentsolution.enchantments.custom.FrequentFlyer;
-import org.ctp.enchantmentsolution.enchantments.custom.Fried;
-import org.ctp.enchantmentsolution.enchantments.custom.GoldDigger;
-import org.ctp.enchantmentsolution.enchantments.custom.GungHo;
-import org.ctp.enchantmentsolution.enchantments.custom.HardBounce;
-import org.ctp.enchantmentsolution.enchantments.custom.HeightPlusPlus;
-import org.ctp.enchantmentsolution.enchantments.custom.Icarus;
-import org.ctp.enchantmentsolution.enchantments.custom.IronDefense;
-import org.ctp.enchantmentsolution.enchantments.custom.KnockUp;
-import org.ctp.enchantmentsolution.enchantments.custom.Life;
-import org.ctp.enchantmentsolution.enchantments.custom.MagicGuard;
-import org.ctp.enchantmentsolution.enchantments.custom.MagmaWalker;
-import org.ctp.enchantmentsolution.enchantments.custom.Net;
-import org.ctp.enchantmentsolution.enchantments.custom.Sacrifice;
-import org.ctp.enchantmentsolution.enchantments.custom.SandVeil;
-import org.ctp.enchantmentsolution.enchantments.custom.ShockAspect;
-import org.ctp.enchantmentsolution.enchantments.custom.Smeltery;
-import org.ctp.enchantmentsolution.enchantments.custom.Sniper;
-import org.ctp.enchantmentsolution.enchantments.custom.SoulReaper;
-import org.ctp.enchantmentsolution.enchantments.custom.Soulbound;
-import org.ctp.enchantmentsolution.enchantments.custom.SplatterFest;
-import org.ctp.enchantmentsolution.enchantments.custom.Tank;
-import org.ctp.enchantmentsolution.enchantments.custom.Telepathy;
-import org.ctp.enchantmentsolution.enchantments.custom.VoidWalker;
-import org.ctp.enchantmentsolution.enchantments.custom.Wand;
-import org.ctp.enchantmentsolution.enchantments.custom.Warp;
-import org.ctp.enchantmentsolution.enchantments.custom.WidthPlusPlus;
+import org.ctp.enchantmentsolution.enchantments.custom.*;
 import org.ctp.enchantmentsolution.enchantments.helper.Weight;
-import org.ctp.enchantmentsolution.enchantments.vanilla.AquaAffinity;
-import org.ctp.enchantmentsolution.enchantments.vanilla.BaneOfArthropods;
-import org.ctp.enchantmentsolution.enchantments.vanilla.BlastProtection;
-import org.ctp.enchantmentsolution.enchantments.vanilla.CurseOfBinding;
-import org.ctp.enchantmentsolution.enchantments.vanilla.CurseOfVanishing;
-import org.ctp.enchantmentsolution.enchantments.vanilla.DepthStrider;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Efficiency;
-import org.ctp.enchantmentsolution.enchantments.vanilla.FeatherFalling;
-import org.ctp.enchantmentsolution.enchantments.vanilla.FireAspect;
-import org.ctp.enchantmentsolution.enchantments.vanilla.FireProtection;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Flame;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Fortune;
-import org.ctp.enchantmentsolution.enchantments.vanilla.FrostWalker;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Infinity;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Knockback;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Looting;
-import org.ctp.enchantmentsolution.enchantments.vanilla.LuckOfTheSea;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Lure;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Mending;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Power;
-import org.ctp.enchantmentsolution.enchantments.vanilla.ProjectileProtection;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Protection;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Punch;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Respiration;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Sharpness;
-import org.ctp.enchantmentsolution.enchantments.vanilla.SilkTouch;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Smite;
-import org.ctp.enchantmentsolution.enchantments.vanilla.SweepingEdge;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Thorns;
-import org.ctp.enchantmentsolution.enchantments.vanilla.Unbreaking;
-import org.ctp.enchantmentsolution.enchantments.wrappers.AnglerWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.BeheadingWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.BrineWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.CustomEnchantmentWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.ExpShareWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.FlowerGiftWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.FrequentFlyerWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.FriedWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.GoldDiggerWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.GungHoWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.HardBounceWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.HeightPlusPlusWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.IcarusWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.IronDefenseWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.KnockUpWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.LifeWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.MagicGuardWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.MagmaWalkerWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.NetWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SacrificeWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SandVeilWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.ShockAspectWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SmelteryWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SniperWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SoulReaperWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SoulboundWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.SplatterFestWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.TankWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.TelepathyWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.VoidWalkerWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.WandWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.WarpWrapper;
-import org.ctp.enchantmentsolution.enchantments.wrappers.WidthPlusPlusWrapper;
+import org.ctp.enchantmentsolution.enchantments.vanilla.*;
+import org.ctp.enchantmentsolution.enchantments.wrappers.*;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
 import org.ctp.enchantmentsolution.utils.StringUtils;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
@@ -146,7 +54,8 @@ public class DefaultEnchantments {
 	public static final Enchantment FLOWER_GIFT = new FlowerGiftWrapper();
 	public static final Enchantment GUNG_HO = new GungHoWrapper();
 	public static final Enchantment WAND = new WandWrapper();
-	public static final Enchantment NET = new NetWrapper();
+	public static final Enchantment IRENES_LASSO = new IrenesLassoWrapper();
+	public static final Enchantment CURSE_OF_LAG = new CurseOfLagWrapper();
 
 	public static List<CustomEnchantment> getEnchantments() {
 		return ENCHANTMENTS;
@@ -183,7 +92,7 @@ public class DefaultEnchantments {
 								+ " does not have a JavaPlugin set. Refusing to set.");
 						continue;
 					}
-					namespace = plugin.getName();
+					namespace = plugin.getName().toLowerCase();
 				} else if (enchantment.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
 					namespace = "custom_enchantments";
 				}
@@ -246,7 +155,7 @@ public class DefaultEnchantments {
 								+ " does not have a JavaPlugin set. Refusing to set.");
 						continue;
 					}
-					String namespace = plugin.getName();
+					String namespace = plugin.getName().toLowerCase();
 					if(Enchantments.addEnchantment(enchantment)) {
 						if (config.getBoolean(namespace+"."+enchantment.getName()+".enabled")) {
 							ENCHANTMENTS.get(i).setEnabled(true);
@@ -355,6 +264,9 @@ public class DefaultEnchantments {
 		DefaultEnchantments.addDefaultEnchantment(new Angler());
 		DefaultEnchantments.addDefaultEnchantment(new Beheading());
 		DefaultEnchantments.addDefaultEnchantment(new Brine());
+		if(versionNumber > 5) {
+			DefaultEnchantments.addDefaultEnchantment(new CurseOfLag());
+		}
 		DefaultEnchantments.addDefaultEnchantment(new ExpShare());
 		DefaultEnchantments.addDefaultEnchantment(new FlowerGift());
 		DefaultEnchantments.addDefaultEnchantment(new FrequentFlyer());
@@ -371,7 +283,7 @@ public class DefaultEnchantments {
 		if(versionNumber > 3) {
 			DefaultEnchantments.addDefaultEnchantment(new MagmaWalker());
 		}
-		DefaultEnchantments.addDefaultEnchantment(new Net());
+		DefaultEnchantments.addDefaultEnchantment(new IrenesLasso());
 		DefaultEnchantments.addDefaultEnchantment(new Sacrifice());
 		DefaultEnchantments.addDefaultEnchantment(new SandVeil());
 		DefaultEnchantments.addDefaultEnchantment(new ShockAspect());
@@ -385,9 +297,9 @@ public class DefaultEnchantments {
 		if(versionNumber > 3) {
 			DefaultEnchantments.addDefaultEnchantment(new VoidWalker());
 		}
+		DefaultEnchantments.addDefaultEnchantment(new Wand());
 		DefaultEnchantments.addDefaultEnchantment(new Warp());
 		DefaultEnchantments.addDefaultEnchantment(new WidthPlusPlus());
-		DefaultEnchantments.addDefaultEnchantment(new Wand());
 	}
 	
 	public static List<String> getEnchantmentNames(){

@@ -1,12 +1,14 @@
 package org.ctp.enchantmentsolution.listeners.abilities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,10 +16,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.utils.LocationUtils;
 import org.ctp.enchantmentsolution.utils.items.ItemSerialization;
+import org.ctp.enchantmentsolution.utils.items.ItemUtils;
 import org.ctp.enchantmentsolution.utils.items.nms.ItemPlaceType;
 
 public class WandListener extends EnchantmentListener{
@@ -33,7 +37,6 @@ public class WandListener extends EnchantmentListener{
 			IGNORE_BLOCKS.remove(event.getBlock());
 			return;
 		}
-		if(player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR)) return;
 		ItemStack item = player.getInventory().getItemInMainHand();
 		if (item != null) {
 			int xt = 0;
@@ -66,29 +69,66 @@ public class WandListener extends EnchantmentListener{
 					return;
 				}
 				item = player.getInventory().getItemInOffHand();
-				int remove = 0;
-				for(int x = - xt; x <= xt; x++) {
-					for(int y = - yt; y <= yt; y++) {
-						for(int z = - zt; z <= zt; z++) {
-							item = player.getInventory().getItemInOffHand();
-							if(item == null || item.getType() == Material.AIR) return;
-							Block block = clickedBlock.getRelative(x, y, z);
-							if(x == 0 && y == 0 && z == 0) continue;
-							if(!block.getType().isSolid()) {
-								IGNORE_BLOCKS.add(block);
-								BlockPlaceEvent newEvent = new BlockPlaceEvent(block, clickedBlock.getState(), clickedBlock, item, player, true, EquipmentSlot.OFF_HAND);
-								Bukkit.getServer().getPluginManager().callEvent(newEvent);
-								if(item != null && !newEvent.isCancelled()) {
-									block.setType(newEvent.getBlockReplacedState().getType());
-									block.setData(newEvent.getBlockReplacedState().getData().getData());
-									remove ++;
+				int start = 0;
+				boolean removed = false;
+				while(start <= xt || start <= yt || start <= zt) {
+					int xBegin = start;
+					int yBegin = start;
+					int zBegin = start;
+					if(xBegin > xt) {
+						xBegin = xt;
+					}
+					if(yBegin > yt) {
+						yBegin = yt;
+					}
+					if(zBegin > zt) {
+						zBegin = zt;
+					}
+					for(int x = - xBegin; x <= xBegin; x++) {
+						for(int y = - yBegin; y <= yBegin; y++) {
+							for(int z = - zBegin; z <= zBegin; z++) {
+								if((Math.abs(x) == xBegin && Math.abs(y) == yBegin) 
+										|| (Math.abs(x) == xBegin && Math.abs(z) == zBegin) 
+										|| (Math.abs(y) == yBegin && Math.abs(z) == zBegin)) {
+									item = player.getInventory().getItemInOffHand();
+									if(x == 0 && y == 0 && z == 0) {
+										removed = remove(player, item, 1);
+										continue;
+									}
+									if(item == null || item.getType() == Material.AIR) continue;
+									Block block = clickedBlock.getRelative(x, y, z);
+									if(!block.getType().isSolid()) {
+										IGNORE_BLOCKS.add(block);
+										Collection<ItemStack> drops = block.getDrops();
+										Material oldType = block.getType();
+										MaterialData oldData = block.getState().getData();
+										block.setType(item.getType());
+										BlockPlaceEvent newEvent = new BlockPlaceEvent(block, block.getState(), clickedBlock, item, player, true, EquipmentSlot.OFF_HAND);
+										Bukkit.getServer().getPluginManager().callEvent(newEvent);
+										if(item != null && !newEvent.isCancelled()) {
+											player.incrementStatistic(Statistic.USE_ITEM, item.getType());
+											block.setType(newEvent.getBlockReplacedState().getType());
+											block.setData(newEvent.getBlockReplacedState().getData().getData());
+											removed = remove(player, item, 1);
+											for(ItemStack drop : drops) {
+												block.getWorld().dropItem(newEvent.getBlock().getLocation(), drop);
+											}
+										} else {
+											IGNORE_BLOCKS.remove(block);
+											block.setType(oldType);
+											block.getState().setData(oldData);
+										}
+									}
 								}
 							}
 						}
 					}
+					start ++;
 				}
-				if(remove(player, item, remove)) {
-					remove(player, item, 1);
+				if(!removed) {
+					ItemStack removedItem = item.clone();
+					removedItem.setAmount(1);
+					ItemUtils.giveItemToPlayer(player, removedItem, player.getLocation(), false);
 				}
 				damageItem(event);
 			}
@@ -96,6 +136,9 @@ public class WandListener extends EnchantmentListener{
 	}
 	
 	private boolean remove(Player player, ItemStack item, int remove) {
+		if(player.getGameMode() == GameMode.CREATIVE) {
+			return false;
+		}
 		for(int i = 0; i < 36; i++) {
 			if(remove == 0) break;
 			ItemStack removeItem = player.getInventory().getItem(i);
@@ -122,9 +165,9 @@ public class WandListener extends EnchantmentListener{
 			if(item.getAmount() <= 0) {
 				item.setType(Material.AIR);
 			}
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	private void damageItem(BlockPlaceEvent event) {

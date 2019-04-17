@@ -10,49 +10,52 @@ import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.enchantments.helper.Weight;
 import org.ctp.enchantmentsolution.utils.items.nms.ItemType;
 
-public class Net extends CustomEnchantment{
-
-	public Net() {
-		addDefaultDisplayName("Net");
-		addDefaultDisplayName(Language.GERMAN, "Netzgewebe");
-		setDefaultFiftyConstant(0);
-		setDefaultThirtyConstant(15);
-		setDefaultFiftyModifier(30);
+public class CurseOfLag extends CustomEnchantment{
+	
+	public CurseOfLag() {
+		addDefaultDisplayName("Curse of Lag");
+		addDefaultDisplayName(Language.GERMAN, "Fluch der Verzögerung");
+		setTreasure(true);
+		setDefaultFiftyConstant(25);
+		setDefaultThirtyConstant(25);
+		setDefaultFiftyModifier(0);
 		setDefaultThirtyModifier(0);
-		setDefaultFiftyMaxConstant(40);
-		setDefaultThirtyMaxConstant(45);
-		setDefaultFiftyStartLevel(30);
+		setDefaultFiftyMaxConstant(50);
+		setDefaultThirtyMaxConstant(25);
+		setDefaultFiftyStartLevel(1);
 		setDefaultThirtyStartLevel(1);
-		setDefaultFiftyMaxLevel(2);
+		setDefaultFiftyMaxLevel(1);
 		setDefaultThirtyMaxLevel(1);
 		setDefaultWeight(Weight.VERY_RARE);
-		addDefaultDescription("Grabs animals to place later.");
-		addDefaultDescription(Language.GERMAN, "Packt Tiere, um sie später zu platzieren.");
+		setMaxLevelOne(true);
+		setCurse(true);
+		addDefaultDescription("Ah, fireworks!");
+		addDefaultDescription(Language.GERMAN, "Ah, Feuerwerk!");
 	}
 	
 	@Override
 	public Enchantment getRelativeEnchantment() {
-		return DefaultEnchantments.NET;
+		return DefaultEnchantments.CURSE_OF_LAG;
 	}
 
 	@Override
 	protected List<ItemType> getEnchantmentItemTypes() {
-		return Arrays.asList(ItemType.BOOK);
+		return Arrays.asList(ItemType.TOOLS, ItemType.MELEE, ItemType.RANGED);
 	}
 
 	@Override
 	protected List<ItemType> getAnvilItemTypes() {
-		return Arrays.asList(ItemType.CARROT_ON_A_STICK);
+		return Arrays.asList(ItemType.TOOLS, ItemType.MELEE, ItemType.RANGED);
 	}
 
 	@Override
 	protected List<Enchantment> getDefaultConflictingEnchantments() {
-		return Arrays.asList(DefaultEnchantments.WAND);
+		return Arrays.asList();
 	}
 
 	@Override
 	public String getName() {
-		return "net";
+		return "lagging_curse";
 	}
 
 }

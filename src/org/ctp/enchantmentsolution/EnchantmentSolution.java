@@ -8,57 +8,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.ctp.enchantmentsolution.commands.ConfigEdit;
-import org.ctp.enchantmentsolution.commands.Enchant;
-import org.ctp.enchantmentsolution.commands.EnchantInfo;
-import org.ctp.enchantmentsolution.commands.Reload;
-import org.ctp.enchantmentsolution.commands.RemoveEnchant;
-import org.ctp.enchantmentsolution.commands.Reset;
-import org.ctp.enchantmentsolution.commands.UnsafeEnchant;
+import org.ctp.enchantmentsolution.commands.*;
 import org.ctp.enchantmentsolution.database.SQLite;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
 import org.ctp.enchantmentsolution.inventory.InventoryData;
-import org.ctp.enchantmentsolution.listeners.BlockBreak;
-import org.ctp.enchantmentsolution.listeners.ChatMessage;
-import org.ctp.enchantmentsolution.listeners.InventoryClick;
-import org.ctp.enchantmentsolution.listeners.InventoryClose;
-import org.ctp.enchantmentsolution.listeners.PlayerChatTabComplete;
-import org.ctp.enchantmentsolution.listeners.PlayerInteract;
-import org.ctp.enchantmentsolution.listeners.VersionCheck;
-import org.ctp.enchantmentsolution.listeners.abilities.BeheadingListener;
-import org.ctp.enchantmentsolution.listeners.abilities.BrineListener;
-import org.ctp.enchantmentsolution.listeners.abilities.ExpShareListener;
-import org.ctp.enchantmentsolution.listeners.abilities.FishingListener;
-import org.ctp.enchantmentsolution.listeners.abilities.FlowerGiftListener;
-import org.ctp.enchantmentsolution.listeners.abilities.FrequentFlyerListener;
-import org.ctp.enchantmentsolution.listeners.abilities.GoldDiggerListener;
-import org.ctp.enchantmentsolution.listeners.abilities.GungHoListener;
-import org.ctp.enchantmentsolution.listeners.abilities.HardBounceListener;
-import org.ctp.enchantmentsolution.listeners.abilities.IcarusListener;
-import org.ctp.enchantmentsolution.listeners.abilities.IronDefenseListener;
-import org.ctp.enchantmentsolution.listeners.abilities.KnockUpListener;
-import org.ctp.enchantmentsolution.listeners.abilities.LifeListener;
-import org.ctp.enchantmentsolution.listeners.abilities.MagicGuardListener;
-import org.ctp.enchantmentsolution.listeners.abilities.MagmaWalkerListener;
-import org.ctp.enchantmentsolution.listeners.abilities.NetListener;
-import org.ctp.enchantmentsolution.listeners.abilities.SacrificeListener;
-import org.ctp.enchantmentsolution.listeners.abilities.SandVeilListener;
-import org.ctp.enchantmentsolution.listeners.abilities.ShockAspectListener;
-import org.ctp.enchantmentsolution.listeners.abilities.SmelteryListener;
-import org.ctp.enchantmentsolution.listeners.abilities.SniperListener;
-import org.ctp.enchantmentsolution.listeners.abilities.SoulboundListener;
-import org.ctp.enchantmentsolution.listeners.abilities.SplatterFestListener;
-import org.ctp.enchantmentsolution.listeners.abilities.TankListener;
-import org.ctp.enchantmentsolution.listeners.abilities.TelepathyListener;
-import org.ctp.enchantmentsolution.listeners.abilities.VoidWalkerListener;
-import org.ctp.enchantmentsolution.listeners.abilities.WandListener;
-import org.ctp.enchantmentsolution.listeners.abilities.WarpListener;
-import org.ctp.enchantmentsolution.listeners.abilities.WidthHeightListener;
+import org.ctp.enchantmentsolution.listeners.*;
+import org.ctp.enchantmentsolution.listeners.abilities.*;
 import org.ctp.enchantmentsolution.listeners.chestloot.ChestLootListener;
 import org.ctp.enchantmentsolution.listeners.fishing.EnchantsFishingListener;
 import org.ctp.enchantmentsolution.listeners.fishing.McMMOFishingNMS;
 import org.ctp.enchantmentsolution.listeners.legacy.UpdateEnchantments;
 import org.ctp.enchantmentsolution.listeners.mobs.MobSpawning;
+import org.ctp.enchantmentsolution.nms.McMMO;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v2;
 import org.ctp.enchantmentsolution.utils.ChatUtils;
@@ -154,7 +115,8 @@ public class EnchantmentSolution extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FlowerGiftListener(), this);
 		getServer().getPluginManager().registerEvents(new GungHoListener(), this);
 		getServer().getPluginManager().registerEvents(new WandListener(), this);
-		getServer().getPluginManager().registerEvents(new NetListener(), this);
+		getServer().getPluginManager().registerEvents(new IrenesLassoListener(), this);
+		getServer().getPluginManager().registerEvents(new CurseOfLagListener(), this);
 		getServer().getPluginManager().registerEvents(new ChestLootListener(), this);
 		getServer().getPluginManager().registerEvents(new MobSpawning(), this);
 		if(getBukkitVersion().getVersionNumber() > 8) {
@@ -177,13 +139,18 @@ public class EnchantmentSolution extends JavaPlugin {
 			if(version.substring(0, version.indexOf(".")).equals("2")) {
 				ChatUtils.sendToConsole(Level.INFO, "Using the Overhaul Version!");
 				ChatUtils.sendToConsole(Level.INFO, "Checking for compatibility plugin...");
-				if(version.substring(0, version.indexOf(".")).equals("2")) {
-					ChatUtils.sendToConsole(Level.WARNING, "Using the Overhaul Version!");
-					ChatUtils.sendToConsole(Level.WARNING, "No compatibility yet! Please tell the plugin owner.");
+				try {
+					if(version.substring(0, version.indexOf(".")).equals("2")) {
+						ChatUtils.sendToConsole(Level.WARNING, "Using the Overhaul Version!");
+						ChatUtils.sendToConsole(Level.WARNING, "No compatibility yet! Please tell the plugin owner.");
+						mcmmoType = "Disabled";
+					}
+				} catch(NoClassDefFoundError ex) {
+					ChatUtils.sendToConsole(Level.WARNING, "Compatibility plugin not found! Turning off compatibility.");
 					mcmmoType = "Disabled";
 				}
 			} else {
-				ChatUtils.sendToConsole(Level.INFO, "Using the Classic BukkitVersion! Compatibility should be intact.");
+				ChatUtils.sendToConsole(Level.INFO, "Using the Classic Version! Compatibility should be intact.");
 				mcmmoType = "Classic";
 			}
 		} else {
@@ -199,6 +166,7 @@ public class EnchantmentSolution extends JavaPlugin {
 			getServer().getPluginManager().registerEvents(new EnchantsFishingListener(), this);
 			break;
 		}
+		getServer().getPluginManager().registerEvents(McMMO.getAbilities(), this);
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(PLUGIN,
 				new MagmaWalkerListener(), 20l, 20l);

@@ -15,14 +15,18 @@ public class StringUtils {
 	private static final String[] NUMERALS = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X" };
 
 	public static String returnEnchantmentName(CustomEnchantment ench, int enchLevel){
+		String displayName = ench.getDisplayName();
+		if(ench.isCurse()) {
+			displayName = ChatColor.RED + displayName;
+		}
 	    if(enchLevel == 1 && ench.getMaxLevel() == 1){
-	        return ench.getDisplayName();
+	        return displayName;
 	    }
 	    if(enchLevel > 10 || enchLevel <= 0){
-	        return ench.getDisplayName() + " enchantment.level." + enchLevel;
+	        return displayName + " enchantment.level." + enchLevel;
 	    }
 	 
-	    return ench.getDisplayName() + " " + NUMERALS[enchLevel- 1];
+	    return displayName + " " + NUMERALS[enchLevel- 1];
 	}
 	
 	public static EnchantmentLevel returnEnchantmentLevel(String s, ItemMeta meta) {
@@ -72,6 +76,7 @@ public class StringUtils {
 	
 	public static boolean isEnchantment(String s) {
 		if(s.startsWith(ChatUtils.hideText("solution") + "" + ChatColor.GRAY)) return true;
+		s = ChatColor.stripColor(s);
 		String[] pieces = s.split(" ");
 		int level = 0;
 		int repair = 0;

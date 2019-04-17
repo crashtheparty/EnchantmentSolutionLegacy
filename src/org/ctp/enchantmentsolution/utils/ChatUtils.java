@@ -1,6 +1,7 @@
 package org.ctp.enchantmentsolution.utils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +21,9 @@ import org.ctp.enchantmentsolution.EnchantmentSolution;
 public class ChatUtils {
 
 	public static void sendMessage(Player player, String message) {
-		player.sendMessage(getStarter() + message);
+		if(message != null && !message.trim().equals("")) {
+			player.sendMessage(getStarter() + message);
+		}
 	}
 	
 	public static void sendMessage(Player player, String message, String url) {
@@ -80,10 +83,14 @@ public class ChatUtils {
 	
 	public static List<String> getMessages(HashMap<String, Object> codes, String location) {
 		List<String> messages = EnchantmentSolution.getPlugin().getConfigFiles().getLanguageFile().getStringList(location);
+		if(messages == null) {
+			messages = new ArrayList<String>();
+			messages.add(EnchantmentSolution.getPlugin().getConfigFiles().getLanguageFile().getString(location));
+		}
 		for(int i = 0; i < messages.size(); i++) {
 			messages.set(i, translateCodes(codes, ChatColor.translateAlternateColorCodes('&', messages.get(i))));
 		}
-		if(messages.size() == 0) messages.add(location + " must be a list.");
+		if(messages.size() == 0) messages.add(location + " must be a list or a string.");
 		return messages;
 	}
 	

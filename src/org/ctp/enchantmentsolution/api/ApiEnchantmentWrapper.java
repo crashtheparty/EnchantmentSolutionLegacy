@@ -9,15 +9,20 @@ import org.ctp.enchantmentsolution.enchantments.wrappers.CustomEnchantmentWrappe
 public class ApiEnchantmentWrapper extends CustomEnchantmentWrapper{
 
 	private JavaPlugin plugin;
+	private String name;
 	/**
 	 * Constructor for the ApiEnchantmentWrapper
 	 * @param plugin - the plugin of the enchantment
 	 * @param id - the id for the enchantment
 	 */
-	public ApiEnchantmentWrapper(JavaPlugin plugin, int id) {
+	public ApiEnchantmentWrapper(JavaPlugin plugin, int id, String name) {
 		super(id);
 		
 		this.plugin = plugin;
+		if(name == null || name == "") {
+			throw new NullPointerException("An enchantment's name may not be set to null or an empty string!");
+		}
+		this.name = name;
 	}
 	
 	/**
@@ -26,6 +31,12 @@ public class ApiEnchantmentWrapper extends CustomEnchantmentWrapper{
 	 */
 	public JavaPlugin getPlugin() {
 		return plugin;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
 	}
 
 	@Override
@@ -50,12 +61,6 @@ public class ApiEnchantmentWrapper extends CustomEnchantmentWrapper{
 	public int getMaxLevel() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

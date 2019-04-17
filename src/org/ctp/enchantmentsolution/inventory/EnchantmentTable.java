@@ -50,6 +50,14 @@ public class EnchantmentTable implements InventoryData {
 
 	public void setInventory(List<ItemStack> items) {
 		Inventory inv = Bukkit.createInventory(null, 54, ChatUtils.getMessage(getCodes(), "table.name"));
+		
+		if(inventory == null) {
+			inventory = inv;
+			player.openInventory(inv);
+		} else {
+			inv = player.getOpenInventory().getTopInventory();
+			inventory = inv;
+		}
 
 		ItemStack topLeft = new ItemStack(Material.BOOK);
 		ItemMeta topLeftMeta = topLeft.getItemMeta();
@@ -73,7 +81,7 @@ public class EnchantmentTable implements InventoryData {
 		lapis.setColor(DyeColor.BLUE);
 		ItemStack lapisOne = lapis.toItemStack(1);
 		ItemMeta lapisOneMeta = lapisOne.getItemMeta();
-		
+
 		List<Integer> levelList = PlayerLevels.getIntList(player, getBooks());
 		if (levelList == null) {
 			new PlayerLevels(getBooks(), getPlayer(), Material.AIR);
@@ -181,6 +189,13 @@ public class EnchantmentTable implements InventoryData {
 		mirror.setItemMeta(mirrorMeta);
 
 		int start = 18;
+		
+		for(int i = start; i < 54; i++) {
+			if(i % 9 != 1 && i % 9 != 2) {
+				inv.setItem(i, mirror);
+			}
+		}
+
 		for (int i = 0; i < playerItems.size(); i++) {
 			ItemStack item = playerItems.get(i);
 			inv.setItem(start, item);
@@ -271,12 +286,6 @@ public class EnchantmentTable implements InventoryData {
 			start += 9;
 		}
 		
-		for(int i = start; i < 54; i++) {
-			if(i % 9 != 1 && i % 9 != 2) {
-				inv.setItem(i, mirror);
-			}
-		}
-		
 		if(EnchantmentSolution.getPlugin().getConfigFiles().useLapisInTable()) {
 			if(lapisStack == null) {
 				ItemStack blueMirror = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 11);
@@ -289,9 +298,6 @@ public class EnchantmentTable implements InventoryData {
 				inv.setItem(10, lapisStack);
 			}
 		}
-		
-		inventory = inv;
-		player.openInventory(inv);
 	}
 
 	public Player getPlayer() {
@@ -443,10 +449,10 @@ public class EnchantmentTable implements InventoryData {
 	public void close(boolean external) {
 		if(EnchantmentSolution.getPlugin().hasInventory(this)) {
 			for(ItemStack item : getItems()){
-				ItemUtils.giveItemToPlayer(player, item, player.getLocation());
+				ItemUtils.giveItemToPlayer(player, item, player.getLocation(), false);
 			}
 			if(lapisStack != null) {
-				ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation());
+				ItemUtils.giveItemToPlayer(player, lapisStack, player.getLocation(), false);
 			}
 			EnchantmentSolution.getPlugin().removeInventory(this);
 			if(!external) {

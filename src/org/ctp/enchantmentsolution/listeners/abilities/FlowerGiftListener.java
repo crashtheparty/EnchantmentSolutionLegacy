@@ -4,6 +4,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Statistic;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
@@ -49,6 +50,7 @@ public class FlowerGiftListener extends EnchantmentListener{
 							player.getWorld().spawnParticle(Particle.VILLAGER_ANGRY, loc, 30, 0.2, 0.5, 0.2);
 						}
 						super.damageItem(player, item);
+						player.incrementStatistic(Statistic.USE_ITEM, item.getType());
 					}
 				}
 			}
