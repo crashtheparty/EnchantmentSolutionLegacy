@@ -56,6 +56,17 @@ public class Enchantments {
 	public static boolean getFishingLoot(){
 		return EnchantmentSolution.getPlugin().getConfigFiles().getDefaultConfig().getBoolean("fishing_loot");
 	}
+	
+	public static boolean getEnchantabilityDecay(){
+		return EnchantmentSolution.getPlugin().getConfigFiles().getDefaultConfig().getBoolean("enchantability_decay");
+	}
+	
+	public static boolean getProtectionConflicts(){
+		if(EnchantmentSolution.getPlugin().getBukkitVersion().getVersionNumber() > 4) {
+			return false;
+		}
+		return EnchantmentSolution.getPlugin().getConfigFiles().getDefaultConfig().getBoolean("protection_conflicts");
+	}
 
 	public static boolean addEnchantment(CustomEnchantment enchantment) {
 		if(ENCHANTMENTS.contains(enchantment)) {
@@ -170,7 +181,11 @@ public class Enchantments {
 			for(CustomEnchantment customEnchant : customEnchants){
 				getWeight -= customEnchant.getWeight();
 				if(getWeight <= 0){
-					enchants.add(new EnchantmentLevel(customEnchant, customEnchant.getEnchantLevel(player, enchantability)));
+					if(getEnchantabilityDecay()) {
+						enchants.add(new EnchantmentLevel(customEnchant, customEnchant.getEnchantLevel(player, finalEnchantability)));
+					} else {
+						enchants.add(new EnchantmentLevel(customEnchant, customEnchant.getEnchantLevel(player, enchantability)));
+					}
 					break;
 				}
 			}
@@ -279,7 +294,7 @@ public class Enchantments {
 			meta.addEnchant(level.getEnchant().getRelativeEnchantment(), level.getLevel(), true);
 			if(level.getEnchant().getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
 				String enchName = StringUtils.returnEnchantmentName(level.getEnchant(), level.getLevel());
-				lore.add(ChatUtils.hideText("legacy") + "" + ChatColor.GRAY + enchName);
+				lore.add(ChatUtils.hideText("solution") + "" + ChatColor.GRAY + enchName);
 			}
 		}
 		if(previousLore != null) {
@@ -307,7 +322,7 @@ public class Enchantments {
 		meta.addEnchant(enchantment.getRelativeEnchantment(), level, true);
 		if(enchantment.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
 			String enchName = StringUtils.returnEnchantmentName(enchantment, level);
-			lore.add(ChatUtils.hideText("legacy") + "" + ChatColor.GRAY + enchName);
+			lore.add(ChatUtils.hideText("solution") + "" + ChatColor.GRAY + enchName);
 		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);

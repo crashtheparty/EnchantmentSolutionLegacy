@@ -112,7 +112,6 @@ public class DefaultEnchantments {
 				}
 				int constant = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_constant");
 				int modifier = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_modifier");
-				int maxConstant = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_max_constant");
 				int startLevel = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_start_level");
 				int maxLevel = advanced.getInt(namespace+"."+enchantment.getName()+".enchantability_max_level");
 				String displayName = StringUtils.decodeString(language.getString("enchantment.display_names."+namespace+"."+enchantment.getName()));
@@ -134,7 +133,7 @@ public class DefaultEnchantments {
 						disabledItems.add(mat);
 					}
 				}
-				ENCHANTMENTS.get(i).setCustom(constant, modifier, maxConstant, startLevel, maxLevel, weight);
+				ENCHANTMENTS.get(i).setCustom(constant, modifier, startLevel, maxLevel, weight);
 				ENCHANTMENTS.get(i).setConflictingEnchantments(conflictingEnchantments);
 				ENCHANTMENTS.get(i).setDisabledItems(disabledItems);
 				if(!namespace.equals("default_enchantments")) {

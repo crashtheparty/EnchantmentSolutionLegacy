@@ -60,7 +60,9 @@ public class LanguageFiles {
 	}
 	
 	private void save(boolean getFromConfig) {
-		ChatUtils.sendInfo("Loading language file...");
+		if(EnchantmentSolution.getPlugin().isInitializing()) {
+			ChatUtils.sendInfo("Loading language file...");
+		}
 		language = new YamlConfigBackup(languageFile, null);
 		if(getFromConfig) {
 			language.getFromConfig();
@@ -68,7 +70,9 @@ public class LanguageFiles {
 		language.copyDefaults(getLanguageFile());
 		
 		language.saveConfig();
-		ChatUtils.sendInfo("Language file initialized!");
+		if(EnchantmentSolution.getPlugin().isInitializing()) {
+			ChatUtils.sendInfo("Language file initialized!");
+		}
 	}
 
 	public YamlConfigBackup getLanguageConfig() {
@@ -198,6 +202,8 @@ public class LanguageFiles {
 		englishUS.addDefault("grindstone.remove-enchants", (ChatColor.GREEN + "Remove Enchantments").replace("§", "&"));
 		englishUS.addDefault("grindstone.no-items", (ChatColor.WHITE + "No Items").replace("§", "&"));
 		englishUS.addDefault("grindstone.no-items-lore", Arrays.asList((ChatColor.WHITE + "Add items by selecting them from your inventory").replace("§", "&")));
+		englishUS.addDefault("grindstone.no-enchants", (ChatColor.WHITE + "No Enchantments On Items").replace("§", "&"));
+		englishUS.addDefault("grindstone.no-enchants-lore", Arrays.asList((ChatColor.WHITE + "Add a second item to repair").replace("§", "&")));
 		englishUS.addDefault("grindstone.anvil", (ChatColor.GREEN + "Open the Anvil").replace("§", "&"));
 		englishUS.addDefault("grindstone.switch-to-anvil", (ChatColor.WHITE + "Go back to the Anvil inventory").replace("§", "&"));
 		englishUS.addDefault("grindstone.message-cannot-combine", (ChatColor.RED + "Cannot combine these items.").replace("§", "&"));
@@ -231,7 +237,7 @@ public class LanguageFiles {
 							+ " does not have a JavaPlugin set. Refusing to set language defaults.");
 					continue;
 				}
-				englishUS.addDefault("enchantment.descriptions." + plugin.getName() + "." + enchant.getName(), StringUtils.encodeString(enchantmentDescription));
+				englishUS.addDefault("enchantment.descriptions." + plugin.getName().toLowerCase() + "." + enchant.getName(), StringUtils.encodeString(enchantmentDescription));
 			} else if (enchant.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
 				englishUS.addDefault("enchantment.descriptions." + "custom_enchantments." + enchant.getName(), StringUtils.encodeString(enchantmentDescription));
 			} else {
@@ -322,6 +328,8 @@ public class LanguageFiles {
 		german.addDefault("grindstone.remove-enchants", (ChatColor.GREEN + "Entferne Verzauberungen").replace("§", "&"));
 		german.addDefault("grindstone.no-items", (ChatColor.WHITE + "Keine Items").replace("§", "&"));
 		german.addDefault("grindstone.no-items-lore", (ChatColor.WHITE + "Fügen Sie Artikel hinzu, indem Sie sie aus Ihrem Inventar auswählen").replace("§", "&"));
+		german.addDefault("grindstone.no-enchants", (ChatColor.WHITE + "Keine Verzauberungen für Items").replace("§", "&"));
+		german.addDefault("grindstone.no-enchants-lore", Arrays.asList((ChatColor.WHITE + "Fügen Sie ein zweites zu reparierendes item hinzu").replace("§", "&")));
 		german.addDefault("grindstone.anvil", (ChatColor.GREEN + "Öffne den Amboss").replace("§", "&"));
 		german.addDefault("grindstone.switch-to-anvil", (ChatColor.WHITE + "Gehe zurück zum Amboss-Inventar").replace("§", "&"));
 		german.addDefault("grindstone.message-cannot-combine", (ChatColor.RED + "Nicht kombinierbar.").replace("§", "&"));
@@ -355,7 +363,7 @@ public class LanguageFiles {
 							+ " does not have a JavaPlugin set. Refusing to set language defaults.");
 					continue;
 				}
-				german.addDefault("enchantment.descriptions." + plugin.getName() + "." + enchant.getName(), StringUtils.encodeString(enchantmentDescription));
+				german.addDefault("enchantment.descriptions." + plugin.getName().toLowerCase() + "." + enchant.getName(), StringUtils.encodeString(enchantmentDescription));
 			} else if (enchant.getRelativeEnchantment() instanceof CustomEnchantmentWrapper) {
 				german.addDefault("enchantment.descriptions." + "custom_enchantments." + enchant.getName(), StringUtils.encodeString(enchantmentDescription));
 			} else {
