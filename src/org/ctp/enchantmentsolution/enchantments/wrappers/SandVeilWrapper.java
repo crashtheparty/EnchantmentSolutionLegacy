@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public class SandVeilWrapper extends CustomEnchantmentWrapper{
 
 	public SandVeilWrapper() {
-		super(128);
+		super(131);
 	}
 
 	@Override

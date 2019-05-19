@@ -17,7 +17,6 @@ import org.ctp.enchantmentsolution.listeners.abilities.*;
 import org.ctp.enchantmentsolution.listeners.chestloot.ChestLootListener;
 import org.ctp.enchantmentsolution.listeners.fishing.EnchantsFishingListener;
 import org.ctp.enchantmentsolution.listeners.fishing.McMMOFishingNMS;
-import org.ctp.enchantmentsolution.listeners.legacy.UpdateEnchantments;
 import org.ctp.enchantmentsolution.listeners.mobs.MobSpawning;
 import org.ctp.enchantmentsolution.nms.McMMO;
 import org.ctp.enchantmentsolution.nms.listeners.VanishListener_v1;
@@ -123,7 +122,6 @@ public class EnchantmentSolution extends JavaPlugin {
 		}
 		getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
-		getServer().getPluginManager().registerEvents(new UpdateEnchantments(), this);
 		
 		if(Bukkit.getPluginManager().isPluginEnabled("Jobs")) {
 			jobsReborn = Bukkit.getPluginManager().getPlugin("Jobs");
@@ -194,8 +192,8 @@ public class EnchantmentSolution extends JavaPlugin {
 		getCommand("RemoveEnchant").setTabCompleter(new PlayerChatTabComplete());
 		getCommand("EnchantUnsafe").setTabCompleter(new PlayerChatTabComplete());
 				
-		check = new VersionCheck(pluginVersion, "https://raw.githubusercontent.com/crashtheparty/EnchantmentSolution/master/VersionHistory", 
-				"https://www.spigotmc.org/resources/enchantment-solution.59556/", "https://github.com/crashtheparty/EnchantmentSolution", 
+		check = new VersionCheck(pluginVersion, "https://raw.githubusercontent.com/crashtheparty/EnchantmentSolutionLegacy/master/VersionHistory", 
+				"https://www.spigotmc.org/resources/enchantment-solution-legacy.67109/", "https://github.com/crashtheparty/EnchantmentSolutionLegacy", 
 				getConfigFiles().getDefaultConfig().getBoolean("get_latest_version"));
 		getServer().getPluginManager().registerEvents(check, this);
 		checkVersion();

@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public class SplatterFestWrapper extends CustomEnchantmentWrapper{
 
 	public SplatterFestWrapper() {
-		super(129);
+		super(132);
 	}
 
 	@Override

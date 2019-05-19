@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public class WandWrapper extends CustomEnchantmentWrapper{
 
 	public WandWrapper() {
-		super(127);
+		super(133);
 	}
 
 	@Override

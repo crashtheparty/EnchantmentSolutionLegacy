@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public class GungHoWrapper extends CustomEnchantmentWrapper{
 
 	public GungHoWrapper() {
-		super(126);
+		super(130);
 	}
 
 	@Override

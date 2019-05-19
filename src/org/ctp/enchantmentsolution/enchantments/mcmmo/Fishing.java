@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.ctp.enchantmentsolution.EnchantmentSolution;
 import org.ctp.enchantmentsolution.enchantments.CustomEnchantment;
 import org.ctp.enchantmentsolution.enchantments.DefaultEnchantments;
-import org.ctp.enchantmentsolution.enchantments.Enchantments;
 import org.ctp.enchantmentsolution.enchantments.helper.EnchantmentLevel;
+import org.ctp.enchantmentsolution.utils.ConfigUtils;
 import org.ctp.enchantmentsolution.utils.config.YamlConfig;
 
 public class Fishing {
@@ -641,7 +641,7 @@ public class Fishing {
 			}
 			chance /= 2;
 		}
-		int maxEnchants = Enchantments.getMaxEnchantments();
+		int maxEnchants = ConfigUtils.getMaxEnchantments();
 		if(maxEnchants > 0) {
 			for(int i = enchants.size() - 1; i > maxEnchants; i--) {
 				enchants.remove(i);
