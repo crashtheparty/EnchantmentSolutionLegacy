@@ -68,7 +68,7 @@ public class McMMOClassicFishingListener extends McMMOFishingListener {
 			McMMOFishingThread thread = null;
 			for(McMMOFishingThread t : getPlayerItems()) {
 				if(t.getPlayer().equals(event.getPlayer())) {
-					int fishXp = ExperienceConfig.getInstance().getXp(SkillType.FISHING, fishingCatch.getItemStack().getType());
+					int fishXp = ExperienceConfig.getInstance().getXp(SkillType.FISHING, fishingCatch.getItemStack().getData());
 					fishingCatch.setItemStack(t.getItem());
 					thread = t;
 

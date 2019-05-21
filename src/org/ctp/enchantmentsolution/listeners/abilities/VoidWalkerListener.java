@@ -51,7 +51,8 @@ public class VoidWalkerListener extends EnchantmentListener implements Runnable{
 				} catch(Exception ex) { }
 			}
 		}
-		for(VoidWalkerPlayer voidWalkerPlayer : HAS_VOID_WALKER) {
+		for(int v = HAS_VOID_WALKER.size() - 1; v >= 0; v--) {
+			VoidWalkerPlayer voidWalkerPlayer = HAS_VOID_WALKER.get(v);
 			Player player = voidWalkerPlayer.getPlayer();
 			if(player != null && Bukkit.getOnlinePlayers().contains(player)) {
 				ItemStack boots = player.getInventory().getBoots();

@@ -1,5 +1,5 @@
 name: EnchantmentSolutionLegacy
-version: 0.9.2
+version: 0.9.3
 main: org.ctp.enchantmentsolution.EnchantmentSolution
 commands:
   enchant:

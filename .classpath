@@ -13,7 +13,7 @@
 	<classpathentry kind="lib" path="D:/Gaming/Minecraft/Plugin Versions/spigot-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="lib" path="D:/Gaming/Minecraft/Plugin Versions/spigot-1.9.2-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="lib" path="D:/Gaming/Minecraft/Plugin Versions/spigot-1.9-R0.1-SNAPSHOT-latest.jar"/>
-	<classpathentry kind="lib" path="D:/Gaming/Minecraft/Plugin Versions/mcMMO-Classic-1.6.0.jar"/>
 	<classpathentry kind="lib" path="D:/Gaming/Minecraft/Plugin Versions/Jobs4.10.1.jar"/>
+	<classpathentry kind="lib" path="D:/Gaming/Minecraft/Plugin Versions/mcMMO-Classic-1.5.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

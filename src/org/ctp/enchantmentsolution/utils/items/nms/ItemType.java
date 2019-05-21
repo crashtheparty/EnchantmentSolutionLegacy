@@ -184,6 +184,7 @@ public enum ItemType {
 			itemTypes.addAll(getItemTypes(SHIELD.getType()));
 			itemTypes.addAll(getItemTypes(FISHING_ROD.getType()));
 			itemTypes.addAll(getItemTypes(ELYTRA.getType()));
+			itemTypes.addAll(getItemTypes(HOES.getType()));
 			return itemTypes;
 		} else if (ELYTRA.getType().equals(type)) {
 			itemTypes.add(Material.ELYTRA);
